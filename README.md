@@ -9,14 +9,14 @@ Fascinated by space and aviation I wanted a simple app to keep track of the next
 
 Pods :
 
-⋅⋅* SpaceXAPI
-⋅⋅* Alamofire
-⋅⋅* PinterestSegment
-⋅⋅* BulletinBoard
+* SpaceXAPI
+* Alamofire
+* PinterestSegment
+* BulletinBoard
 
 Icons :
 
 1. icons8.com
-⋅⋅* Space shuttle
-⋅⋅* Youtube
-⋅⋅* Press
+* Space shuttle
+* Youtube
+* Press
