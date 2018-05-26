@@ -136,12 +136,14 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/BulletinBoard/BulletinBoard.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CFAlertViewController/CFAlertViewController.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PinterestSegment/PinterestSegment.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/BulletinBoard/BulletinBoard.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CFAlertViewController/CFAlertViewController.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PinterestSegment/PinterestSegment.framework"
 fi

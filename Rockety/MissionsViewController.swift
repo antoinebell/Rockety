@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import PinterestSegment
-
+import BulletinBoard
 
 class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -19,11 +19,18 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     var missions = [Mission]()
     var rocket = [Int: Rocket]()
     var launchpads = [Launchpad]()
-    
+
     let refreshControl = UIRefreshControl()
+    
+    lazy var bulletinManager: BulletinManager = {
+        let introPage = BulletinDataSource.makeIntroPage()
+        return BulletinManager(rootItem: introPage)
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        prepareForBulletin()
         
         refreshControl.addTarget(self, action: #selector(downloadSpaceX), for: .valueChanged)
         refreshControl.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
@@ -41,6 +48,10 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         view.addSubview(s)
         
         downloadSpaceX()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -194,6 +205,38 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             
             index += 1
         }
+    }
+    
+    //MARK: BulletinBoard
+    
+    func prepareForBulletin() {
+        
+        // Register notification observers
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setupDidComplete),
+                                               name: .SetupDidComplete,
+                                               object: nil)
+        
+        if !BulletinDataSource.userDidCompleteSetup {
+            showBulletin()
+        }
+        
+    }
+    
+    /**
+     * Displays the bulletin.
+     */
+    
+    func showBulletin() {
+                
+        bulletinManager.prepare()
+        bulletinManager.presentBulletin(above: self)
+        
+    }
+    
+    @objc func setupDidComplete() {
+        BulletinDataSource.userDidCompleteSetup = true
     }
     
     //MARK: Segues

@@ -2,21 +2,24 @@ PODS:
   - Alamofire (4.7.1)
   - AlamofireImage (3.3.1):
     - Alamofire (~> 4.5)
+  - BulletinBoard (1.3.0)
   - CFAlertViewController (3.0)
   - PinterestSegment (1.2.0)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
+  - BulletinBoard
   - CFAlertViewController
   - PinterestSegment
 
 SPEC CHECKSUMS:
   Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
   AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
+  BulletinBoard: 23c9d98cac654fd484d76f2a0655669974e9bd9c
   CFAlertViewController: 460bb12b42b500bb0838e5595ca144a18344765f
   PinterestSegment: d589fce6c62141466b9f36ea8ab0a16fde9ac8f4
 
-PODFILE CHECKSUM: 93bf2fb533f0675ddcea83d057124c86cf835c8d
+PODFILE CHECKSUM: 6fd4735acd0567c8bc0b0b5e6544b640a7f09607
 
 COCOAPODS: 1.4.0

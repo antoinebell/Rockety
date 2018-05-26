@@ -10,7 +10,8 @@ target 'Rockety' do
   pod 'AlamofireImage'
   pod 'PinterestSegment'
   pod 'CFAlertViewController'
-
+  pod 'BulletinBoard'
+  
   target 'RocketyTests' do
     inherit! :search_paths
     # Pods for testing

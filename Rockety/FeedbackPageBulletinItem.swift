@@ -1,0 +1,50 @@
+//
+//  FeedbackPageBulletinItem.swift
+//  Rockety
+//
+//  Created by Antoine Bellanger on 26.05.18.
+//  Copyright © 2018 Antoine Bellanger. All rights reserved.
+//
+
+import UIKit
+import BulletinBoard
+
+/**
+ * A subclass of page bulletin item that plays an haptic feedback when the buttons are pressed.
+ *
+ * This class demonstrates how to override `PageBulletinItem` to customize button tap handling.
+ */
+
+class FeedbackPageBulletinItem: PageBulletinItem {
+    
+    private let feedbackGenerator = SelectionFeedbackGenerator()
+    
+    override func actionButtonTapped(sender: UIButton) {
+        
+        // Play an haptic feedback
+        
+        feedbackGenerator.prepare()
+        feedbackGenerator.selectionChanged()
+        
+        // Call super
+        
+        super.actionButtonTapped(sender: sender)
+        
+    }
+    
+    override func alternativeButtonTapped(sender: UIButton) {
+        
+        // Play an haptic feedback
+        
+        feedbackGenerator.prepare()
+        feedbackGenerator.selectionChanged()
+        
+        // Call super
+        
+        super.alternativeButtonTapped(sender: sender)
+        
+    }
+    
+    
+}
+
