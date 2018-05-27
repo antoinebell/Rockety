@@ -20,6 +20,6 @@ struct PadResult: Codable {
         let latitude: String!
         let longitude: String!
     }
-//
+
     let pads: [Pad]
 }

@@ -12,7 +12,7 @@ import AlamofireImage
 import PinterestSegment
 import BulletinBoard
 
-class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate, RocketSearchControllerDelegate {
     
     @IBOutlet var tableView: UITableView!
     
@@ -20,6 +20,8 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     var spaceXMissions = [Mission]()
     var spaceXRockets = [Int: Rocket]()
     var spaceXLaunchpads = [Int: Launchpad]()
+    
+    var filteredSpaceXMissions = [Mission]()
     
     //Else API
     var elseLaunches: ElseMission!
@@ -35,6 +37,12 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }()
     
     var currentIndex = 0
+    
+    var shouldShowSearchResults = false
+    var searchController: UISearchController!
+    var rocketSearchController: RocketSearchController!
+    
+    //MARK: viewDidLoad
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +62,8 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.estimatedRowHeight = UITableViewAutomaticDimension
         
         let w = view.frame.width
-        let s = PinterestSegment(frame: CGRect(x: 0, y: 100, width: w - 100, height: 35), titles: ["S P A C E X", "A L L"])
+        let titles = ["S P A C E  X"]
+        let s = PinterestSegment(frame: CGRect(x: 0, y: 100, width: w - 100, height: 35), titles: titles)
         s.style.titleFont = UIFont(name: "Anurati-Regular", size: 14)!
         view.addSubview(s)
         
@@ -72,6 +81,8 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.downloadAll()
             }
         }
+        
+        configureRocketSearchController()
         
         downloadSpaceX()
     }
@@ -231,7 +242,11 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if currentIndex == 0 {
-            return spaceXMissions.count
+            if shouldShowSearchResults {
+                return filteredSpaceXMissions.count
+            } else {
+                return spaceXMissions.count
+            }
         } else {
             return elseLaunches.count
         }
@@ -242,32 +257,45 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "MissionCell", for: indexPath) as! MissionTableViewCell
         
         if currentIndex == 0 { //SpaceX
-            let mission = spaceXMissions[indexPath.row]
-            cell.missionNumberLabel.text = "#\(mission.flight_number)"
-            cell.missionNameLabel.text = mission.mission_name
-            cell.missionOperatorLabel.text = "SpaceX"
-            cell.missionRocketLabel.text = "\(mission.rocket.rocket_name) \(mission.rocket.rocket_type)"
-            cell.missionLaunchSiteLabel.text = mission.launch_site.site_name
             
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-            if let date = dateFormatter.date(from: mission.launch_date_local) {
-                let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
-                cell.missionDateLabel.text = localizedDateTime
+            if shouldShowSearchResults {
+                
+                let mission = filteredSpaceXMissions[indexPath.row]
+                cell.missionNumberLabel.text = "#\(mission.flight_number)"
+                cell.missionNameLabel.text = mission.mission_name
+                cell.missionOperatorLabel.text = "SpaceX"
+                cell.missionRocketLabel.text = "\(mission.rocket.rocket_name) \(mission.rocket.rocket_type)"
+                cell.missionLaunchSiteLabel.text = mission.launch_site.site_name
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                if let date = dateFormatter.date(from: mission.launch_date_local) {
+                    let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
+                    cell.missionDateLabel.text = localizedDateTime
+                } else {
+                    cell.missionDateLabel.text = mission.launch_date_local
+                }
+                
             } else {
-                cell.missionDateLabel.text = mission.launch_date_local
+                
+                let mission = spaceXMissions[indexPath.row]
+                cell.missionNumberLabel.text = "#\(mission.flight_number)"
+                cell.missionNameLabel.text = mission.mission_name
+                cell.missionOperatorLabel.text = "SpaceX"
+                cell.missionRocketLabel.text = "\(mission.rocket.rocket_name) \(mission.rocket.rocket_type)"
+                cell.missionLaunchSiteLabel.text = mission.launch_site.site_name
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                if let date = dateFormatter.date(from: mission.launch_date_local) {
+                    let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
+                    cell.missionDateLabel.text = localizedDateTime
+                } else {
+                    cell.missionDateLabel.text = mission.launch_date_local
+                }
+                
             }
             
-            if mission.links.mission_patch != nil {
-                
-                //            cell.missionPatchImageView.af_setImage(withURL: URL(string: mission.links.mission_patch!)!, placeholderImage: UIImage(named: "SpaceX"), filter: nil, imageTransition: UIImageView.ImageTransition.noTransition, runImageTransitionIfCached: false) { response in
-                //                if response.response != nil {
-                //                    self.tableView.beginUpdates()
-                //                    self.tableView.endUpdates()
-                //                }
-                //            }
-                
-            }
         } else {
             let mission = elseLaunches.launches[indexPath.row]
             cell.missionNumberLabel.text = "#\(mission.id!)"
@@ -325,6 +353,87 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             
             index += 1
         }
+    }
+    
+    //MARK: UISearchController
+    
+    func configureSearchController() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = true
+        searchController.searchBar.placeholder = "Search..."
+        searchController.searchBar.delegate = self
+        searchController.searchBar.sizeToFit()
+        
+        tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    func configureRocketSearchController() {
+        rocketSearchController = RocketSearchController(searchResultsController: self, searchBarFrame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50), searchBarFont: UIFont.systemFont(ofSize: 16), searchBarTextColor: UIColor.white, searchBarTintColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1))
+        rocketSearchController.rocketSearchBar.placeholder = "S E A R C H"
+        rocketSearchController.customDelegate = self
+
+        tableView.tableHeaderView = rocketSearchController.rocketSearchBar
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        shouldShowSearchResults = true
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        shouldShowSearchResults = false
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !shouldShowSearchResults {
+            shouldShowSearchResults = true
+            tableView.reloadData()
+        }
+        
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchString = searchController.searchBar.text
+        
+        filteredSpaceXMissions = spaceXMissions.filter({ (mission) -> Bool in
+            let missionText: NSString = mission.mission_name as NSString
+            
+            return (missionText.range(of: searchString!, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+        })
+        
+        tableView.reloadData()
+    }
+    
+    //MARK: RocketSearchControllerDelegate
+    
+    func didStartSearching() {
+        shouldShowSearchResults = true
+        tableView.reloadData()
+    }
+    
+    func didTapOnSearchButton() {
+        if !shouldShowSearchResults {
+            shouldShowSearchResults = true
+            tableView.reloadData()
+        }
+    }
+    
+    func didTapOnCancelButton() {
+        shouldShowSearchResults = false
+        tableView.reloadData()
+    }
+    
+    func didChangeSearchText(searchText: String) {
+        filteredSpaceXMissions = spaceXMissions.filter({ (mission) -> Bool in
+            let missionText: NSString = mission.mission_name as NSString
+            
+            return (missionText.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+        })
+        
+        tableView.reloadData()
     }
     
     //MARK: BulletinBoard
