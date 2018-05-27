@@ -15,6 +15,8 @@ import CFAlertViewController
 
 class MissionsDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    var isSpaceX: Bool!
+    
     var mission: Mission!
     var rocket: Rocket!
     var launchpad: Launchpad!
@@ -348,7 +350,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                 let vc = SFSafariViewController(url: URL(string: mission.links.presskit!)!)
                 present(vc, animated: true, completion: nil)
             } else {
-                let alertController = CFAlertViewController(title: "Oops !", message: "No presskit is available for the moment.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let alertController = CFAlertViewController(title: "Oops !", message: "No Press Kit is available for the moment.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
                 let defaultAction = CFAlertAction(title: "OK", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor.white, handler: nil)
                 alertController.addAction(defaultAction)
                 present(alertController, animated: true, completion: nil)

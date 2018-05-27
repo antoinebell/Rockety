@@ -16,16 +16,25 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet var tableView: UITableView!
     
-    var missions = [Mission]()
-    var rocket = [Int: Rocket]()
-    var launchpads = [Launchpad]()
+    //SpaceX API
+    var spaceXMissions = [Mission]()
+    var spaceXRockets = [Int: Rocket]()
+    var spaceXLaunchpads = [Int: Launchpad]()
+    
+    //Else API
+    var elseLaunches: ElseMission!
+    var elseAgencies = [Int: AgencyResult]()
+    var elseLaunchpads = [Int: PadResult]()
 
+    //MARK: Properties
     let refreshControl = UIRefreshControl()
     
     lazy var bulletinManager: BulletinManager = {
         let introPage = BulletinDataSource.makeIntroPage()
         return BulletinManager(rootItem: introPage)
     }()
+    
+    var currentIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +50,28 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.addSubview(refreshControl)
+        tableView.rowHeight = 145
+        tableView.estimatedRowHeight = UITableViewAutomaticDimension
         
         let w = view.frame.width
-        let s = PinterestSegment(frame: CGRect(x: 0, y: 100, width: w - 100, height: 35), titles: ["S P A C E X", "N A S A"])
+        let s = PinterestSegment(frame: CGRect(x: 0, y: 100, width: w - 100, height: 35), titles: ["S P A C E X", "A L L"])
         s.style.titleFont = UIFont(name: "Anurati-Regular", size: 14)!
         view.addSubview(s)
+        
+        s.valueChange = { index in
+            
+            self.currentIndex = index
+            
+            if index == 0 {
+                self.refreshControl.addTarget(self, action: #selector(self.downloadSpaceX), for: .valueChanged)
+                self.refreshControl.removeTarget(self, action: #selector(self.downloadAll), for: .valueChanged)
+                self.downloadSpaceX()
+            } else {
+                self.refreshControl.removeTarget(self, action: #selector(self.downloadSpaceX), for: .valueChanged)
+                self.refreshControl.addTarget(self, action: #selector(self.downloadAll), for: .valueChanged)
+                self.downloadAll()
+            }
+        }
         
         downloadSpaceX()
     }
@@ -61,18 +87,20 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //MARK: Data
     
+    //MARK: Data - SpaceX
+    
     @objc func downloadSpaceX() {
         
         var nextMission = 0
         
-        Alamofire.request("https://api.spacexdata.com/v2/launches/all").responseJSON { response in
+        Alamofire.request(API.SpaceX.allLaunches.url()).responseJSON { response in
             if let data = response.data {
                 let decoder = JSONDecoder()
                 let decodedMissions = try! decoder.decode([Mission].self, from: data)
-                self.missions = decodedMissions
+                self.spaceXMissions = decodedMissions
                 
                 for mission in decodedMissions {
-                    self.downloadLaunchpadData(lauchpadId: mission.launch_site.site_id)
+                    self.downloadLaunchpadData(lauchpadId: mission.launch_site.site_id, missionNumber: mission.flight_number)
                     self.downloadRocketData(rocketId: mission.rocket.rocket_id, missionNumber: mission.flight_number)
                     
                     let dateFormatter = DateFormatter()
@@ -89,27 +117,88 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
                 let path = IndexPath.init(row: nextMission, section: 0)
-                self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.middle, animated: true)
+                self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
             }
         }
     }
     
     func downloadRocketData(rocketId: String, missionNumber: Int) {
-        Alamofire.request("https://api.spacexdata.com/v2/rockets/\(rocketId)").responseJSON { response in
+        Alamofire.request(API.SpaceX.rocket(rocketId: rocketId).url()).responseJSON { response in
             if let data = response.data {
                 let decoder = JSONDecoder()
                 let decodedRocket = try! decoder.decode(Rocket.self, from: data)
-                self.rocket[missionNumber] = decodedRocket
+                self.spaceXRockets[missionNumber] = decodedRocket
             }
         }
     }
     
-    func downloadLaunchpadData(lauchpadId: String) {
-        Alamofire.request("https://api.spacexdata.com/v2/launchpads/\(lauchpadId)").responseJSON { response in
+    func downloadLaunchpadData(lauchpadId: String, missionNumber: Int) {
+        Alamofire.request(API.SpaceX.launchpad(launchpadId: lauchpadId).url()).responseJSON { response in
             if let data = response.data {
                 let decoder = JSONDecoder()
                 let decodedLaunchpad = try! decoder.decode(Launchpad.self, from: data)
-                self.launchpads.append(decodedLaunchpad)
+                self.spaceXLaunchpads[missionNumber] = decodedLaunchpad
+            }
+        }
+    }
+    
+    //MARK: Data - Else
+    
+    @objc func downloadAll() {
+        Alamofire.request(API.All.nextLaunches.url()).responseJSON { response in
+            if let data = response.data {
+                let decoder = JSONDecoder()
+                let decodedLaunches = try! decoder.decode(ElseMission.self, from: data)
+                self.elseLaunches = decodedLaunches
+            
+                let launches = decodedLaunches.launches
+                for launch in launches {
+                    self.downloadAgencyData(agencyId: launch.lsp, missionNumber: launch.id)
+                    print(launch.locationid)
+                    if launch.locationid != nil {
+//                        print("Downloading pad for missionid :", launch.id)
+                        self.downloadPadData(padId: launch.locationid!, missionNumber: launch.id)
+                    } else {
+//                        print("Pad is not available for missionid :", launch.id)
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.refreshControl.endRefreshing()
+                    self.tableView.reloadData()
+                    let path = IndexPath.init(row: 0, section: 0)
+                    self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
+                }
+            }
+        }
+    }
+    
+    func downloadAgencyData(agencyId: String, missionNumber: Int) {
+        Alamofire.request(API.All.agency(agencyId: agencyId).url()).responseJSON { response in
+            if let data = response.data {
+                let decoder = JSONDecoder()
+                let decodedAgency = try! decoder.decode(AgencyResult.self, from: data)
+                self.elseAgencies[missionNumber] = decodedAgency
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func downloadPadData(padId: Int, missionNumber: Int) {
+        print(padId)
+        print(API.All.launchpad(launchpadId: padId).url())
+        Alamofire.request(API.All.launchpad(launchpadId: padId).url()).responseJSON { response in
+            if let data = response.data {
+                let decoder = JSONDecoder()
+                let decodedPad = try! decoder.decode(PadResult.self, from: data)
+                self.elseLaunchpads[missionNumber] = decodedPad
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
@@ -131,10 +220,6 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                     imageView.image = image
                 }
             }
-            
-//            DispatchQueue.main.async() {
-//                imageView.image = UIImage(data: data)
-//            }
         }
     }
     
@@ -145,38 +230,73 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return missions.count
+        if currentIndex == 0 {
+            return spaceXMissions.count
+        } else {
+            return elseLaunches.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "MissionCell", for: indexPath) as! MissionTableViewCell
-        let mission = missions[indexPath.row]
-        cell.missionNumberLabel.text = "#\(mission.flight_number)"
-        cell.missionNameLabel.text = mission.mission_name
-        cell.missionOperatorLabel.text = "SpaceX"
-        cell.missionRocketLabel.text = "\(mission.rocket.rocket_name) \(mission.rocket.rocket_type)"
-        cell.missionLaunchSiteLabel.text = mission.launch_site.site_name
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        if let date = dateFormatter.date(from: mission.launch_date_local) {
-            let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
-            cell.missionDateLabel.text = localizedDateTime
-            print("Localised DateTime")
-        } else {
-            cell.missionDateLabel.text = mission.launch_date_local
-            print("LaunchDateLocal")
-        }
-        
-        if mission.links.mission_patch != nil {
-
-//            cell.missionPatchImageView.af_setImage(withURL: URL(string: mission.links.mission_patch!)!, placeholderImage: UIImage(named: "SpaceX"), filter: nil, imageTransition: UIImageView.ImageTransition.noTransition, runImageTransitionIfCached: false) { response in
-//                if response.response != nil {
-//                    self.tableView.beginUpdates()
-//                    self.tableView.endUpdates()
-//                }
-//            }
+        if currentIndex == 0 { //SpaceX
+            let mission = spaceXMissions[indexPath.row]
+            cell.missionNumberLabel.text = "#\(mission.flight_number)"
+            cell.missionNameLabel.text = mission.mission_name
+            cell.missionOperatorLabel.text = "SpaceX"
+            cell.missionRocketLabel.text = "\(mission.rocket.rocket_name) \(mission.rocket.rocket_type)"
+            cell.missionLaunchSiteLabel.text = mission.launch_site.site_name
             
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            if let date = dateFormatter.date(from: mission.launch_date_local) {
+                let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
+                cell.missionDateLabel.text = localizedDateTime
+            } else {
+                cell.missionDateLabel.text = mission.launch_date_local
+            }
+            
+            if mission.links.mission_patch != nil {
+                
+                //            cell.missionPatchImageView.af_setImage(withURL: URL(string: mission.links.mission_patch!)!, placeholderImage: UIImage(named: "SpaceX"), filter: nil, imageTransition: UIImageView.ImageTransition.noTransition, runImageTransitionIfCached: false) { response in
+                //                if response.response != nil {
+                //                    self.tableView.beginUpdates()
+                //                    self.tableView.endUpdates()
+                //                }
+                //            }
+                
+            }
+        } else {
+            let mission = elseLaunches.launches[indexPath.row]
+            cell.missionNumberLabel.text = "#\(mission.id!)"
+            
+            var delimiter = "|"
+            var missionName = mission.name.components(separatedBy: delimiter)
+            missionName[1].remove(at: missionName[1].startIndex)
+            
+            cell.missionNameLabel.text = missionName[1]
+            cell.missionOperatorLabel.text = elseAgencies[mission.id]?.agencies[0].name
+            cell.missionRocketLabel.text = missionName[0]
+
+            delimiter = ","
+            if elseLaunchpads[mission.id] != nil {
+                let missionPad = elseLaunchpads[mission.id]?.pads[0].name.components(separatedBy: delimiter)
+                cell.missionLaunchSiteLabel.text = missionPad?[0]
+            } else {
+                cell.missionLaunchSiteLabel.text = "N/A"
+            }
+            
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
+            if let date = dateFormatter.date(from: mission.net) {
+                let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
+                cell.missionDateLabel.text = localizedDateTime
+            } else {
+                cell.missionDateLabel.text = mission.net
+            }
         }
         
         return cell
@@ -245,9 +365,9 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         if segue.identifier == "showMission" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let destVC = segue.destination as! MissionsDetailViewController
-                destVC.mission = missions[indexPath.row]
-                destVC.rocket = rocket[missions[indexPath.row].flight_number]
-                destVC.launchpad = launchpads[indexPath.row]
+                destVC.mission = spaceXMissions[indexPath.row]
+                destVC.rocket = spaceXRockets[spaceXMissions[indexPath.row].flight_number]
+                destVC.launchpad = spaceXLaunchpads[spaceXMissions[indexPath.row].flight_number]
             }
         }
     }

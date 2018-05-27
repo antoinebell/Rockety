@@ -30,6 +30,9 @@
 		65F542A620B99BFF0023EAFB /* BulletinDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542A520B99BFF0023EAFB /* BulletinDataSource.swift */; };
 		65F542A820B99C2F0023EAFB /* FeedbackPageBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542A720B99C2F0023EAFB /* FeedbackPageBulletinItem.swift */; };
 		65F542AA20B99C640023EAFB /* SelectionFeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542A920B99C640023EAFB /* SelectionFeedbackGenerator.swift */; };
+		65F542AC20B9B90E0023EAFB /* Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542AB20B9B90E0023EAFB /* Launch.swift */; };
+		65F542AE20B9C59D0023EAFB /* Agency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542AD20B9C59D0023EAFB /* Agency.swift */; };
+		65F542B020B9FE350023EAFB /* Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542AF20B9FE350023EAFB /* Pad.swift */; };
 		8752B2FC3D685A729FE779B4 /* Pods_RocketyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B419DF861867734F1A540D70 /* Pods_RocketyTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +75,9 @@
 		65F542A520B99BFF0023EAFB /* BulletinDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletinDataSource.swift; sourceTree = "<group>"; };
 		65F542A720B99C2F0023EAFB /* FeedbackPageBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPageBulletinItem.swift; sourceTree = "<group>"; };
 		65F542A920B99C640023EAFB /* SelectionFeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionFeedbackGenerator.swift; sourceTree = "<group>"; };
+		65F542AB20B9B90E0023EAFB /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
+		65F542AD20B9C59D0023EAFB /* Agency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agency.swift; sourceTree = "<group>"; };
+		65F542AF20B9FE350023EAFB /* Pad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pad.swift; sourceTree = "<group>"; };
 		7E63E337A4F690B700349812 /* Pods-RocketyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RocketyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RocketyTests/Pods-RocketyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B419DF861867734F1A540D70 /* Pods_RocketyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RocketyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC7CE8E5E08897540CB140E1 /* Pods-RocketyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RocketyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RocketyTests/Pods-RocketyTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,6 +188,9 @@
 		65A48D6A20B48F46000F7EEE /* NASA */ = {
 			isa = PBXGroup;
 			children = (
+				65F542AB20B9B90E0023EAFB /* Launch.swift */,
+				65F542AD20B9C59D0023EAFB /* Agency.swift */,
+				65F542AF20B9FE350023EAFB /* Pad.swift */,
 			);
 			path = NASA;
 			sourceTree = "<group>";
@@ -439,8 +448,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65F542B020B9FE350023EAFB /* Pad.swift in Sources */,
 				658DCF5320B32081001B0843 /* MissionsViewController.swift in Sources */,
 				65F542A620B99BFF0023EAFB /* BulletinDataSource.swift in Sources */,
+				65F542AE20B9C59D0023EAFB /* Agency.swift in Sources */,
 				656D7C1920B333D5000AC58C /* MissionTableViewCell.swift in Sources */,
 				65F542A820B99C2F0023EAFB /* FeedbackPageBulletinItem.swift in Sources */,
 				65A48D5F20B4705D000F7EEE /* MissionDetailTableViewCell.swift in Sources */,
@@ -449,6 +460,7 @@
 				65A48D6120B47273000F7EEE /* MissionsDetailViewController.swift in Sources */,
 				658DCF5120B32081001B0843 /* AppDelegate.swift in Sources */,
 				65A48D6520B47C9C000F7EEE /* Launchpad.swift in Sources */,
+				65F542AC20B9B90E0023EAFB /* Launch.swift in Sources */,
 				656D7C1D20B33941000AC58C /* API.swift in Sources */,
 				65A48D6320B47762000F7EEE /* Rocket.swift in Sources */,
 			);
