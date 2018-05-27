@@ -9,6 +9,7 @@
 import UIKit
 import BulletinBoard
 import UserNotifications
+import EventKit
 
 enum BulletinDataSource {
     
@@ -69,10 +70,44 @@ enum BulletinDataSource {
         page.isDismissable = false
         
         page.dismissalHandler = { item in
+            item.manager?.dismissBulletin(animated: true)
             NotificationCenter.default.post(name: .SetupDidComplete, object: item)
         }
         
         page.actionHandler = { item in
+            NotificationCenter.default.post(name: .SetupDidComplete, object: item)
+            item.manager?.dismissBulletin(animated: true)
+        }
+        
+        return page
+    }
+    
+    static func makeCalendarPage() -> FeedbackPageBulletinItem {
+        let page = FeedbackPageBulletinItem(title: "Calendar")
+        page.image = #imageLiteral(resourceName: "NotificationPrompt")
+        
+        page.descriptionText = "Add launches to calendar."
+        page.actionButtonTitle = "Prepare for Liftoff"
+        page.alternativeButtonTitle = "Not now"
+        
+        page.isDismissable = false
+        
+        page.actionHandler = { item in
+            let eventStore = EKEventStore()
+            eventStore.requestAccess(to: .event, completion: { (accessGranted, error) in
+                
+                DispatchQueue.main.async {
+                    
+                    if accessGranted {
+                        MissionsDetailViewController().insertEvent()
+                    }
+                    
+                    item.manager?.dismissBulletin(animated: true)
+                }
+            })
+        }
+        
+        page.alternativeHandler = { item in
             item.manager?.dismissBulletin(animated: true)
         }
         
@@ -84,10 +119,19 @@ enum BulletinDataSource {
     /// Whether user completed setup.
     static var userDidCompleteSetup: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: "PetBoardUserDidCompleteSetup")
+            return UserDefaults.standard.bool(forKey: "UserDidCompleteSetup")
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "PetBoardUserDidCompleteSetup")
+            UserDefaults.standard.set(newValue, forKey: "UserDidCompleteSetup")
+        }
+    }
+    
+    static var userDidCompleteSetupCalendar: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "UserDidCompleteSetupCalendar")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "UserDidCompleteSetupCalendar")
         }
     }
     
@@ -104,5 +148,7 @@ extension Notification.Name {
      */
     
     static let SetupDidComplete = Notification.Name("SetupDidCompleteNotification")
+    
+    static let SetupDidCompleteCalendar = Notification.Name("SetupDidCompleteCalendarNotification")
     
 }

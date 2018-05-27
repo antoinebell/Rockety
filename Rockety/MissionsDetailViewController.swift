@@ -12,6 +12,8 @@ import MapKit
 import CoreLocation
 import SafariServices
 import CFAlertViewController
+import BulletinBoard
+import EventKit
 
 class MissionsDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -21,11 +23,18 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     var rocket: Rocket!
     var launchpad: Launchpad!
     
+    lazy var bulletinManager: BulletinManager = {
+        let calendarPage = BulletinDataSource.makeCalendarPage()
+        return BulletinManager(rootItem: calendarPage)
+    }()
+    
+    let eventStore = EKEventStore()
+    
     @IBOutlet var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
@@ -378,7 +387,107 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
         }
         
     }
+    
+    //MARK: IBAction
+    
+    @IBAction func addToCalendar(_ sender: UIButton) {
+        checkCalendarAuthorization()
+    }
+    
+    //MARK: BulletinBoard
 
+    func prepareForBulletin() {
+        
+        // Register notification observers
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setupDidComplete),
+                                               name: .SetupDidComplete,
+                                               object: nil)
+        
+        if !BulletinDataSource.userDidCompleteSetup {
+            showBulletin()
+        }
+        
+    }
+    
+    /**
+     * Displays the bulletin.
+     */
+    
+    func showBulletin() {
+        
+        bulletinManager.prepare()
+        bulletinManager.presentBulletin(above: self)
+        
+    }
+    
+    @objc func setupDidComplete() {
+        BulletinDataSource.userDidCompleteSetup = true
+    }
+    
+    //MARK: EventKit
+    
+    func checkCalendarAuthorization() {
+        let status = EKEventStore.authorizationStatus(for: .event)
+
+        print(status.rawValue)
+        
+        switch status {
+        case .notDetermined:
+            prepareForBulletin()
+        case .authorized:
+            print("Calendar Authorized")
+            insertEvent()
+        case .restricted, .denied:
+            let alertController = CFAlertViewController(title: "Oops !", message: "You didn't authorize us to access your calendar. Do you want to give us access in the Settings ?", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+            let settingsAction = CFAlertAction(title: "Open Settings", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: .white) { (action) in
+                let openSettingsURL = URL(string: UIApplicationOpenSettingsURLString)
+                UIApplication.shared.open(openSettingsURL!, options: [:], completionHandler: nil)
+            }
+            let cancelAction = CFAlertAction(title: "Cancel", style: .Cancel, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), handler: nil)
+            alertController.addAction(settingsAction)
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func insertEvent() {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
+        let startDateString = mission.launch_date_local
+        let startDate = dateFormatter.date(from: startDateString)
+        let endDate = startDate?.addingTimeInterval(3600)
+        
+        eventStore.requestAccess(to: .event) { (granted, error) in
+            
+            if granted {
+                let event = EKEvent(eventStore: self.eventStore)
+                event.title = self.mission.mission_name
+                event.startDate = startDate!
+                event.endDate = endDate!
+                event.calendar = self.eventStore.defaultCalendarForNewEvents
+                do {
+                    print("Saved")
+                    try self.eventStore.save(event, span: .thisEvent)
+                    
+                    let alertController = CFAlertViewController(title: "Event added !", message: "This launch was added to your calendar !", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                    let okAction = CFAlertAction(title: "OK", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: .white, handler: nil)
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                } catch {
+                    let alertController = CFAlertViewController(title: "Oops !", message: "Houston, we've have had a problem here. The event couldn't have been saved. Please check that you authorized Rockety to access your calendar.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                    let okAction = CFAlertAction(title: "OK", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: .white, handler: nil)
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+        
+    }
+    
     /*
     // MARK: - Navigation
 

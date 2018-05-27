@@ -56,11 +56,11 @@ struct API {
         func url() -> String {
             switch self {
             case .nextLaunches:
-                return "https://launchlibrary.net/1.3/launch?next=50&fields=name,lsp,net,location,rocket&sort=asc"
+                return "https://launchlibrary.net/1.4/launch?next=25&fields=name,lsp,net,location,rocket&sort=asc"
             case .agency(let agencyId):
-                return "https://launchlibrary.net/1.3/agency/\(agencyId)"
+                return "https://launchlibrary.net/1.4/agency/\(agencyId)"
             case .launchpad(let launchpadId):
-                return "https://launchlibrary.net/1.3/pad/\(launchpadId)"
+                return "https://launchlibrary.net/1.4/pad/\(launchpadId)"
             }
         }
     }

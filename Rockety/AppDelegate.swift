@@ -40,7 +40,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        let viewController = (window?.rootViewController as! UINavigationController).viewControllers[0] as! MissionsViewController
+        viewController.restoreUserActivityState(userActivity)
+        
+        return true
+    }
 
 }
 

@@ -19,9 +19,30 @@ struct ElseMission: Codable {
         let id: Int!
         let name: String!
         let net: String!
-        let locationid: Int?
-        let rocketid: Int?
         let lsp: String!
+        
+        let location: Location!
+        let rocket: Rocket!
+        
+        struct Location: Codable {
+            let id: Int!
+            let name: String!
+            let countryCode: String!
+            let pads: [Pads]
+            
+            struct Pads: Codable {
+                let id: Int!
+                let name: String!
+                let latitude: Float!
+                let longitude: Float!
+            }
+        }
+        
+        struct Rocket: Codable {
+            let id: Int!
+            let name: String!
+        }
+        
     }
 
     let launches: [Launch]
