@@ -7,16 +7,4 @@ Fascinated by space and aviation I wanted a simple app to keep track of the next
 
 #### Credits ####
 
-Pods :
-
-* SpaceXAPI
-* Alamofire
-* PinterestSegment
-* BulletinBoard
-
-Icons :
-
-1. icons8.com
-* Space shuttle
-* Youtube
-* Press
+[API, Open-Source, Icons, Images](api.antoinebellanger.ch/rockety/Licenses.pdf)

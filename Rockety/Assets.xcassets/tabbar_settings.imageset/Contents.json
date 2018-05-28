@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "airplane.png",
+      "filename" : "icons8-settings-30.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "airplane@2x.png",
+      "filename" : "icons8-settings-60.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "airplane@3x.png",
+      "filename" : "icons8-settings-90.png",
       "scale" : "3x"
     }
   ],
