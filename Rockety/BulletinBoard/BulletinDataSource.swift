@@ -114,7 +114,7 @@ enum BulletinDataSource {
         return page
     }
  
-    //MARK: User Notifications
+    //MARK: UserDefaults
     
     /// Whether user completed setup.
     static var userDidCompleteSetup: Bool {

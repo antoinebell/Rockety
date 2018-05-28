@@ -23,6 +23,9 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     var rocket: Rocket!
     var launchpad: Launchpad!
     
+    var launch: ElseMission.Launch!
+    var rocketURL: API.Images = .none
+    
     lazy var bulletinManager: BulletinManager = {
         let calendarPage = BulletinDataSource.makeCalendarPage()
         return BulletinManager(rootItem: calendarPage)
@@ -35,9 +38,27 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(isSpaceX)
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
+        tableView.estimatedRowHeight = 145
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        if !isSpaceX {
+            if launch.rocket.name == "Falcon 9 Full Thrust" {
+                rocketURL = .falcon9
+            } else if launch.rocket.name == "Long March 2C/SMA" {
+                rocketURL = .longmarch2c
+            } else if launch.rocket.name == "Long March 3B" {
+                rocketURL = .longmarch3b
+            } else if launch.rocket.name == "H-IIA 202" {
+                rocketURL = .hii202
+            }
+        }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,6 +69,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     //MARK: Image
     
     func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        print(url)
         URLSession.shared.dataTask(with: url) { data, response, error in
             completion(data, response, error)
             }.resume()
@@ -72,215 +94,334 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if rocket.id == "falconheavy" {
-            print("Rocket ID: falconheavy - ", rocket.id, mission.rocket.rocket_id)
-            return 4 + 3 + mission.rocket.second_stage.payloads.count
+        if isSpaceX {
+            if rocket.id == "falconheavy" {
+                return 4 + 3 + mission.rocket.second_stage.payloads.count
+            } else {
+                return 4 + 1 + mission.rocket.second_stage.payloads.count
+            }
         } else {
-            print("Rocket ID: falcon else? - ", rocket.id, mission.rocket.rocket_id)
-            return 4 + 1 + mission.rocket.second_stage.payloads.count
+            return 6
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        print(rocket.id)
-        
-        if rocket.id == "falconheavy" {
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailTitleCell", for: indexPath) as! MissionDetailTitleTableViewCell
-                cell.missionNumberLabel.text = "#\(mission.flight_number)"
-                cell.missionTitleLabel.text = mission.mission_name
-                if mission.links.mission_patch != nil {
-                    downloadImage(url: URL(string: mission.links.mission_patch!)!, imageView: cell.missionPatchImageView)
-                } else {
-                    cell.missionPatchImageView.image = UIImage(named: "SpaceX")
-                }
-                return cell
-            } else if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailRocketCell", for: indexPath) as! MissionDetailRocketTableViewCell
-                cell.rocketNameLabel.text = mission.rocket.rocket_name + " " + mission.rocket.rocket_type
-                cell.rocketOwnerLabel.text = "Space X  🇺🇸"
-                cell.rocketDescriptionLabel.text = rocket.description
-                cell.rocketImageView.image = UIImage(named: rocket.id)
-                return cell
-            } else if indexPath.row == 2 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1Cell", for: indexPath) as! MissionDetailStage1TableViewCell
-                cell.rocketCoreSerialLabel.text = mission.rocket.first_stage.cores[0].core_serial ?? "N/A"
-                
-                var reused: Bool?
-                
-                if mission.rocket.first_stage.cores[0].reused != nil {
-                    reused = mission.rocket.first_stage.cores[0].reused
-                }
-                
-                if reused != nil {
-                    if reused! {
-                        cell.rocketCoreReusedLabel.text = "Reused"
+        if isSpaceX {
+    
+            if rocket.id == "falconheavy" {
+                if indexPath.row == 0 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailTitleCell", for: indexPath) as! MissionDetailTitleTableViewCell
+                    cell.missionNumberLabel.text = "#\(mission.flight_number)"
+                    cell.missionTitleLabel.text = mission.mission_name
+                    if mission.links.mission_patch != nil {
+                        downloadImage(url: URL(string: mission.links.mission_patch!)!, imageView: cell.missionPatchImageView)
                     } else {
-                        cell.rocketCoreReusedLabel.text = "New"
+                        cell.missionPatchImageView.image = UIImage(named: "SpaceX")
                     }
-                } else {
-                    cell.rocketCoreReusedLabel.text = ""
-                    cell.rocketCoreReusedLabel.alpha = 0
-                }
-                
-                cell.rocketCoreReusedLabel.layer.borderColor = UIColor.white.cgColor
-                cell.rocketCoreReusedLabel.layer.borderWidth = 0.5
-                cell.rocketCoreReusedLabel.layer.cornerRadius = 10
-                
-                return cell
-            } else if indexPath.row == 3 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1DCell", for: indexPath) as! MissionDetailStage1DTableViewCell
-                cell.rocketCoreSerialLabel.text = mission.rocket.first_stage.cores[1].core_serial ?? "N/A"
-                
-                var reused: Bool?
-                
-                if mission.rocket.first_stage.cores[1].reused != nil {
-                    reused = mission.rocket.first_stage.cores[1].reused
-                }
-                
-                if reused != nil {
-                    if reused! {
-                        cell.rocketCoreReusedLabel.text = "Reused"
+                    return cell
+                } else if indexPath.row == 1 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailRocketCell", for: indexPath) as! MissionDetailRocketTableViewCell
+                    cell.rocketNameLabel.text = mission.rocket.rocket_name + " " + mission.rocket.rocket_type
+                    cell.rocketOwnerLabel.text = "SpaceX  🇺🇸"
+                    cell.rocketDescriptionLabel.text = rocket.description
+                    downloadImage(url: URL(string: API.Images.falconheavy.url())!, imageView: cell.rocketImageView)
+                    return cell
+                } else if indexPath.row == 2 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1Cell", for: indexPath) as! MissionDetailStage1TableViewCell
+                    cell.rocketCoreSerialLabel.text = mission.rocket.first_stage.cores[0].core_serial ?? "N/A"
+                    
+                    var reused: Bool?
+                    
+                    if mission.rocket.first_stage.cores[0].reused != nil {
+                        reused = mission.rocket.first_stage.cores[0].reused
+                    }
+                    
+                    if reused != nil {
+                        if reused! {
+                            cell.rocketCoreReusedLabel.text = "Reused"
+                        } else {
+                            cell.rocketCoreReusedLabel.text = "New"
+                        }
                     } else {
-                        cell.rocketCoreReusedLabel.text = "New"
+                        cell.rocketCoreReusedLabel.text = ""
+                        cell.rocketCoreReusedLabel.alpha = 0
                     }
-                } else {
-                    cell.rocketCoreReusedLabel.text = ""
-                    cell.rocketCoreReusedLabel.alpha = 0
-                }
-                
-                cell.rocketCoreReusedLabel.layer.borderColor = UIColor.white.cgColor
-                cell.rocketCoreReusedLabel.layer.borderWidth = 0.5
-                cell.rocketCoreReusedLabel.layer.cornerRadius = 10
-                
-                return cell
-            } else if indexPath.row == 4 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1DCell", for: indexPath) as! MissionDetailStage1DTableViewCell
-                cell.rocketCoreSerialLabel.text = mission.rocket.first_stage.cores[2].core_serial ?? "N/A"
-                
-                var reused: Bool?
-                
-                if mission.rocket.first_stage.cores[2].reused != nil {
-                    reused = mission.rocket.first_stage.cores[2].reused
-                }
-                
-                if reused != nil {
-                    if reused! {
-                        cell.rocketCoreReusedLabel.text = "Reused"
+                    
+                    cell.rocketCoreReusedLabel.layer.borderColor = UIColor.white.cgColor
+                    cell.rocketCoreReusedLabel.layer.borderWidth = 0.5
+                    cell.rocketCoreReusedLabel.layer.cornerRadius = 10
+                    
+                    return cell
+                } else if indexPath.row == 3 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1DCell", for: indexPath) as! MissionDetailStage1DTableViewCell
+                    cell.rocketCoreSerialLabel.text = mission.rocket.first_stage.cores[1].core_serial ?? "N/A"
+                    
+                    var reused: Bool?
+                    
+                    if mission.rocket.first_stage.cores[1].reused != nil {
+                        reused = mission.rocket.first_stage.cores[1].reused
+                    }
+                    
+                    if reused != nil {
+                        if reused! {
+                            cell.rocketCoreReusedLabel.text = "Reused"
+                        } else {
+                            cell.rocketCoreReusedLabel.text = "New"
+                        }
                     } else {
-                        cell.rocketCoreReusedLabel.text = "New"
+                        cell.rocketCoreReusedLabel.text = ""
+                        cell.rocketCoreReusedLabel.alpha = 0
                     }
-                } else {
-                    cell.rocketCoreReusedLabel.text = ""
-                    cell.rocketCoreReusedLabel.alpha = 0
-                }
-                
-                cell.rocketCoreReusedLabel.layer.borderColor = UIColor.white.cgColor
-                cell.rocketCoreReusedLabel.layer.borderWidth = 0.5
-                cell.rocketCoreReusedLabel.layer.cornerRadius = 10
-                
-                return cell
-            } else if indexPath.row == 5 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2Cell", for: indexPath) as! MissionDetailStage2TableViewCell
-                cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[0].payload_id) (\(mission.rocket.second_stage.payloads[0].payload_type))"
-                
-                var customers = ""
-                var customerCount = 0
-                for customer in mission.rocket.second_stage.payloads[0].customers {
-                    if customerCount != 0 {
-                        customers = customers + " & \(customer)"
+                    
+                    cell.rocketCoreReusedLabel.layer.borderColor = UIColor.white.cgColor
+                    cell.rocketCoreReusedLabel.layer.borderWidth = 0.5
+                    cell.rocketCoreReusedLabel.layer.cornerRadius = 10
+                    
+                    return cell
+                } else if indexPath.row == 4 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1DCell", for: indexPath) as! MissionDetailStage1DTableViewCell
+                    cell.rocketCoreSerialLabel.text = mission.rocket.first_stage.cores[2].core_serial ?? "N/A"
+                    
+                    var reused: Bool?
+                    
+                    if mission.rocket.first_stage.cores[2].reused != nil {
+                        reused = mission.rocket.first_stage.cores[2].reused
+                    }
+                    
+                    if reused != nil {
+                        if reused! {
+                            cell.rocketCoreReusedLabel.text = "Reused"
+                        } else {
+                            cell.rocketCoreReusedLabel.text = "New"
+                        }
                     } else {
-                        customers = "\(customer)"
+                        cell.rocketCoreReusedLabel.text = ""
+                        cell.rocketCoreReusedLabel.alpha = 0
                     }
-                    customerCount = customerCount + 1
+                    
+                    cell.rocketCoreReusedLabel.layer.borderColor = UIColor.white.cgColor
+                    cell.rocketCoreReusedLabel.layer.borderWidth = 0.5
+                    cell.rocketCoreReusedLabel.layer.cornerRadius = 10
+                    
+                    return cell
+                } else if indexPath.row == 5 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2Cell", for: indexPath) as! MissionDetailStage2TableViewCell
+                    cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[0].payload_id) (\(mission.rocket.second_stage.payloads[0].payload_type))"
+                    
+                    var customers = ""
+                    var customerCount = 0
+                    for customer in mission.rocket.second_stage.payloads[0].customers {
+                        if customerCount != 0 {
+                            customers = customers + " & \(customer)"
+                        } else {
+                            customers = "\(customer)"
+                        }
+                        customerCount = customerCount + 1
+                    }
+                    
+                    cell.rocketCoreCustomersLabel.text = customers
+                    
+                    if mission.rocket.second_stage.payloads.count != 1 {
+                        cell.separatorInset.left = 500
+                        cell.separatorInset.right = 0
+                    }
+                    
+                    return cell
+                } else if indexPath.row == tableView.numberOfRows(inSection: 0) - 2 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailLaunchCell", for: indexPath) as! MissionDetailLaunchTableViewCell
+                    cell.launchSiteNameLabel.text = mission.launch_site.site_name
+                    cell.launchSiteNameLongLabel.text = mission.launch_site.site_name_long
+                    
+                    let initialLocation = CLLocationCoordinate2D(latitude: launchpad.location.latitude, longitude: launchpad.location.longitude)
+                    let regionRadius: CLLocationDistance = 1000
+                    let coordinateRegion = MKCoordinateRegionMakeWithDistance(initialLocation, regionRadius, regionRadius)
+                    cell.launchSiteMapView.setRegion(coordinateRegion, animated: true)
+                    cell.launchSiteMapView.mapType = .hybrid
+                    
+                    return cell
+                } else if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailPressCell", for: indexPath) as! MissionDetailPressTableViewCell
+                    cell.pressButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
+                    cell.youtubeButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
+                    cell.redditButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
+                    
+                    return cell
+                } else { //Second cell of second stage
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2DCell", for: indexPath) as! MissionDetailStage2DTableViewCell
+                    cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[1].payload_id) (\(mission.rocket.second_stage.payloads[1].payload_type))"
+                    
+                    var customers = ""
+                    var customerCount = 0
+                    for customer in mission.rocket.second_stage.payloads[1].customers {
+                        if customerCount != 0 {
+                            customers = customers + " & \(customer)"
+                        } else {
+                            customers = "\(customer)"
+                        }
+                        customerCount = customerCount + 1
+                    }
+                    
+                    cell.rocketCoreCustomersLabel.text = customers
+                    
+                    return cell
                 }
+            } else {
                 
-                cell.rocketCoreCustomersLabel.text = customers
-                
-                if mission.rocket.second_stage.payloads.count != 1 {
-                    cell.separatorInset.left = 500
-                    cell.separatorInset.right = 0
-                }
-                
-                return cell
-            } else if indexPath.row == tableView.numberOfRows(inSection: 0) - 2 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailLaunchCell", for: indexPath) as! MissionDetailLaunchTableViewCell
-                cell.launchSiteNameLabel.text = mission.launch_site.site_name
-                cell.launchSiteNameLongLabel.text = mission.launch_site.site_name_long
-                
-                let initialLocation = CLLocationCoordinate2D(latitude: launchpad.location.latitude, longitude: launchpad.location.longitude)
-                let regionRadius: CLLocationDistance = 1000
-                let coordinateRegion = MKCoordinateRegionMakeWithDistance(initialLocation, regionRadius, regionRadius)
-                cell.launchSiteMapView.setRegion(coordinateRegion, animated: true)
-                cell.launchSiteMapView.mapType = .hybrid
-                
-                return cell
-            } else if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailPressCell", for: indexPath) as! MissionDetailPressTableViewCell
-                cell.pressButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
-                cell.youtubeButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
-                cell.redditButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
-                
-                return cell
-            } else { //Second cell of second stage
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2DCell", for: indexPath) as! MissionDetailStage2DTableViewCell
-                cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[1].payload_id) (\(mission.rocket.second_stage.payloads[1].payload_type))"
-                
-                var customers = ""
-                var customerCount = 0
-                for customer in mission.rocket.second_stage.payloads[1].customers {
-                    if customerCount != 0 {
-                        customers = customers + " & \(customer)"
+                if indexPath.row == 0 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailTitleCell", for: indexPath) as! MissionDetailTitleTableViewCell
+                    cell.missionNumberLabel.text = "#\(mission.flight_number)"
+                    cell.missionTitleLabel.text = mission.mission_name
+                    if mission.links.mission_patch != nil {
+                        downloadImage(url: URL(string: mission.links.mission_patch!)!, imageView: cell.missionPatchImageView)
                     } else {
-                        customers = "\(customer)"
+                        cell.missionPatchImageView.image = UIImage(named: "SpaceX")
                     }
-                    customerCount = customerCount + 1
+                    return cell
+                } else if indexPath.row == 1 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailRocketCell", for: indexPath) as! MissionDetailRocketTableViewCell
+                    cell.rocketNameLabel.text = mission.rocket.rocket_name + " " + mission.rocket.rocket_type
+                    cell.rocketOwnerLabel.text = "SpaceX  🇺🇸"
+                    cell.rocketDescriptionLabel.text = rocket.description
+                    if rocket.id == "falcon1" {
+                        downloadImage(url: URL(string: API.Images.falcon1.url())!, imageView: cell.rocketImageView)
+                    } else {
+                        downloadImage(url: URL(string: API.Images.falcon9.url())!, imageView: cell.rocketImageView)
+                    }
+                    return cell
+                } else if indexPath.row == 2 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1Cell", for: indexPath) as! MissionDetailStage1TableViewCell
+                    cell.rocketCoreSerialLabel.text = mission.rocket.first_stage.cores[0].core_serial ?? "N/A"
+                    
+                    var reused: Bool?
+                    
+                    if mission.rocket.first_stage.cores[0].reused != nil {
+                        reused = mission.rocket.first_stage.cores[0].reused
+                    }
+                    
+                    if reused != nil {
+                        if reused! {
+                            cell.rocketCoreReusedLabel.text = "Reused"
+                        } else {
+                            cell.rocketCoreReusedLabel.text = "New"
+                        }
+                    } else {
+                        cell.rocketCoreReusedLabel.text = ""
+                        cell.rocketCoreReusedLabel.alpha = 0
+                    }
+                    
+                    cell.rocketCoreReusedLabel.layer.borderColor = UIColor.white.cgColor
+                    cell.rocketCoreReusedLabel.layer.borderWidth = 0.5
+                    cell.rocketCoreReusedLabel.layer.cornerRadius = 10
+                    
+                    return cell
+                } else if indexPath.row == 3 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2Cell", for: indexPath) as! MissionDetailStage2TableViewCell
+                    cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[0].payload_id) (\(mission.rocket.second_stage.payloads[0].payload_type))"
+                    
+                    var customers = ""
+                    var customerCount = 0
+                    for customer in mission.rocket.second_stage.payloads[0].customers {
+                        if customerCount != 0 {
+                            customers = customers + " & \(customer)"
+                        } else {
+                            customers = "\(customer)"
+                        }
+                        customerCount = customerCount + 1
+                    }
+                    
+                    cell.rocketCoreCustomersLabel.text = customers
+                    
+                    if mission.rocket.second_stage.payloads.count != 1 {
+                        cell.separatorInset.left = 500
+                        cell.separatorInset.right = 0
+                    }
+                    
+                    return cell
+                } else if indexPath.row == tableView.numberOfRows(inSection: 0) - 2 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailLaunchCell", for: indexPath) as! MissionDetailLaunchTableViewCell
+                    cell.launchSiteNameLabel.text = mission.launch_site.site_name
+                    cell.launchSiteNameLongLabel.text = mission.launch_site.site_name_long
+                    
+                    let initialLocation = CLLocationCoordinate2D(latitude: launchpad.location.latitude, longitude: launchpad.location.longitude)
+                    let regionRadius: CLLocationDistance = 1000
+                    let coordinateRegion = MKCoordinateRegionMakeWithDistance(initialLocation, regionRadius, regionRadius)
+                    cell.launchSiteMapView.setRegion(coordinateRegion, animated: true)
+                    cell.launchSiteMapView.mapType = .hybrid
+                    
+                    return cell
+                } else if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailPressCell", for: indexPath) as! MissionDetailPressTableViewCell
+                    cell.pressButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
+                    cell.youtubeButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
+                    cell.redditButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
+                    
+                    return cell
+                } else { //Second cell of second stage
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2DCell", for: indexPath) as! MissionDetailStage2DTableViewCell
+                    cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[1].payload_id) (\(mission.rocket.second_stage.payloads[1].payload_type))"
+                    
+                    var customers = ""
+                    var customerCount = 0
+                    for customer in mission.rocket.second_stage.payloads[1].customers {
+                        if customerCount != 0 {
+                            customers = customers + " & \(customer)"
+                        } else {
+                            customers = "\(customer)"
+                        }
+                        customerCount = customerCount + 1
+                    }
+                    
+                    cell.rocketCoreCustomersLabel.text = customers
+                    
+                    return cell
                 }
-                
-                cell.rocketCoreCustomersLabel.text = customers
-                
-                return cell
             }
-        } else {
+            
+        } else { //Else mission
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailTitleCell", for: indexPath) as! MissionDetailTitleTableViewCell
-                cell.missionNumberLabel.text = "#\(mission.flight_number)"
-                cell.missionTitleLabel.text = mission.mission_name
-                if mission.links.mission_patch != nil {
-                    downloadImage(url: URL(string: mission.links.mission_patch!)!, imageView: cell.missionPatchImageView)
-                } else {
-                    cell.missionPatchImageView.image = UIImage(named: "SpaceX")
-                }
+                
+                cell.missionNumberLabel.text = "#\(launch.id!)"
+                
+                let delimiter = "|"
+                var missionName = launch.name.components(separatedBy: delimiter)
+                missionName[1].remove(at: missionName[1].startIndex)
+                cell.missionTitleLabel.text = missionName[1]
+                
                 return cell
+
             } else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailRocketCell", for: indexPath) as! MissionDetailRocketTableViewCell
-                cell.rocketNameLabel.text = mission.rocket.rocket_name + " " + mission.rocket.rocket_type
-                cell.rocketOwnerLabel.text = "Space X  🇺🇸"
-                cell.rocketDescriptionLabel.text = rocket.description
-                cell.rocketImageView.image = UIImage(named: rocket.id)
+                cell.rocketNameLabel.text = launch.rocket.name
+                cell.rocketOwnerLabel.text = "\(launch.lsp.name!)  \(IsoCountryCodes.find(key: launch.lsp.countryCode).flag)"
+                cell.rocketDescriptionLabel.text = "Description"
+
+                downloadImage(url: URL(string: rocketURL.url())!, imageView: cell.rocketImageView)
+                
                 return cell
             } else if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1Cell", for: indexPath) as! MissionDetailStage1TableViewCell
-                cell.rocketCoreSerialLabel.text = mission.rocket.first_stage.cores[0].core_serial ?? "N/A"
+                cell.rocketCoreSerialLabel.text = "N/A"
                 
-                var reused: Bool?
+//                var reused: Bool?
+//
+//                if mission.rocket.first_stage.cores[0].reused != nil {
+//                    reused = "N/A"
+//                }
+//
+//                if reused != nil {
+//                    if reused! {
+//                        cell.rocketCoreReusedLabel.text = "N/A"
+//                    } else {
+//                        cell.rocketCoreReusedLabel.text = "New"
+//                    }
+//                } else {
+//                    cell.rocketCoreReusedLabel.text = ""
+//                    cell.rocketCoreReusedLabel.alpha = 0
+//                }
                 
-                if mission.rocket.first_stage.cores[0].reused != nil {
-                    reused = mission.rocket.first_stage.cores[0].reused
-                }
-                
-                if reused != nil {
-                    if reused! {
-                        cell.rocketCoreReusedLabel.text = "Reused"
-                    } else {
-                        cell.rocketCoreReusedLabel.text = "New"
-                    }
-                } else {
-                    cell.rocketCoreReusedLabel.text = ""
-                    cell.rocketCoreReusedLabel.alpha = 0
-                }
-                
+                cell.rocketCoreReusedLabel.text = "N/A"
                 cell.rocketCoreReusedLabel.layer.borderColor = UIColor.white.cgColor
                 cell.rocketCoreReusedLabel.layer.borderWidth = 0.5
                 cell.rocketCoreReusedLabel.layer.cornerRadius = 10
@@ -288,33 +429,40 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                 return cell
             } else if indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2Cell", for: indexPath) as! MissionDetailStage2TableViewCell
-                cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[0].payload_id) (\(mission.rocket.second_stage.payloads[0].payload_type))"
+//                cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[0].payload_id) (\(mission.rocket.second_stage.payloads[0].payload_type))"
+//
+//                var customers = ""
+//                var customerCount = 0
+//                for customer in mission.rocket.second_stage.payloads[0].customers {
+//                    if customerCount != 0 {
+//                        customers = customers + " & \(customer)"
+//                    } else {
+//                        customers = "\(customer)"
+//                    }
+//                    customerCount = customerCount + 1
+//                }
+//
+//                cell.rocketCoreCustomersLabel.text = customers
+//
+//                if mission.rocket.second_stage.payloads.count != 1 {
+//                    cell.separatorInset.left = 500
+//                    cell.separatorInset.right = 0
+//                }
                 
-                var customers = ""
-                var customerCount = 0
-                for customer in mission.rocket.second_stage.payloads[0].customers {
-                    if customerCount != 0 {
-                        customers = customers + " & \(customer)"
-                    } else {
-                        customers = "\(customer)"
-                    }
-                    customerCount = customerCount + 1
-                }
-                
-                cell.rocketCoreCustomersLabel.text = customers
-                
-                if mission.rocket.second_stage.payloads.count != 1 {
-                    cell.separatorInset.left = 500
-                    cell.separatorInset.right = 0
-                }
+                cell.rocketCoreIdLabel.text = launch.missions[0].name
+                cell.rocketCoreCustomersLabel.text = "Customers"
                 
                 return cell
             } else if indexPath.row == tableView.numberOfRows(inSection: 0) - 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailLaunchCell", for: indexPath) as! MissionDetailLaunchTableViewCell
-                cell.launchSiteNameLabel.text = mission.launch_site.site_name
-                cell.launchSiteNameLongLabel.text = mission.launch_site.site_name_long
                 
-                let initialLocation = CLLocationCoordinate2D(latitude: launchpad.location.latitude, longitude: launchpad.location.longitude)
+                let delimiter = ","
+                var padName = launch.location.pads[0].name.components(separatedBy: delimiter)
+                
+                cell.launchSiteNameLabel.text = padName[0]
+                cell.launchSiteNameLongLabel.text = launch.location.name
+                
+                let initialLocation = CLLocationCoordinate2D(latitude: launch.location.pads[0].latitude, longitude: launch.location.pads[0].longitude)
                 let regionRadius: CLLocationDistance = 1000
                 let coordinateRegion = MKCoordinateRegionMakeWithDistance(initialLocation, regionRadius, regionRadius)
                 cell.launchSiteMapView.setRegion(coordinateRegion, animated: true)
@@ -323,31 +471,35 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                 return cell
             } else if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailPressCell", for: indexPath) as! MissionDetailPressTableViewCell
-                cell.pressButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
-                cell.youtubeButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
-                cell.redditButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
+//                cell.pressButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
+//                cell.youtubeButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
+//                cell.redditButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
                 
                 return cell
             } else { //Second cell of second stage
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2DCell", for: indexPath) as! MissionDetailStage2DTableViewCell
-                cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[1].payload_id) (\(mission.rocket.second_stage.payloads[1].payload_type))"
+//                cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[1].payload_id) (\(mission.rocket.second_stage.payloads[1].payload_type))"
+//
+//                var customers = ""
+//                var customerCount = 0
+//                for customer in mission.rocket.second_stage.payloads[1].customers {
+//                    if customerCount != 0 {
+//                        customers = customers + " & \(customer)"
+//                    } else {
+//                        customers = "\(customer)"
+//                    }
+//                    customerCount = customerCount + 1
+//                }
+//
+//                cell.rocketCoreCustomersLabel.text = customers
                 
-                var customers = ""
-                var customerCount = 0
-                for customer in mission.rocket.second_stage.payloads[1].customers {
-                    if customerCount != 0 {
-                        customers = customers + " & \(customer)"
-                    } else {
-                        customers = "\(customer)"
-                    }
-                    customerCount = customerCount + 1
-                }
-                
-                cell.rocketCoreCustomersLabel.text = customers
+                cell.rocketCoreIdLabel.text = "Payload"
+                cell.rocketCoreCustomersLabel.text = "Customer"
                 
                 return cell
             }
         }
+    
     }
     
     //MARK: Links

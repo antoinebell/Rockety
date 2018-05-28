@@ -35,6 +35,9 @@
 		65F542B020B9FE350023EAFB /* Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542AF20B9FE350023EAFB /* Pad.swift */; };
 		65F542B320BAB26C0023EAFB /* RocketSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542B220BAB26C0023EAFB /* RocketSearchBar.swift */; };
 		65F542B520BAB50E0023EAFB /* RocketSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542B420BAB50E0023EAFB /* RocketSearchController.swift */; };
+		65F542B720BB26080023EAFB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542B620BB26080023EAFB /* SettingsViewController.swift */; };
+		65F542B920BC36400023EAFB /* IsoCountryCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542B820BC36400023EAFB /* IsoCountryCodes.swift */; };
+		65F542BB20BC365C0023EAFB /* IsoCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542BA20BC365C0023EAFB /* IsoCountries.swift */; };
 		8752B2FC3D685A729FE779B4 /* Pods_RocketyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B419DF861867734F1A540D70 /* Pods_RocketyTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +85,9 @@
 		65F542AF20B9FE350023EAFB /* Pad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pad.swift; sourceTree = "<group>"; };
 		65F542B220BAB26C0023EAFB /* RocketSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketSearchBar.swift; sourceTree = "<group>"; };
 		65F542B420BAB50E0023EAFB /* RocketSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketSearchController.swift; sourceTree = "<group>"; };
+		65F542B620BB26080023EAFB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		65F542B820BC36400023EAFB /* IsoCountryCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsoCountryCodes.swift; sourceTree = "<group>"; };
+		65F542BA20BC365C0023EAFB /* IsoCountries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsoCountries.swift; sourceTree = "<group>"; };
 		7E63E337A4F690B700349812 /* Pods-RocketyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RocketyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RocketyTests/Pods-RocketyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B419DF861867734F1A540D70 /* Pods_RocketyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RocketyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC7CE8E5E08897540CB140E1 /* Pods-RocketyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RocketyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RocketyTests/Pods-RocketyTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +155,9 @@
 				65A48D5E20B4705D000F7EEE /* MissionDetailTableViewCell.swift */,
 				65F542B220BAB26C0023EAFB /* RocketSearchBar.swift */,
 				65F542B420BAB50E0023EAFB /* RocketSearchController.swift */,
+				65F542B620BB26080023EAFB /* SettingsViewController.swift */,
+				65F542BA20BC365C0023EAFB /* IsoCountries.swift */,
+				65F542B820BC36400023EAFB /* IsoCountryCodes.swift */,
 				65F542B120BAB2480023EAFB /* BulletinBoard */,
 				65A48D6920B48F40000F7EEE /* API */,
 				658DCF5420B32081001B0843 /* Main.storyboard */,
@@ -388,6 +397,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Rockety/Pods-Rockety-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AIFlatSwitch/AIFlatSwitch.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BulletinBoard.framework",
@@ -396,6 +406,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AIFlatSwitch.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BulletinBoard.framework",
@@ -464,11 +475,13 @@
 			files = (
 				65F542B020B9FE350023EAFB /* Pad.swift in Sources */,
 				658DCF5320B32081001B0843 /* MissionsViewController.swift in Sources */,
+				65F542B920BC36400023EAFB /* IsoCountryCodes.swift in Sources */,
 				65F542A620B99BFF0023EAFB /* BulletinDataSource.swift in Sources */,
 				65F542B320BAB26C0023EAFB /* RocketSearchBar.swift in Sources */,
 				65F542AE20B9C59D0023EAFB /* Agency.swift in Sources */,
 				656D7C1920B333D5000AC58C /* MissionTableViewCell.swift in Sources */,
 				65F542A820B99C2F0023EAFB /* FeedbackPageBulletinItem.swift in Sources */,
+				65F542BB20BC365C0023EAFB /* IsoCountries.swift in Sources */,
 				65A48D5F20B4705D000F7EEE /* MissionDetailTableViewCell.swift in Sources */,
 				656D7C1B20B334C9000AC58C /* Mission.swift in Sources */,
 				65F542AA20B99C640023EAFB /* SelectionFeedbackGenerator.swift in Sources */,
@@ -479,6 +492,7 @@
 				656D7C1D20B33941000AC58C /* API.swift in Sources */,
 				65A48D6320B47762000F7EEE /* Rocket.swift in Sources */,
 				65F542B520BAB50E0023EAFB /* RocketSearchController.swift in Sources */,
+				65F542B720BB26080023EAFB /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

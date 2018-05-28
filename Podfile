@@ -11,6 +11,7 @@ target 'Rockety' do
   pod 'PinterestSegment'
   pod 'CFAlertViewController'
   pod 'BulletinBoard'
+  pod 'AIFlatSwitch'
   
   target 'RocketyTests' do
     inherit! :search_paths

@@ -1,4 +1,5 @@
 PODS:
+  - AIFlatSwitch (1.0.2)
   - Alamofire (4.7.1)
   - AlamofireImage (3.3.1):
     - Alamofire (~> 4.5)
@@ -7,6 +8,7 @@ PODS:
   - PinterestSegment (1.2.0)
 
 DEPENDENCIES:
+  - AIFlatSwitch
   - Alamofire
   - AlamofireImage
   - BulletinBoard
@@ -14,12 +16,13 @@ DEPENDENCIES:
   - PinterestSegment
 
 SPEC CHECKSUMS:
+  AIFlatSwitch: 5ab22806eeff3e09d585c2f13d22bfa6e3427191
   Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
   AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
   BulletinBoard: 23c9d98cac654fd484d76f2a0655669974e9bd9c
   CFAlertViewController: 460bb12b42b500bb0838e5595ca144a18344765f
   PinterestSegment: d589fce6c62141466b9f36ea8ab0a16fde9ac8f4
 
-PODFILE CHECKSUM: 6fd4735acd0567c8bc0b0b5e6544b640a7f09607
+PODFILE CHECKSUM: 5de1f3442ce9d40b3f58b499a74a0478e03d69a3
 
 COCOAPODS: 1.4.0

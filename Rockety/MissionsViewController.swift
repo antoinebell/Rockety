@@ -13,6 +13,7 @@ import PinterestSegment
 import BulletinBoard
 import CoreSpotlight
 import MobileCoreServices
+import UserNotifications
 
 class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate, RocketSearchControllerDelegate {
     
@@ -127,6 +128,25 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                     if boolDate == true {
                         nextMission = mission.flight_number
                     }
+                    
+                    if SettingsViewController.spaceXNotifications && SettingsViewController.elseNotifications == false {
+                        
+                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        
+                        let center = UNUserNotificationCenter.current()
+                        center.getNotificationSettings(completionHandler: { (settings) in
+                            if settings.authorizationStatus == .authorized {
+                                let content = UNMutableNotificationContent()
+                                content.body = "\(mission.mission_name) is lifting off in 15 minutes !"
+                                content.sound = UNNotificationSound.default()
+                                let dateToTrigger = missionDate?.addingTimeInterval(-900)
+                                let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: dateToTrigger!)
+                                _ = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+                            }
+                        })
+                    }
+                    
+                    
                 }
             }
             
@@ -171,13 +191,26 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             
                 let launches = decodedLaunches.launches
                 for launch in launches {
-                    self.downloadAgencyData(agencyId: launch.lsp, missionNumber: launch.id)
-//                    if launch.locationid != nil {
-//                        print("Downloading pad for missionid :", launch.id)
-//                        self.downloadPadData(padId: launch.locationid!, missionNumber: launch.id)
-//                    } else {
-//                        print("Pad is not available for missionid :", launch.id)
-//                    }
+//                    self.downloadAgencyData(agencyId: launch.lsp, missionNumber: launch.id)
+                    if SettingsViewController.elseNotifications {
+                        
+                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        
+                        let center = UNUserNotificationCenter.current()
+                        center.getNotificationSettings(completionHandler: { (settings) in
+                            if settings.authorizationStatus == .authorized {
+                                let content = UNMutableNotificationContent()
+                                content.body = "\(launch.name) is lifting off in 15 minutes !"
+                                content.sound = UNNotificationSound.default()
+                                
+                                let dateFormatter = DateFormatter()
+                                dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
+                                let dateToTrigger = dateFormatter.date(from: launch.net)?.addingTimeInterval(-900)
+                                let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: dateToTrigger!)
+                                _ = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+                            }
+                        })
+                    }
                 }
                 
                 DispatchQueue.main.async {
@@ -322,7 +355,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                 missionName[1].remove(at: missionName[1].startIndex)
                 
                 cell.missionNameLabel.text = missionName[1]
-                cell.missionOperatorLabel.text = elseAgencies[mission.id]?.agencies[0].name
+                cell.missionOperatorLabel.text = mission.lsp.name
                 cell.missionRocketLabel.text = missionName[0]
                 
                 delimiter = ","
@@ -353,7 +386,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                 missionName[1].remove(at: missionName[1].startIndex)
                 
                 cell.missionNameLabel.text = missionName[1]
-                cell.missionOperatorLabel.text = elseAgencies[mission.id]?.agencies[0].name
+                cell.missionOperatorLabel.text = mission.lsp.name
                 cell.missionRocketLabel.text = missionName[0]
                 cell.missionLaunchSiteLabel.text = mission.location.pads[0].name
                 
@@ -600,11 +633,23 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                         destVC.mission = filteredSpaceXMissions[indexPath.row]
                         destVC.rocket = spaceXRockets[filteredSpaceXMissions[indexPath.row].flight_number]
                         destVC.launchpad = spaceXLaunchpads[filteredSpaceXMissions[indexPath.row].flight_number]
+                        destVC.isSpaceX = true
                     } else {
                         let destVC = segue.destination as! MissionsDetailViewController
                         destVC.mission = spaceXMissions[indexPath.row]
                         destVC.rocket = spaceXRockets[spaceXMissions[indexPath.row].flight_number]
                         destVC.launchpad = spaceXLaunchpads[spaceXMissions[indexPath.row].flight_number]
+                        destVC.isSpaceX = true
+                    }
+                } else {
+                    if shouldShowSearchResults {
+                        let destVC = segue.destination as! MissionsDetailViewController
+                        destVC.isSpaceX = false
+                        destVC.launch = filteredElseLaunches[indexPath.row]
+                    } else {
+                        let destVC = segue.destination as! MissionsDetailViewController
+                        destVC.isSpaceX = false
+                        destVC.launch = elseLaunches.launches[indexPath.row]
                     }
                 }
             }
