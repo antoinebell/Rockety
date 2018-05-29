@@ -68,10 +68,12 @@ struct API {
     
     enum Images {
         
+        //SpaceX
         case falcon1
         case falcon9
         case falconheavy
         
+        //LongMarch
         case longmarch2a
         case longmarch2c
         case longmarch2d
@@ -85,12 +87,17 @@ struct API {
         case longmarch4b
         case longmarch4c
         
-        case hii
-        case hiia
-        case hiib
-        case hii202
-        case hii204
+        //IndianSpaceResearchOrganisation
+        case gslvmkiii
         
+        //Arianespace
+        case ariane5
+        case ariane6
+        case soyuz
+        case vega
+        case vegac
+        
+        //Nooooo
         case none
         
         func url() -> String {
@@ -128,16 +135,18 @@ struct API {
                 return baseURL + "/LongMarch-4B.png"
             case .longmarch4c:
                 return baseURL + "/LongMarch-4C.png"
-            case .hii:
-                return baseURL + "/H-II.png"
-            case .hiia:
-                return baseURL + "/H-IIA.png"
-            case .hiib:
-                return baseURL + "/H-IIB.png"
-            case .hii202:
-                return baseURL + "/H-II-202.png"
-            case .hii204:
-                return baseURL + "/H-II-204.png"
+            case .gslvmkiii:
+                return baseURL + "/GSLV-Mk-III.png"
+            case .ariane5:
+                return baseURL + "/Ariane-5.png"
+            case .ariane6:
+                return baseURL + "/Ariane-6.png"
+            case .soyuz:
+                return baseURL + "/Soyuz.png"
+            case .vega:
+                return baseURL + "/Vega.png"
+            case .vegac:
+                return baseURL + "/Vega-C.png"
             case .none:
                 return baseURL
             }

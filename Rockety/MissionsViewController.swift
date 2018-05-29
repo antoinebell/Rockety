@@ -15,7 +15,7 @@ import CoreSpotlight
 import MobileCoreServices
 import UserNotifications
 
-class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate, RocketSearchControllerDelegate {
+class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate, RocketSearchControllerDelegate, UIViewControllerPreviewingDelegate {
     
     @IBOutlet var tableView: UITableView!
     
@@ -25,6 +25,9 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     var spaceXLaunchpads = [Int: Launchpad]()
     
     var filteredSpaceXMissions = [Mission]()
+    
+    var spaceXIndex: Int = 63
+    var spaceXDownloaded: Bool = false
     
     //Else API
     var elseLaunches: ElseMission!
@@ -81,17 +84,27 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             if index == 0 {
                 self.refreshControl.addTarget(self, action: #selector(self.downloadSpaceX), for: .valueChanged)
                 self.refreshControl.removeTarget(self, action: #selector(self.downloadAll), for: .valueChanged)
-                self.downloadSpaceX()
+                self.tableView.reloadData()
+                let path = IndexPath.init(row: self.spaceXIndex, section: 0)
+                self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
             } else {
                 self.refreshControl.removeTarget(self, action: #selector(self.downloadSpaceX), for: .valueChanged)
                 self.refreshControl.addTarget(self, action: #selector(self.downloadAll), for: .valueChanged)
-                self.downloadAll()
+                self.tableView.reloadData()
+                let path = IndexPath.init(row: 0, section: 0)
+                self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
+
             }
+        }
+        
+        if (traitCollection.forceTouchCapability == .available) {
+            registerForPreviewing(with: self, sourceView: view)
         }
         
         configureRocketSearchController()
         
         downloadSpaceX()
+        downloadAll()
     }
     
     deinit {
@@ -151,11 +164,13 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             
             DispatchQueue.main.async {
+                self.setupSpXSearchableContent()
                 self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
                 let path = IndexPath.init(row: nextMission, section: 0)
                 self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
-                self.setupSearchableContent()
+                self.spaceXIndex = nextMission
+                self.spaceXDownloaded = true
             }
         }
     }
@@ -205,6 +220,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                                 
                                 let dateFormatter = DateFormatter()
                                 dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
+                                dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
                                 let dateToTrigger = dateFormatter.date(from: launch.net)?.addingTimeInterval(-900)
                                 let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: dateToTrigger!)
                                 _ = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
@@ -214,10 +230,13 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
                 
                 DispatchQueue.main.async {
+                    self.setupElseSearchableContent()
                     self.refreshControl.endRefreshing()
                     self.tableView.reloadData()
-                    let path = IndexPath.init(row: 0, section: 0)
-                    self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
+                    if self.spaceXDownloaded {
+                        let path = IndexPath.init(row: self.spaceXIndex, section: 0)
+                        self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
+                    }
                 }
             }
         }
@@ -305,100 +324,63 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if currentIndex == 0 { //SpaceX
             
-            if shouldShowSearchResults { //SpaceX Filtered
-                
-                let mission = filteredSpaceXMissions[indexPath.row]
-                cell.missionNumberLabel.text = "#\(mission.flight_number)"
-                cell.missionNameLabel.text = mission.mission_name
-                cell.missionOperatorLabel.text = "SpaceX"
-                cell.missionRocketLabel.text = "\(mission.rocket.rocket_name) \(mission.rocket.rocket_type)"
-                cell.missionLaunchSiteLabel.text = mission.launch_site.site_name
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                if let date = dateFormatter.date(from: mission.launch_date_local) {
-                    let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
-                    cell.missionDateLabel.text = localizedDateTime
-                } else {
-                    cell.missionDateLabel.text = mission.launch_date_local
-                }
-                
-            } else { //SpaceX Unfiltered
-                
-                let mission = spaceXMissions[indexPath.row]
-                cell.missionNumberLabel.text = "#\(mission.flight_number)"
-                cell.missionNameLabel.text = mission.mission_name
-                cell.missionOperatorLabel.text = "SpaceX"
-                cell.missionRocketLabel.text = "\(mission.rocket.rocket_name) \(mission.rocket.rocket_type)"
-                cell.missionLaunchSiteLabel.text = mission.launch_site.site_name
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                if let date = dateFormatter.date(from: mission.launch_date_local) {
-                    let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
-                    cell.missionDateLabel.text = localizedDateTime
-                } else {
-                    cell.missionDateLabel.text = mission.launch_date_local
-                }
-                
+            var mission: Mission!
+            
+            if shouldShowSearchResults {
+                mission = filteredSpaceXMissions[indexPath.row]
+            } else {
+                mission = spaceXMissions[indexPath.row]
+            }
+            
+            cell.missionNumberLabel.text = "#\(mission.flight_number)"
+            cell.missionNameLabel.text = mission.mission_name
+            cell.missionOperatorLabel.text = "SpaceX"
+            cell.missionRocketLabel.text = "\(mission.rocket.rocket_name) \(mission.rocket.rocket_type)"
+            cell.missionLaunchSiteLabel.text = mission.launch_site.site_name
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            if let date = dateFormatter.date(from: mission.launch_date_local) {
+                let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
+                cell.missionDateLabel.text = localizedDateTime
+            } else {
+                cell.missionDateLabel.text = mission.launch_date_local
             }
             
         } else { //Else
             
-            if shouldShowSearchResults { //Else filtered
-                
-                let mission = filteredElseLaunches[indexPath.row]
-                cell.missionNumberLabel.text = "#\(mission.id!)"
-                
-                var delimiter = "|"
-                var missionName = mission.name.components(separatedBy: delimiter)
-                missionName[1].remove(at: missionName[1].startIndex)
-                
-                cell.missionNameLabel.text = missionName[1]
-                cell.missionOperatorLabel.text = mission.lsp.name
-                cell.missionRocketLabel.text = missionName[0]
-                
-                delimiter = ","
-                if elseLaunchpads[mission.id] != nil {
-                    let missionPad = elseLaunchpads[mission.id]?.pads[0].name.components(separatedBy: delimiter)
-                    cell.missionLaunchSiteLabel.text = missionPad?[0]
-                } else {
-                    cell.missionLaunchSiteLabel.text = "N/A"
-                }
-                
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
-                if let date = dateFormatter.date(from: mission.net) {
-                    let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
-                    cell.missionDateLabel.text = localizedDateTime
-                } else {
-                    cell.missionDateLabel.text = mission.net
-                }
-                
-            } else { //Else unfiltered
-                
-                let mission = elseLaunches.launches[indexPath.row]
-                cell.missionNumberLabel.text = "#\(mission.id!)"
-                
-                let delimiter = "|"
-                var missionName = mission.name.components(separatedBy: delimiter)
-                missionName[1].remove(at: missionName[1].startIndex)
-                
-                cell.missionNameLabel.text = missionName[1]
-                cell.missionOperatorLabel.text = mission.lsp.name
-                cell.missionRocketLabel.text = missionName[0]
-                cell.missionLaunchSiteLabel.text = mission.location.pads[0].name
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
-                if let date = dateFormatter.date(from: mission.net) {
-                    let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
-                    cell.missionDateLabel.text = localizedDateTime
-                } else {
-                    cell.missionDateLabel.text = mission.net
-                }
-                
+            var mission: ElseMission.Launch!
+            
+            if shouldShowSearchResults {
+                mission = filteredElseLaunches[indexPath.row]
+            } else {
+                mission = elseLaunches.launches[indexPath.row]
+            }
+            
+            cell.missionNumberLabel.text = "#\(mission.id!)"
+            
+            var delimiter = "|"
+            var missionName = mission.name.components(separatedBy: delimiter)
+            missionName[1].remove(at: missionName[1].startIndex)
+            
+            cell.missionNameLabel.text = missionName[1]
+            cell.missionOperatorLabel.text = mission.lsp.name
+            cell.missionRocketLabel.text = missionName[0]
+            
+            delimiter = ","
+            var padName = mission.location.pads[0].name.components(separatedBy: delimiter)
+            
+            cell.missionLaunchSiteLabel.text = padName[0]
+            
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            if let date = dateFormatter.date(from: mission.net) {
+                let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
+                cell.missionDateLabel.text = localizedDateTime
+            } else {
+                cell.missionDateLabel.text = mission.net
             }
             
         }
@@ -532,9 +514,61 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.reloadData()
     }
     
+    //MARK: UIViewControllerPreviewingContextDelegate
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        guard let indexPath = tableView.indexPathForRow(at: self.view.convert(location, to: tableView)) else {
+            print("IndexPath problem")
+            return nil
+        }
+        
+        print(indexPath)
+        
+        guard let cell = tableView.cellForRow(at: indexPath) else {
+            print("Cell problem")
+            return nil
+        }
+        
+        guard let destVC = storyboard?.instantiateViewController(withIdentifier: "MissionsDetailViewController") as? MissionsDetailViewController else {
+            return nil
+        }
+        
+        if currentIndex == 0 {
+            if shouldShowSearchResults {
+                destVC.mission = filteredSpaceXMissions[indexPath.row]
+                destVC.rocket = spaceXRockets[filteredSpaceXMissions[indexPath.row].flight_number]
+                destVC.launchpad = spaceXLaunchpads[filteredSpaceXMissions[indexPath.row].flight_number]
+                destVC.isSpaceX = true
+            } else {
+                destVC.mission = spaceXMissions[indexPath.row]
+                destVC.rocket = spaceXRockets[spaceXMissions[indexPath.row].flight_number]
+                destVC.launchpad = spaceXLaunchpads[spaceXMissions[indexPath.row].flight_number]
+                destVC.isSpaceX = true
+            }
+        } else {
+            if shouldShowSearchResults {
+                destVC.isSpaceX = false
+                destVC.launch = filteredElseLaunches[indexPath.row]
+            } else {
+                destVC.isSpaceX = false
+                destVC.launch = elseLaunches.launches[indexPath.row]
+            }
+        }
+        
+        destVC.preferredContentSize = CGSize(width: 0.0, height: 450)
+        previewingContext.sourceRect = cell.frame
+        
+        return destVC
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        show(viewControllerToCommit, sender: self)
+    }
+    
     //MARK: CoreSpotlight
     
-    func setupSearchableContent() {
+    func setupSpXSearchableContent() {
         var searchableItems = [CSSearchableItem]()
         
         for i in stride(from: 0, to: spaceXMissions.count, by: 1) {
@@ -567,14 +601,47 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             
             searchableItemAttributeSet.keywords = keywords
             
-            let searchableItem = CSSearchableItem(uniqueIdentifier: "ch.antoinebellanger.Rockety.\(mission.flight_number)", domainIdentifier: "launches", attributeSet: searchableItemAttributeSet)
+            let searchableItem = CSSearchableItem(uniqueIdentifier: "ch.antoinebellanger.Rockety.SpX.\(mission.flight_number)", domainIdentifier: "launches", attributeSet: searchableItemAttributeSet)
             
             searchableItems.append(searchableItem)
             
             CSSearchableIndex.default().indexSearchableItems(searchableItems) { (error) in
-                if error != nil {
-                    print(error?.localizedDescription)
-                }
+            }
+        }
+    }
+    
+    func setupElseSearchableContent() {
+        var searchableItems = [CSSearchableItem]()
+        
+        for i in stride(from: 0, to: elseLaunches.count, by: 1) {
+            let mission = elseLaunches.launches[i]
+            
+            let delimiter = "|"
+            var missionName = mission.name.components(separatedBy: delimiter)
+            missionName[1].remove(at: missionName[1].startIndex)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            let date = DateFormatter.localizedString(from: dateFormatter.date(from: mission.net)!, dateStyle: .short, timeStyle: .medium)
+            
+            let searchableItemAttributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
+            searchableItemAttributeSet.title = missionName[1]
+            searchableItemAttributeSet.contentDescription = "\(mission.lsp.name!) | \(mission.rocket.name!) | Launch Date : \(date)"
+            
+            var keywords = [String]()
+            keywords.append(mission.name)
+            keywords.append(mission.rocket.name)
+
+            searchableItemAttributeSet.keywords = keywords
+            
+            let missionId = mission.id
+            
+            let searchableItem = CSSearchableItem(uniqueIdentifier: "ch.antoinebellanger.Rockety.Else.\(missionId!)", domainIdentifier: "launches", attributeSet: searchableItemAttributeSet)
+            searchableItems.append(searchableItem)
+            
+            CSSearchableIndex.default().indexSearchableItems(searchableItems) { (error) in
+                
             }
         }
     }
@@ -583,8 +650,18 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         if activity.activityType == CSSearchableItemActionType {
             if let userInfo = activity.userInfo {
                 let selectedLaunch = userInfo[CSSearchableItemActivityIdentifier] as! String
-                selectedLaunchIndex = Int(selectedLaunch.components(separatedBy: ".").last!)!-1
-                performSegue(withIdentifier: "showMissionSpXCS", sender: self)
+                let components = selectedLaunch.components(separatedBy: ".")
+                print(components, components[2])
+                if components[3] == "SpX" {
+                    selectedLaunchIndex = (Int(selectedLaunch.components(separatedBy: ".").last!)!-1)
+                    performSegue(withIdentifier: "showMissionSpXCS", sender: self)
+                } else if components[3] == "Else" {
+                    print(Int(selectedLaunch.components(separatedBy: ".").last!)!)
+                    selectedLaunchIndex = elseLaunches.launches.index { (mission) -> Bool in
+                        mission.id == Int(selectedLaunch.components(separatedBy: ".").last!)!
+                    }
+                    performSegue(withIdentifier: "showMissionElseCS", sender: self)
+                }
             }
         }
     }
@@ -655,9 +732,14 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         } else if segue.identifier == "showMissionSpXCS" {
             let destVC = segue.destination as! MissionsDetailViewController
+            destVC.isSpaceX = true
             destVC.mission = spaceXMissions[selectedLaunchIndex]
             destVC.rocket = spaceXRockets[spaceXMissions[selectedLaunchIndex].flight_number]
             destVC.launchpad = spaceXLaunchpads[spaceXMissions[selectedLaunchIndex].flight_number]
+        } else if segue.identifier == "showMissionElseCS" {
+            let destVC = segue.destination as! MissionsDetailViewController
+            destVC.isSpaceX = false
+            destVC.launch = elseLaunches.launches[selectedLaunchIndex]
         }
     }
     

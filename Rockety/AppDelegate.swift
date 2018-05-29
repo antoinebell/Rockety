@@ -42,8 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
-        let viewController = (window?.rootViewController as! UINavigationController).viewControllers[0] as! MissionsViewController
-        viewController.restoreUserActivityState(userActivity)
+        
+        dump((window?.rootViewController as! UITabBarController).viewControllers)
+        
+        let viewController = (window?.rootViewController as! UITabBarController).viewControllers![0] as! UINavigationController
+        let missionsViewController = viewController.viewControllers[0] as! MissionsViewController
+        missionsViewController.restoreUserActivityState(userActivity)
         
         return true
     }

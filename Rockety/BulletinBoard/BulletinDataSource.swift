@@ -17,7 +17,7 @@ enum BulletinDataSource {
     
     static func makeIntroPage() -> FeedbackPageBulletinItem {
         let page = FeedbackPageBulletinItem(title: "Welcome to Rockety !")
-        page.image = #imageLiteral(resourceName: "spaceshuttle")
+        page.image = #imageLiteral(resourceName: "space-shuttle")
         
         page.descriptionText = "Check out when the next rocket launches."
         page.actionButtonTitle = "Ignite"

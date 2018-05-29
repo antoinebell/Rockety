@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -133,6 +132,7 @@
                     <connections>
                         <outlet property="tableView" destination="8L4-65-yYB" id="voe-7Y-jf2"/>
                         <segue destination="vL5-Kj-6dT" kind="show" identifier="showMissionSpXCS" id="GUA-hD-Ehs"/>
+                        <segue destination="vL5-Kj-6dT" kind="show" identifier="showMissionElseCS" id="7qe-6b-bY1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -163,7 +163,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spaceshuttle" translatesAutoresizingMaskIntoConstraints="NO" id="THJ-g2-TvR">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="space-shuttle" translatesAutoresizingMaskIntoConstraints="NO" id="THJ-g2-TvR">
                                 <rect key="frame" x="159" y="45" width="96" height="96"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="96" id="0ej-hl-lZG"/>
@@ -285,7 +285,7 @@
         <!--Missions Detail View Controller-->
         <scene sceneID="xq9-Yc-h81">
             <objects>
-                <viewController id="vL5-Kj-6dT" customClass="MissionsDetailViewController" customModule="Rockety" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MissionsDetailViewController" id="vL5-Kj-6dT" customClass="MissionsDetailViewController" customModule="Rockety" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vus-Eh-sdd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -294,11 +294,11 @@
                                 <rect key="frame" x="0.0" y="87" width="414" height="600"/>
                                 <color key="backgroundColor" red="0.066077694300000003" green="0.1192067638" blue="0.23530644179999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailTitleCell" rowHeight="100" id="LXh-6i-wOx" customClass="MissionDetailTitleTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="100"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailTitleCell" rowHeight="120" id="LXh-6i-wOx" customClass="MissionDetailTitleTableViewCell" customModule="Rockety" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LXh-6i-wOx" id="zQ4-pl-ETc">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="99.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="119.66666666666667"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#72" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pK8-bG-IKq">
@@ -307,15 +307,15 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SpaceX" translatesAutoresizingMaskIntoConstraints="NO" id="zUg-Nz-goH">
-                                                    <rect key="frame" x="316" y="11" width="78" height="78"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" image="SpaceX" translatesAutoresizingMaskIntoConstraints="NO" id="zUg-Nz-goH">
+                                                    <rect key="frame" x="316" y="11" width="78" height="98"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="78" id="KXo-53-Cgo"/>
-                                                        <constraint firstAttribute="width" secondItem="zUg-Nz-goH" secondAttribute="height" multiplier="1:1" id="PcW-Pf-Gkb"/>
+                                                        <constraint firstAttribute="width" constant="78" id="0Hi-BH-DyV"/>
+                                                        <constraint firstAttribute="height" constant="98" id="bLE-Tf-uGe"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bangabandhu-1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqy-0k-tib">
-                                                    <rect key="frame" x="20" y="51" width="288" height="25"/>
+                                                    <rect key="frame" x="20" y="51" width="280" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="G1a-Lr-2gC"/>
                                                     </constraints>
@@ -323,16 +323,26 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018-05-11 20:14:00Z" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttc-Bx-g2W">
+                                                    <rect key="frame" x="20" y="88" width="280" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="ttc-Bx-g2W" firstAttribute="top" secondItem="tqy-0k-tib" secondAttribute="bottom" constant="12" id="7In-e1-c6b"/>
                                                 <constraint firstItem="tqy-0k-tib" firstAttribute="leading" secondItem="zQ4-pl-ETc" secondAttribute="leadingMargin" id="DBo-OO-yqA"/>
+                                                <constraint firstAttribute="bottom" secondItem="ttc-Bx-g2W" secondAttribute="bottom" constant="10.67" id="L4w-rT-rwT"/>
+                                                <constraint firstItem="zUg-Nz-goH" firstAttribute="top" secondItem="zQ4-pl-ETc" secondAttribute="topMargin" id="PqC-AN-bKe"/>
                                                 <constraint firstItem="pK8-bG-IKq" firstAttribute="leading" secondItem="zQ4-pl-ETc" secondAttribute="leadingMargin" id="R44-2T-0Ur"/>
                                                 <constraint firstItem="zUg-Nz-goH" firstAttribute="trailing" secondItem="zQ4-pl-ETc" secondAttribute="trailingMargin" id="V16-wX-3SN"/>
                                                 <constraint firstItem="tqy-0k-tib" firstAttribute="top" secondItem="pK8-bG-IKq" secondAttribute="bottom" constant="13" id="Whe-4e-5sH"/>
+                                                <constraint firstItem="ttc-Bx-g2W" firstAttribute="leading" secondItem="zQ4-pl-ETc" secondAttribute="leadingMargin" id="bjH-q9-egc"/>
                                                 <constraint firstItem="zUg-Nz-goH" firstAttribute="top" secondItem="zQ4-pl-ETc" secondAttribute="topMargin" id="jYs-Mq-j8z"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="tqy-0k-tib" secondAttribute="bottom" constant="13" id="m7e-oG-Wc3"/>
+                                                <constraint firstItem="zUg-Nz-goH" firstAttribute="leading" secondItem="ttc-Bx-g2W" secondAttribute="trailing" constant="16" id="oAG-Fe-VUa"/>
                                                 <constraint firstItem="pK8-bG-IKq" firstAttribute="top" secondItem="zQ4-pl-ETc" secondAttribute="topMargin" id="oXK-Lq-yEk"/>
-                                                <constraint firstItem="zUg-Nz-goH" firstAttribute="leading" secondItem="tqy-0k-tib" secondAttribute="trailing" constant="8" id="qHQ-TU-Hoh"/>
+                                                <constraint firstItem="zUg-Nz-goH" firstAttribute="leading" secondItem="tqy-0k-tib" secondAttribute="trailing" constant="16" id="qHQ-TU-Hoh"/>
                                                 <constraint firstItem="zUg-Nz-goH" firstAttribute="bottom" secondItem="zQ4-pl-ETc" secondAttribute="bottomMargin" id="wXa-X7-6jH"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -341,20 +351,21 @@
                                         <connections>
                                             <outlet property="missionNumberLabel" destination="pK8-bG-IKq" id="2IC-YD-IcZ"/>
                                             <outlet property="missionPatchImageView" destination="zUg-Nz-goH" id="ALp-dl-bzn"/>
+                                            <outlet property="missionSubtitleLabel" destination="ttc-Bx-g2W" id="L1G-uy-2yA"/>
                                             <outlet property="missionTitleLabel" destination="tqy-0k-tib" id="LHe-Cm-R9c"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailRocketCell" rowHeight="175" id="uGN-49-2Ut" customClass="MissionDetailRocketTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="128" width="414" height="175"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailRocketCell" rowHeight="230" id="uGN-49-2Ut" customClass="MissionDetailRocketTableViewCell" customModule="Rockety" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="148" width="414" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uGN-49-2Ut" id="NJ7-1N-KBr">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="174.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="229.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="KQW-mf-Sek">
-                                                    <rect key="frame" x="20" y="11" width="78" height="153"/>
+                                                    <rect key="frame" x="15" y="11" width="78" height="208"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="153" id="QVd-YI-kZ2"/>
+                                                        <constraint firstAttribute="height" constant="208" id="QVd-YI-kZ2"/>
                                                         <constraint firstAttribute="width" constant="78" id="tma-qZ-vdP"/>
                                                     </constraints>
                                                 </imageView>
@@ -364,14 +375,17 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="SpaceX   🇺🇸" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpQ-q4-fQR">
-                                                    <rect key="frame" x="106" y="45.333333333333336" width="280" height="21.666666666666664"/>
-                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="China Aerospace Science and Technology Corporation" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpQ-q4-fQR">
+                                                    <rect key="frame" x="106" y="45" width="280" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="tOu-G1-6D9"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIM-up-y0G">
-                                                    <rect key="frame" x="106" y="75" width="280" height="89"/>
+                                                    <rect key="frame" x="106" y="103" width="280" height="111"/>
                                                     <string key="text">With the ability to lift into orbit over 54 metric tons (119,000 lb)--a mass equivalent to a 737 jetliner loaded with passengers, crew, luggage and fuel--Falcon Heavy can lift more than twice the payload of the next closest operational vehicle, the Delta IV Heavy, at one-third the cost.</string>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -380,17 +394,17 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="KQW-mf-Sek" firstAttribute="bottom" secondItem="NJ7-1N-KBr" secondAttribute="bottomMargin" id="1fn-Nf-vcK"/>
-                                                <constraint firstItem="XIM-up-y0G" firstAttribute="bottom" secondItem="NJ7-1N-KBr" secondAttribute="bottomMargin" id="6bb-LK-fuB"/>
-                                                <constraint firstItem="KQW-mf-Sek" firstAttribute="leading" secondItem="NJ7-1N-KBr" secondAttribute="leadingMargin" id="B5a-iu-WtV"/>
+                                                <constraint firstItem="XIM-up-y0G" firstAttribute="bottom" secondItem="NJ7-1N-KBr" secondAttribute="bottomMargin" constant="-5" id="6bb-LK-fuB"/>
+                                                <constraint firstItem="KQW-mf-Sek" firstAttribute="leading" secondItem="NJ7-1N-KBr" secondAttribute="leadingMargin" constant="-5" id="B5a-iu-WtV"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="gBT-A3-CW1" secondAttribute="trailing" constant="8" id="J3c-GU-Ufs"/>
                                                 <constraint firstItem="DpQ-q4-fQR" firstAttribute="top" secondItem="gBT-A3-CW1" secondAttribute="bottom" constant="8" id="Wp2-gQ-Tt5"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="DpQ-q4-fQR" secondAttribute="trailing" constant="8" id="ZJD-gx-hpJ"/>
                                                 <constraint firstItem="XIM-up-y0G" firstAttribute="top" secondItem="DpQ-q4-fQR" secondAttribute="bottom" constant="8.0000000000000142" id="aAG-Zf-F4T"/>
-                                                <constraint firstItem="DpQ-q4-fQR" firstAttribute="leading" secondItem="KQW-mf-Sek" secondAttribute="trailing" constant="8" id="aaG-xx-hdH"/>
-                                                <constraint firstItem="XIM-up-y0G" firstAttribute="leading" secondItem="KQW-mf-Sek" secondAttribute="trailing" constant="8" id="bWR-CW-EDg"/>
+                                                <constraint firstItem="DpQ-q4-fQR" firstAttribute="leading" secondItem="KQW-mf-Sek" secondAttribute="trailing" constant="13" id="aaG-xx-hdH"/>
+                                                <constraint firstItem="XIM-up-y0G" firstAttribute="leading" secondItem="KQW-mf-Sek" secondAttribute="trailing" constant="13" id="bWR-CW-EDg"/>
                                                 <constraint firstItem="gBT-A3-CW1" firstAttribute="top" secondItem="NJ7-1N-KBr" secondAttribute="topMargin" id="dXC-Kp-HpO"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="XIM-up-y0G" secondAttribute="trailing" constant="8" id="ifE-Qf-JR9"/>
-                                                <constraint firstItem="gBT-A3-CW1" firstAttribute="leading" secondItem="KQW-mf-Sek" secondAttribute="trailing" constant="8" id="ke6-9w-okI"/>
+                                                <constraint firstItem="gBT-A3-CW1" firstAttribute="leading" secondItem="KQW-mf-Sek" secondAttribute="trailing" constant="13" id="ke6-9w-okI"/>
                                                 <constraint firstItem="KQW-mf-Sek" firstAttribute="top" secondItem="NJ7-1N-KBr" secondAttribute="topMargin" id="pRh-JX-nwa"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -404,7 +418,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailStage1Cell" rowHeight="75" id="TR5-Lx-E6z" customClass="MissionDetailStage1TableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="303" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="378" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TR5-Lx-E6z" id="TwJ-cZ-MlF">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="74.666666666666671"/>
@@ -454,7 +468,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailStage1DCell" rowHeight="45" id="sic-uq-Aip" customClass="MissionDetailStage1DTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="378" width="414" height="45"/>
+                                        <rect key="frame" x="0.0" y="453" width="414" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sic-uq-Aip" id="RgJ-qZ-TnW">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44.666666666666664"/>
@@ -495,7 +509,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailStage2Cell" rowHeight="105" id="Bp8-P5-lBo" customClass="MissionDetailStage2TableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="423" width="414" height="105"/>
+                                        <rect key="frame" x="0.0" y="498" width="414" height="105"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bp8-P5-lBo" id="RcA-lb-hBT">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="104.66666666666667"/>
@@ -511,13 +525,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iridium NEXT 6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZF-9a-pUo">
-                                                    <rect key="frame" x="101" y="44" width="127.66666666666669" height="23"/>
+                                                    <rect key="frame" x="101" y="44" width="293" height="23"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iridium Communications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mii-qP-ZxL">
-                                                    <rect key="frame" x="101" y="73" width="183" height="21"/>
+                                                    <rect key="frame" x="101" y="73" width="293" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -527,7 +541,9 @@
                                                 <constraint firstItem="lTP-5c-awM" firstAttribute="top" secondItem="RcA-lb-hBT" secondAttribute="topMargin" id="7vE-Pt-5Ph"/>
                                                 <constraint firstItem="mii-qP-ZxL" firstAttribute="bottom" secondItem="RcA-lb-hBT" secondAttribute="bottomMargin" id="Dad-YE-Ys3"/>
                                                 <constraint firstItem="kZF-9a-pUo" firstAttribute="top" secondItem="lTP-5c-awM" secondAttribute="bottom" constant="8" id="Ksi-L4-X8n"/>
+                                                <constraint firstItem="kZF-9a-pUo" firstAttribute="trailing" secondItem="RcA-lb-hBT" secondAttribute="trailingMargin" id="TBn-in-7cK"/>
                                                 <constraint firstItem="kZF-9a-pUo" firstAttribute="leading" secondItem="RcA-lb-hBT" secondAttribute="leading" constant="101" id="bSW-WH-dKo"/>
+                                                <constraint firstItem="mii-qP-ZxL" firstAttribute="trailing" secondItem="RcA-lb-hBT" secondAttribute="trailingMargin" id="jU8-rJ-xSi"/>
                                                 <constraint firstItem="mii-qP-ZxL" firstAttribute="leading" secondItem="RcA-lb-hBT" secondAttribute="leading" constant="101" id="nIb-RL-CaG"/>
                                                 <constraint firstItem="lTP-5c-awM" firstAttribute="leading" secondItem="RcA-lb-hBT" secondAttribute="leadingMargin" constant="86" id="yah-j1-et7"/>
                                                 <constraint firstItem="mii-qP-ZxL" firstAttribute="top" secondItem="kZF-9a-pUo" secondAttribute="bottom" constant="6" id="z67-zE-Nhq"/>
@@ -541,7 +557,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailStage2DCell" rowHeight="70" id="Gh4-Em-5dK" customClass="MissionDetailStage2DTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="528" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="603" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gh4-Em-5dK" id="1GC-fU-FOc">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="69.666666666666671"/>
@@ -576,7 +592,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailLaunchCell" rowHeight="150" id="F49-lA-ggg" customClass="MissionDetailLaunchTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="598" width="414" height="150"/>
+                                        <rect key="frame" x="0.0" y="673" width="414" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="F49-lA-ggg" id="OUE-sP-9Kc">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="149.66666666666666"/>
@@ -591,8 +607,8 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VAFB SLC 4E" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCv-jw-LcX">
-                                                            <rect key="frame" x="15" y="49" width="113" height="23"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VAFB SLC 4E" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCv-jw-LcX">
+                                                            <rect key="frame" x="15" y="49" width="281" height="23"/>
                                                             <fontDescription key="fontDescription" type="italicSystem" pointSize="19"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -609,6 +625,7 @@
                                                         <constraint firstItem="lCv-jw-LcX" firstAttribute="top" secondItem="XVF-DE-1es" secondAttribute="bottom" constant="12" id="DDa-4c-thj"/>
                                                         <constraint firstItem="lCv-jw-LcX" firstAttribute="leading" secondItem="si2-7j-xZ9" secondAttribute="leading" constant="15" id="L5a-ww-A8U"/>
                                                         <constraint firstItem="QIx-dp-SP9" firstAttribute="top" secondItem="lCv-jw-LcX" secondAttribute="bottom" constant="8" id="adS-fo-ac5"/>
+                                                        <constraint firstAttribute="trailing" secondItem="lCv-jw-LcX" secondAttribute="trailing" constant="16" id="aoT-ql-R9D"/>
                                                         <constraint firstItem="XVF-DE-1es" firstAttribute="top" secondItem="si2-7j-xZ9" secondAttribute="top" constant="10" id="baf-sp-jg4"/>
                                                         <constraint firstAttribute="bottom" secondItem="QIx-dp-SP9" secondAttribute="bottom" constant="8" id="f05-YA-vlu"/>
                                                         <constraint firstItem="XVF-DE-1es" firstAttribute="leading" secondItem="si2-7j-xZ9" secondAttribute="leading" constant="15" id="kGl-jJ-VLo"/>
@@ -619,7 +636,6 @@
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="DlM-QK-CoO">
                                                     <rect key="frame" x="312" y="24.999999999999993" width="94" height="100.33333333333331"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="100.33" id="7Ob-YX-f0h"/>
                                                         <constraint firstAttribute="width" constant="94" id="jOu-6U-bMb"/>
                                                     </constraints>
                                                 </mapView>
@@ -644,7 +660,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailPressCell" rowHeight="100" id="oq5-DQ-dL2" customClass="MissionDetailPressTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="748" width="414" height="100"/>
+                                        <rect key="frame" x="0.0" y="823" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oq5-DQ-dL2" id="Vgw-Nb-esO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="99.666666666666671"/>
@@ -718,7 +734,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="pGF-0s-K8v" kind="unwind" unwindAction="returnMissionsWithSegue:" id="ZsY-ak-U9D"/>
+                                    <segue destination="pGF-0s-K8v" kind="unwind" identifier="returnMissionsWithSegue" unwindAction="returnMissionsWithSegue:" id="ZsY-ak-U9D"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BA4-FP-IBc">
@@ -749,6 +765,7 @@
                         <viewLayoutGuide key="safeArea" id="AHO-jb-xyk"/>
                     </view>
                     <connections>
+                        <outlet property="calendarButton" destination="BA4-FP-IBc" id="3Ci-Hb-gPL"/>
                         <outlet property="tableView" destination="OrK-wR-e0w" id="HeS-v4-ze5"/>
                     </connections>
                 </viewController>
@@ -803,10 +820,10 @@
         <image name="Reddit-White" width="33" height="33"/>
         <image name="SpaceX" width="700" height="700"/>
         <image name="Youtube-White" width="33" height="33"/>
-        <image name="spaceshuttle" width="33" height="33"/>
+        <image name="space-shuttle" width="550" height="550"/>
         <image name="tabbar_rocket" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GUA-hD-Ehs"/>
+        <segue reference="7qe-6b-bY1"/>
     </inferredMetricsTieBreakers>
 </document>

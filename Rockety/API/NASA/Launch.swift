@@ -20,6 +20,8 @@ struct ElseMission: Codable {
         let name: String!
         let net: String!
         
+        let vidURLs: [String]
+        let infoURLs: [String]
         let location: Location!
         let rocket: Rocket!
         let missions: [Mission]!
