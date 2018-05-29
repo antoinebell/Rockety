@@ -7,13 +7,13 @@ Fascinated by space and aviation I wanted a simple app to keep track of the next
 
 ### Features ###
 
-[x] [SpaceX API] (github.com/r-spacex/SpaceX-API)
-[x] [LaunchLibraryAPI] (http://launchlibrary.net/docs/1.4/api.html)
-[] Detailed View
-[x] Local Notifications
-[x] CoreSpotlight
-[x] Add launch to Calendar
-[x] Peek and Pop
+- [x] [SpaceX API] (github.com/r-spacex/SpaceX-API)
+- [x] [LaunchLibraryAPI] (http://launchlibrary.net/docs/1.4/api.html)
+- [] Detailed View
+- [x] Local Notifications
+- [x] CoreSpotlight
+- [x] Add launch to Calendar
+- [x] Peek and Pop
 
 #### Credits ####
 
