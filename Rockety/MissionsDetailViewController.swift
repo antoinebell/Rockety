@@ -14,6 +14,7 @@ import SafariServices
 import CFAlertViewController
 import BulletinBoard
 import EventKit
+import Crashlytics
 
 class MissionsDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -102,7 +103,14 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
         gestureRecognizer.direction = .right
         self.view.addGestureRecognizer(gestureRecognizer)
         
-        
+        //Fabric
+        var attributes:[String:String] = [:]
+        if isSpaceX {
+            attributes = ["rocketName": mission.rocket.rocket_name, "mission": mission.mission_name]
+        } else {
+            attributes = ["rocketName": launch.rocket.name, "mission": launch.name]
+        }
+        Answers.logCustomEvent(withName: "Rocket", customAttributes: attributes)
     }
 
     override func didReceiveMemoryWarning() {

@@ -171,7 +171,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R O C K E T Y" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkO-Tl-fyQ">
-                                <rect key="frame" x="133" y="166" width="148" height="27"/>
+                                <rect key="frame" x="133" y="166" width="148" height="26.666666666666657"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="148" id="MpB-AF-y2F"/>
                                 </constraints>
@@ -180,25 +180,25 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiC-a5-6jh">
-                                <rect key="frame" x="20" y="243" width="118" height="22"/>
+                                <rect key="frame" x="20" y="242.66666666666666" width="118" height="21.999999999999972"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SpaceX Launches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBr-jA-XId">
-                                <rect key="frame" x="20" y="280" width="136.33333333333334" height="21"/>
+                                <rect key="frame" x="20" y="279.66666666666669" width="136.33333333333334" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other Launches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqz-Kv-IGF">
-                                <rect key="frame" x="20" y="325" width="121" height="21"/>
+                                <rect key="frame" x="20" y="324.66666666666669" width="121" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jmx-EG-7Jz" customClass="AIFlatSwitch" customModule="AIFlatSwitch">
-                                <rect key="frame" x="364" y="270" width="30" height="30"/>
+                                <rect key="frame" x="364" y="269.66666666666669" width="30" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="8uC-si-1pl"/>
@@ -220,7 +220,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1UU-e1-I6a" customClass="AIFlatSwitch" customModule="AIFlatSwitch">
-                                <rect key="frame" x="364" y="315" width="30" height="30"/>
+                                <rect key="frame" x="364" y="314.66666666666669" width="30" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="680-ez-kFs"/>

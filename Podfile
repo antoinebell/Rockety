@@ -12,6 +12,8 @@ target 'Rockety' do
   pod 'CFAlertViewController'
   pod 'BulletinBoard'
   pod 'AIFlatSwitch'
+  pod 'Fabric'
+  pod 'Crashlytics'
   
   target 'RocketyTests' do
     inherit! :search_paths

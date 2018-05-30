@@ -261,6 +261,7 @@
 				658DCF4B20B32080001B0843 /* Resources */,
 				3D3F8F6A33A31FE665C1C95E /* [CP] Embed Pods Frameworks */,
 				FFD510A1E7F3F3625933C333 /* [CP] Copy Pods Resources */,
+				65587F7E20BDEEC9001B1FFD /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -417,6 +418,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rockety/Pods-Rockety-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		65587F7E20BDEEC9001B1FFD /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ee6b01c575016db87fe6e59bf62b48e40e5278ea e340af40e46d09e16c0121dc5b520dbb9c8504e96955f2199e38e2a9228e8087";
 		};
 		A0265A2715E07758FBDBFB41 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
