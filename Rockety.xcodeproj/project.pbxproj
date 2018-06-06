@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		59659C5E47F5AF5DEF01218B /* Pods_Rockety.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5BCB285AB369899EB015F6 /* Pods_Rockety.framework */; };
+		59659C5E47F5AF5DEF01218B /* Pods_Rockety.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5BCB285AB369899EB015F6 /* Pods_Rockety.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		65587F8020BEDE2A001B1FFD /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65587F7F20BEDE2A001B1FFD /* CustomSegmentedControl.swift */; };
 		656D7C1220B33271000AC58C /* An-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 658DCF8820B33150001B0843 /* An-Black.otf */; };
 		656D7C1320B33271000AC58C /* An-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 658DCF8C20B33151001B0843 /* An-Bold.otf */; };
 		656D7C1420B33271000AC58C /* An-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 658DCF8720B3314F001B0843 /* An-Light.otf */; };
@@ -17,6 +18,11 @@
 		656D7C1B20B334C9000AC58C /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656D7C1A20B334C9000AC58C /* Mission.swift */; };
 		656D7C1D20B33941000AC58C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656D7C1C20B33941000AC58C /* API.swift */; };
 		656D7C1E20B35CA4000AC58C /* Anurati-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 658DCF7020B321DF001B0843 /* Anurati-Regular.otf */; };
+		6573924C20C6E06A00B0033F /* AgenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6573924B20C6E06A00B0033F /* AgenciesViewController.swift */; };
+		6573924E20C6E0DC00B0033F /* LSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6573924D20C6E0DC00B0033F /* LSP.swift */; };
+		6573925020C6E22F00B0033F /* AgencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6573924F20C6E22F00B0033F /* AgencyTableViewCell.swift */; };
+		6573925220C6EF7000B0033F /* AgencyMissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6573925120C6EF7000B0033F /* AgencyMissionsViewController.swift */; };
+		6573925420C6F63500B0033F /* AgencyLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6573925320C6F63500B0033F /* AgencyLaunch.swift */; };
 		658DCF5120B32081001B0843 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658DCF5020B32081001B0843 /* AppDelegate.swift */; };
 		658DCF5320B32081001B0843 /* MissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658DCF5220B32081001B0843 /* MissionsViewController.swift */; };
 		658DCF5620B32081001B0843 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 658DCF5420B32081001B0843 /* Main.storyboard */; };
@@ -54,9 +60,15 @@
 /* Begin PBXFileReference section */
 		1517BB096DF03C2BC2AE67E2 /* Pods-Rockety.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rockety.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rockety/Pods-Rockety.release.xcconfig"; sourceTree = "<group>"; };
 		3F5BCB285AB369899EB015F6 /* Pods_Rockety.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rockety.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65587F7F20BEDE2A001B1FFD /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		656D7C1820B333D5000AC58C /* MissionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionTableViewCell.swift; sourceTree = "<group>"; };
 		656D7C1A20B334C9000AC58C /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
 		656D7C1C20B33941000AC58C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		6573924B20C6E06A00B0033F /* AgenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgenciesViewController.swift; sourceTree = "<group>"; };
+		6573924D20C6E0DC00B0033F /* LSP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSP.swift; sourceTree = "<group>"; };
+		6573924F20C6E22F00B0033F /* AgencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyTableViewCell.swift; sourceTree = "<group>"; };
+		6573925120C6EF7000B0033F /* AgencyMissionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyMissionsViewController.swift; sourceTree = "<group>"; };
+		6573925320C6F63500B0033F /* AgencyLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyLaunch.swift; sourceTree = "<group>"; };
 		658DCF4D20B32081001B0843 /* Rockety.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rockety.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		658DCF5020B32081001B0843 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		658DCF5220B32081001B0843 /* MissionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +170,10 @@
 				65F542B620BB26080023EAFB /* SettingsViewController.swift */,
 				65F542BA20BC365C0023EAFB /* IsoCountries.swift */,
 				65F542B820BC36400023EAFB /* IsoCountryCodes.swift */,
+				65587F7F20BEDE2A001B1FFD /* CustomSegmentedControl.swift */,
+				6573924B20C6E06A00B0033F /* AgenciesViewController.swift */,
+				6573924F20C6E22F00B0033F /* AgencyTableViewCell.swift */,
+				6573925120C6EF7000B0033F /* AgencyMissionsViewController.swift */,
 				65F542B120BAB2480023EAFB /* BulletinBoard */,
 				65A48D6920B48F40000F7EEE /* API */,
 				658DCF5420B32081001B0843 /* Main.storyboard */,
@@ -192,20 +208,22 @@
 			isa = PBXGroup;
 			children = (
 				656D7C1C20B33941000AC58C /* API.swift */,
-				65A48D6A20B48F46000F7EEE /* NASA */,
+				65A48D6A20B48F46000F7EEE /* LLAPI */,
 				65A48D6820B48F35000F7EEE /* SpaceX */,
 			);
 			path = API;
 			sourceTree = "<group>";
 		};
-		65A48D6A20B48F46000F7EEE /* NASA */ = {
+		65A48D6A20B48F46000F7EEE /* LLAPI */ = {
 			isa = PBXGroup;
 			children = (
 				65F542AB20B9B90E0023EAFB /* Launch.swift */,
+				6573925320C6F63500B0033F /* AgencyLaunch.swift */,
 				65F542AD20B9C59D0023EAFB /* Agency.swift */,
 				65F542AF20B9FE350023EAFB /* Pad.swift */,
+				6573924D20C6E0DC00B0033F /* LSP.swift */,
 			);
-			path = NASA;
+			path = LLAPI;
 			sourceTree = "<group>";
 		};
 		65A48D6B20B48F5B000F7EEE /* Supporting Files */ = {
@@ -401,18 +419,20 @@
 				"${BUILT_PRODUCTS_DIR}/AIFlatSwitch/AIFlatSwitch.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BulletinBoard.framework",
+				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
+				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
 				"${BUILT_PRODUCTS_DIR}/CFAlertViewController/CFAlertViewController.framework",
-				"${BUILT_PRODUCTS_DIR}/PinterestSegment/PinterestSegment.framework",
+				"${BUILT_PRODUCTS_DIR}/TBEmptyDataSet/TBEmptyDataSet.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AIFlatSwitch.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BulletinBoard.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BetterSegmentedControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CFAlertViewController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PinterestSegment.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TBEmptyDataSet.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -497,17 +517,23 @@
 				656D7C1920B333D5000AC58C /* MissionTableViewCell.swift in Sources */,
 				65F542A820B99C2F0023EAFB /* FeedbackPageBulletinItem.swift in Sources */,
 				65F542BB20BC365C0023EAFB /* IsoCountries.swift in Sources */,
+				6573925220C6EF7000B0033F /* AgencyMissionsViewController.swift in Sources */,
 				65A48D5F20B4705D000F7EEE /* MissionDetailTableViewCell.swift in Sources */,
 				656D7C1B20B334C9000AC58C /* Mission.swift in Sources */,
 				65F542AA20B99C640023EAFB /* SelectionFeedbackGenerator.swift in Sources */,
 				65A48D6120B47273000F7EEE /* MissionsDetailViewController.swift in Sources */,
 				658DCF5120B32081001B0843 /* AppDelegate.swift in Sources */,
+				6573925020C6E22F00B0033F /* AgencyTableViewCell.swift in Sources */,
+				65587F8020BEDE2A001B1FFD /* CustomSegmentedControl.swift in Sources */,
 				65A48D6520B47C9C000F7EEE /* Launchpad.swift in Sources */,
 				65F542AC20B9B90E0023EAFB /* Launch.swift in Sources */,
+				6573925420C6F63500B0033F /* AgencyLaunch.swift in Sources */,
 				656D7C1D20B33941000AC58C /* API.swift in Sources */,
 				65A48D6320B47762000F7EEE /* Rocket.swift in Sources */,
+				6573924E20C6E0DC00B0033F /* LSP.swift in Sources */,
 				65F542B520BAB50E0023EAFB /* RocketSearchController.swift in Sources */,
 				65F542B720BB26080023EAFB /* SettingsViewController.swift in Sources */,
+				6573924C20C6E06A00B0033F /* AgenciesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -671,6 +697,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L6PKQSL7L2;
 				INFOPLIST_FILE = Rockety/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -690,6 +717,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L6PKQSL7L2;
 				INFOPLIST_FILE = Rockety/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

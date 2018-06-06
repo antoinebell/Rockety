@@ -8,12 +8,13 @@ target 'Rockety' do
   # Pods for Rockety
   pod 'Alamofire'
   pod 'AlamofireImage'
-  pod 'PinterestSegment'
+  pod 'BetterSegmentedControl'
   pod 'CFAlertViewController'
-  pod 'BulletinBoard'
+  pod 'BulletinBoard', '~> 2.0'
   pod 'AIFlatSwitch'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'TBEmptyDataSet'
   
   target 'RocketyTests' do
     inherit! :search_paths

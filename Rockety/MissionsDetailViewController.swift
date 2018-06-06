@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 import SafariServices
 import CFAlertViewController
-import BulletinBoard
+import BLTNBoard
 import EventKit
 import Crashlytics
 
@@ -26,10 +26,15 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     var launch: ElseMission.Launch!
     var rocketURL: API.Images = .none
+    var rocketTextURL: API.Descriptions = .none
     
-    lazy var bulletinManager: BulletinManager = {
+    var isAgency = false
+    var agencyLaunch: AgencyMission.Launch!
+    var agency: LSP.Agency!
+    
+    lazy var bulletinManager: BLTNItemManager = {
         let calendarPage = BulletinDataSource.makeCalendarPage()
-        return BulletinManager(rootItem: calendarPage)
+        return BLTNItemManager(rootItem: calendarPage)
     }()
     
     let eventStore = EKEventStore()
@@ -45,54 +50,105 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        tableView.estimatedRowHeight = 145
+        tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        if !isSpaceX {
-            if launch.rocket.name == "Falcon 1 Merlin A" || launch.rocket.name == "Falcon 1 Merlin C" {
-                rocketURL = .falcon1
-            } else if launch.rocket.name == "Falcon 9 Full Thrust" || launch.rocket.name == "Falcon 9 FT" || launch.rocket.name == "Falcon 9 v1.0" || launch.rocket.name == "Falcon 9 v1.1" {
-                rocketURL = .falcon9
-            } else if launch.rocket.name == "Falcon Heavy" {
-                rocketURL = .falconheavy
-            } else if launch.rocket.name == "Long March 2C/SMA" {
-                rocketURL = .longmarch2c
-            } else if launch.rocket.name == "Long March 3A" {
-                rocketURL = .longmarch3a
-            } else if launch.rocket.name == "Long March 3B" {
-                rocketURL = .longmarch3b
-            } else if launch.rocket.name == "GSLV Mk III" {
-                rocketURL = .gslvmkiii
-            } else if launch.rocket.name == "Ariane 5" || launch.rocket.name == "Ariane 5 ECA" || launch.rocket.name == "Ariane 5 ES" {
-                rocketURL = .ariane5
-            } else if launch.rocket.name == "Ariane 6" {
-                rocketURL = .ariane6
-            } else if launch.rocket.name == "Soyuz" || launch.rocket.name == "Soyuz-FG" {
-                rocketURL = .soyuz
-            } else if launch.rocket.name == "Vega" {
-                rocketURL = .vega
-            } else if launch.rocket.name == "Vega-C" {
-                rocketURL = .vegac
-            }
+        var rocketName = ""
+        if isSpaceX {
+            rocketName = "\(mission.rocket.rocket_name) \(mission.rocket.rocket_type)"
+        } else if !isSpaceX && !isAgency {
+            rocketName = launch.rocket.name
+        } else if isAgency {
+            let delimiter = "|"
+            var missionName = agencyLaunch.name.components(separatedBy: delimiter)
+            rocketName = missionName[0]
+            rocketName = rocketName.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+
+        print("RocketName:", rocketName)
+        
+        if rocketName.range(of: "Falcon 1") != nil {
+            rocketURL = .falcon1
+            rocketTextURL = .falcon1
+        } else if rocketName.range(of: "Falcon 9") != nil {
+            rocketURL = .falcon9
+            rocketTextURL = .falcon9
+        } else if rocketName.range(of: "Falcon Heavy") != nil {
+            rocketURL = .falconheavy
+            rocketTextURL = .falconheavy
+        } else if rocketName.range(of: "Long March 2A") != nil {
+            rocketURL = .longmarch2a
+            rocketTextURL = .longmarch2a
+        } else if rocketName.range(of: "Long March 2C") != nil {
+            rocketURL = .longmarch2c
+            rocketTextURL = .longmarch2c
+        } else if rocketName.range(of: "Long March 2D") != nil {
+            rocketURL = .longmarch2d
+            rocketTextURL = .longmarch2d
+        } else if rocketName.range(of: "Long March 2E") != nil {
+            rocketURL = .longmarch2e
+            rocketTextURL = .longmarch2e
+        } else if rocketName.range(of: "Long March 2F") != nil {
+            rocketURL = .longmarch2f
+            rocketTextURL = .longmarch2f
+        } else if rocketName.range(of: "Long March 3A") != nil {
+            rocketURL = .longmarch3a
+            rocketTextURL = .longmarch3a
+        } else if rocketName.range(of: "Long March 3B") != nil {
+            rocketURL = .longmarch3b
+            rocketTextURL = .longmarch3b
+        } else if rocketName.range(of: "Long March 3C") != nil {
+            rocketURL = .longmarch3c
+            rocketTextURL = .longmarch3c
+        } else if rocketName.range(of: "Long March 4A") != nil {
+            rocketURL = .longmarch4a
+            rocketTextURL = .longmarch4a
+        } else if rocketName.range(of: "Long March 4B") != nil {
+            rocketURL = .longmarch4b
+            rocketTextURL = .longmarch4b
+        } else if rocketName.range(of: "Long March 4C") != nil {
+            rocketURL = .longmarch4c
+            rocketTextURL = .longmarch4c
+        } else if rocketName == "GSLV Mk II" {
+            rocketURL = .gslvmkii
+            rocketTextURL = .gslvmkii
+        } else if rocketName == "GSLV Mk III" {
+            rocketURL = .gslvmkiii
+            rocketTextURL = .gslvmkiii
+        } else if rocketName.range(of: "PSLV") != nil {
+            rocketURL = .pslv
+            rocketTextURL = .pslv
+        } else if rocketName.range(of: "Ariane 5") != nil {
+            rocketURL = .ariane5
+            rocketTextURL = .ariane5
+        } else if rocketName.range(of: "Ariane 6") != nil {
+            rocketURL = .ariane6
+            rocketTextURL = .ariane6
+        } else if rocketName.range(of: "Soyuz") != nil {
+            rocketURL = .soyuz
+            rocketTextURL = .soyuz
+        } else if rocketName == "Vega" {
+            rocketURL = .vega
+            rocketTextURL = .vega
+        } else if rocketName == "Vega-C" {
+            rocketURL = .vegac
+            rocketTextURL = .vegac
+        } else if rocketName.range(of: "Rokot") != nil {
+            rocketURL = .rokot
+            rocketTextURL = .rokot
+        } else {
+            print("No RocketURL and No Text")
         }
         
-        if isSpaceX {
-            let rocketName = "\(mission.rocket.rocket_name) \(mission.rocket.rocket_type)"
-            print(rocketName)
-            if rocketName == "Falcon 1 Merlin A" || rocketName == "Falcon 1 Merlin C" {
-                rocketURL = .falcon1
-            } else if rocketName == "Falcon 9 Full Thrust" || rocketName == "Falcon 9 FT" || rocketName == "Falcon 9 v1.0" || rocketName == "Falcon 9 v1.1" {
-                rocketURL = .falcon9
-            } else if rocketName == "Falcon Heavy" {
-                rocketURL = .falconheavy
-            }
-        }
+        print("RocketURL, Text:", rocketURL, rocketTextURL)
         
         var eventAdded: Bool!
         if isSpaceX {
             eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(mission.flight_number)")
-        } else {
+        } else if !isSpaceX && !isAgency {
             eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(launch.id)")
+        } else {
+            eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(agencyLaunch.id)")
         }
         
         if eventAdded {
@@ -107,10 +163,22 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
         var attributes:[String:String] = [:]
         if isSpaceX {
             attributes = ["rocketName": mission.rocket.rocket_name, "mission": mission.mission_name]
-        } else {
+        } else if !isAgency && !isSpaceX {
             attributes = ["rocketName": launch.rocket.name, "mission": launch.name]
+        } else {
+            let delimiter = "|"
+            var missionName = agencyLaunch.name.components(separatedBy: delimiter)
+            missionName[1].remove(at: missionName[1].startIndex)
+            attributes = ["rocketName": missionName[0], "mission": missionName[1]]
         }
         Answers.logCustomEvent(withName: "Rocket", customAttributes: attributes)
+        
+        if isSpaceX {
+            UserDefaults.standard.set(true, forKey: "RocketDetail_isSpaceX")
+        } else {
+            UserDefaults.standard.set(false, forKey: "RocketDetail_isSpaceX")
+        }
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,7 +186,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: Image
+    //MARK: API
     
     func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         print(url)
@@ -135,6 +203,21 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
             DispatchQueue.main.async() {
                 imageView.image = UIImage(data: data)
             }
+        }
+    }
+    
+    func downloadDescription(url: URL, label: UILabel) {
+        print(url)
+        DispatchQueue.main.async {
+            var string = ""
+            do {
+                string = try String(contentsOf: url)
+                label.text = string
+            } catch {
+                print("Error")
+                label.text = "No description available."
+            }
+            print(label.text)
         }
     }
     
@@ -158,9 +241,9 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if isSpaceX {
+        if isSpaceX { //MARK: Falcon
             
-            if rocket.id == "falconheavy" {
+            if rocket.id == "falconheavy" { //MARK: Falcon Heavy
                 if indexPath.row == 0 {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailTitleCell", for: indexPath) as! MissionDetailTitleTableViewCell
                     cell.missionNumberLabel.text = "#\(mission.flight_number)"
@@ -185,7 +268,14 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                     let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailRocketCell", for: indexPath) as! MissionDetailRocketTableViewCell
                     cell.rocketNameLabel.text = mission.rocket.rocket_name + " " + mission.rocket.rocket_type
                     cell.rocketOwnerLabel.text = "SpaceX  🇺🇸"
-                    cell.rocketDescriptionLabel.text = rocket.description
+                    var string = ""
+                    do {
+                        string = try String(contentsOf: URL(string: API.Descriptions.falconheavy.url())!)
+                        cell.rocketDescriptionLabel.text = string
+                    } catch {
+                        print("Error")
+                        cell.rocketDescriptionLabel.text = "No description available."
+                    }
                     downloadImage(url: URL(string: API.Images.falconheavy.url())!, imageView: cell.rocketImageView)
                     return cell
                 } else if indexPath.row == 2 {
@@ -282,6 +372,8 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                     }
                     
                     cell.rocketCoreCustomersLabel.text = customers
+                    cell.rocketCoreDescriptionLabel.text = ""
+
                     
                     if mission.rocket.second_stage.payloads.count != 1 {
                         cell.separatorInset.left = 500
@@ -327,7 +419,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                     
                     return cell
                 }
-            } else {
+            } else { //MARK: Falcon 1 & 9
                 
                 if indexPath.row == 0 {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailTitleCell", for: indexPath) as! MissionDetailTitleTableViewCell
@@ -353,9 +445,28 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                     let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailRocketCell", for: indexPath) as! MissionDetailRocketTableViewCell
                     cell.rocketNameLabel.text = mission.rocket.rocket_name + " " + mission.rocket.rocket_type
                     cell.rocketOwnerLabel.text = "SpaceX  🇺🇸"
-                    cell.rocketDescriptionLabel.text = rocket.description
-
-                    downloadImage(url: URL(string: rocketURL.url())!, imageView: cell.rocketImageView)
+                    
+                    if mission.rocket.rocket_id == "falcon1" {
+                        var string = ""
+                        do {
+                            string = try String(contentsOf: URL(string: API.Descriptions.falcon1.url())!)
+                            cell.rocketDescriptionLabel.text = string
+                        } catch {
+                            print("Error")
+                            cell.rocketDescriptionLabel.text = "No description available."
+                        }
+                        downloadImage(url: URL(string: API.Images.falcon1.url())!, imageView: cell.rocketImageView)
+                    } else {
+                        var string = ""
+                        do {
+                            string = try String(contentsOf: URL(string: API.Descriptions.falcon9.url())!)
+                            cell.rocketDescriptionLabel.text = string
+                        } catch {
+                            print("Error")
+                            cell.rocketDescriptionLabel.text = "No description available."
+                        }
+                        downloadImage(url: URL(string: API.Images.falcon9.url())!, imageView: cell.rocketImageView)
+                    }
                     return cell
                 } else if indexPath.row == 2 {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1Cell", for: indexPath) as! MissionDetailStage1TableViewCell
@@ -399,6 +510,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                     }
                     
                     cell.rocketCoreCustomersLabel.text = customers
+                    cell.rocketCoreDescriptionLabel.text = ""
                     
                     if mission.rocket.second_stage.payloads.count != 1 {
                         cell.separatorInset.left = 500
@@ -446,7 +558,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                 }
             }
             
-        } else { //Else mission
+        } else if !isAgency { //MARK: Else mission
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailTitleCell", for: indexPath) as! MissionDetailTitleTableViewCell
                 
@@ -474,10 +586,16 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailRocketCell", for: indexPath) as! MissionDetailRocketTableViewCell
                 cell.rocketNameLabel.text = launch.rocket.name
                 cell.rocketOwnerLabel.text = "\(launch.lsp.name!)  \(IsoCountryCodes.find(key: launch.lsp.countryCode).flag)"
-                cell.rocketDescriptionLabel.text = "Description"
-
+                cell.rocketDescriptionLabel.text = "No description available."
+                var string = ""
+                do {
+                    string = try String(contentsOf: URL(string: rocketTextURL.url())!)
+                    cell.rocketDescriptionLabel.text = string
+                } catch {
+                    print("Error")
+                    cell.rocketDescriptionLabel.text = "No description available."
+                }
                 downloadImage(url: URL(string: rocketURL.url())!, imageView: cell.rocketImageView)
-                
                 return cell
             } else if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1Cell", for: indexPath) as! MissionDetailStage1TableViewCell
@@ -495,6 +613,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                 if !launch.missions.isEmpty {
                     cell.rocketCoreIdLabel.text = "\(launch.missions[0].name!) (Satellite)"
                     cell.rocketCoreCustomersLabel.text = launch.missions[0].typeName
+                    cell.rocketCoreDescriptionLabel.text = launch.missions[0].description
                 } else {
                     cell.rocketCoreIdLabel.text = "N/A"
                     cell.rocketCoreCustomersLabel.text = "N/A"
@@ -521,33 +640,119 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailPressCell", for: indexPath) as! MissionDetailPressTableViewCell
                 cell.pressButton.addTarget(self, action: #selector(openElseLink(sender:)), for: .touchUpInside)
                 cell.youtubeButton.addTarget(self, action: #selector(openElseLink(sender:)), for: .touchUpInside)
-                
-//                cell.redditButton.addTarget(self, action: #selector(openLink(sender:)), for: .touchUpInside)
                 cell.redditButton.alpha = 0
                 
                 return cell
             } else { //Second cell of second stage
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2DCell", for: indexPath) as! MissionDetailStage2DTableViewCell
-//                cell.rocketCoreIdLabel.text = "\(mission.rocket.second_stage.payloads[1].payload_id) (\(mission.rocket.second_stage.payloads[1].payload_type))"
-//
-//                var customers = ""
-//                var customerCount = 0
-//                for customer in mission.rocket.second_stage.payloads[1].customers {
-//                    if customerCount != 0 {
-//                        customers = customers + " & \(customer)"
-//                    } else {
-//                        customers = "\(customer)"
-//                    }
-//                    customerCount = customerCount + 1
-//                }
-//
-//                cell.rocketCoreCustomersLabel.text = customers
                 
-                cell.rocketCoreIdLabel.text = "Payload"
-                cell.rocketCoreCustomersLabel.text = "Customer"
+                cell.rocketCoreIdLabel.text = "N/A"
+                cell.rocketCoreCustomersLabel.text = "N/A"
                 
                 return cell
             }
+        } else { //MARK: AgencyLaunch
+            
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailTitleCell", for: indexPath) as! MissionDetailTitleTableViewCell
+                
+                cell.missionNumberLabel.text = "#\(agencyLaunch.id!)"
+                
+                let delimiter = "|"
+                var missionName = agencyLaunch.name.components(separatedBy: delimiter)
+                missionName[1].remove(at: missionName[1].startIndex)
+                cell.missionTitleLabel.text = missionName[1]
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
+                if let date = dateFormatter.date(from: agencyLaunch.net) {
+                    let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
+                    cell.missionSubtitleLabel.text = localizedDateTime
+                } else {
+                    cell.missionSubtitleLabel.text = agencyLaunch.net
+                }
+                
+                cell.missionPatchImageView.alpha = 0
+                
+                return cell
+                
+            } else if indexPath.row == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailRocketCell", for: indexPath) as! MissionDetailRocketTableViewCell
+                
+                let delimiter = "|"
+                var missionName = agencyLaunch.name.components(separatedBy: delimiter)
+                
+                cell.rocketNameLabel.text = missionName[0]
+                cell.rocketOwnerLabel.text = "\(agency.name)  \(IsoCountryCodes.find(key: agency.countryCode).flag)"
+                cell.rocketDescriptionLabel.text = "No description available."
+                
+                print(rocketURL, rocketTextURL)
+                
+                var string = ""
+                do {
+                    string = try String(contentsOf: URL(string: rocketTextURL.url())!)
+                    cell.rocketDescriptionLabel.text = string
+                } catch {
+                    print("Error")
+                    cell.rocketDescriptionLabel.text = "No description available."
+                }
+                downloadImage(url: URL(string: rocketURL.url())!, imageView: cell.rocketImageView)
+                return cell
+            } else if indexPath.row == 2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage1Cell", for: indexPath) as! MissionDetailStage1TableViewCell
+                cell.rocketCoreSerialLabel.text = "N/A"
+                
+                cell.rocketCoreReusedLabel.alpha = 0
+                cell.rocketCoreReusedLabel.layer.borderColor = UIColor.white.cgColor
+                cell.rocketCoreReusedLabel.layer.borderWidth = 0.5
+                cell.rocketCoreReusedLabel.layer.cornerRadius = 10
+                
+                return cell
+            } else if indexPath.row == 3 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2Cell", for: indexPath) as! MissionDetailStage2TableViewCell
+                
+//                if !launch.missions.isEmpty {
+//                    cell.rocketCoreIdLabel.text = "\(launch.missions[0].name!) (Satellite)"
+//                    cell.rocketCoreCustomersLabel.text = launch.missions[0].typeName
+//                    cell.rocketCoreDescriptionLabel.text = launch.missions[0].description
+//                } else {
+                    cell.rocketCoreIdLabel.text = "N/A"
+                    cell.rocketCoreCustomersLabel.text = "N/A"
+//                }
+                
+                return cell
+            } else if indexPath.row == tableView.numberOfRows(inSection: 0) - 2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailLaunchCell", for: indexPath) as! MissionDetailLaunchTableViewCell
+                
+//                let delimiter = ","
+//                var padName = launch.location.pads[0].name.components(separatedBy: delimiter)
+//
+//                cell.launchSiteNameLabel.text = padName[0]
+//                cell.launchSiteNameLongLabel.text = launch.location.name
+//
+//                let initialLocation = CLLocationCoordinate2D(latitude: launch.location.pads[0].latitude, longitude: launch.location.pads[0].longitude)
+//                let regionRadius: CLLocationDistance = 1000
+//                let coordinateRegion = MKCoordinateRegionMakeWithDistance(initialLocation, regionRadius, regionRadius)
+//                cell.launchSiteMapView.setRegion(coordinateRegion, animated: true)
+//                cell.launchSiteMapView.mapType = .hybrid
+                
+                return cell
+            } else if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailPressCell", for: indexPath) as! MissionDetailPressTableViewCell
+                cell.pressButton.addTarget(self, action: #selector(openElseLink(sender:)), for: .touchUpInside)
+                cell.youtubeButton.addTarget(self, action: #selector(openElseLink(sender:)), for: .touchUpInside)
+                cell.redditButton.alpha = 0
+                
+                return cell
+            } else { //Second cell of second stage
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailStage2DCell", for: indexPath) as! MissionDetailStage2DTableViewCell
+                
+                cell.rocketCoreIdLabel.text = "N/A"
+                cell.rocketCoreCustomersLabel.text = "N/A"
+                
+                return cell
+            }
+            
         }
     
     }
@@ -593,7 +798,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     @objc func openElseLink(sender: UIButton) {
         
         if sender.tag == 100 {
-            if launch.infoURLs.count == 0 {
+            if launch.infoURLs.count == 0 || launch.infoURLs.isEmpty {
                 let alertController = CFAlertViewController(title: "Oops !", message: "No article is available for the moment.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
                 let defaultAction = CFAlertAction(title: "OK", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor.white, handler: nil)
                 alertController.addAction(defaultAction)
@@ -603,13 +808,37 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                 present(vc, animated: true, completion: nil)
             }
         } else if sender.tag == 101 {
-            if launch.vidURLs.count == 0 {
+            if launch.vidURLs.count == 0 || launch.vidURLs.isEmpty {
                 let alertController = CFAlertViewController(title: "Oops !", message: "No video is available for the moment.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
                 let defaultAction = CFAlertAction(title: "OK", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor.white, handler: nil)
                 alertController.addAction(defaultAction)
                 present(alertController, animated: true, completion: nil)
             } else {
                 let vc = SFSafariViewController(url: URL(string: launch.vidURLs[0])!)
+                present(vc, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @objc func openAgencyLink(sender: UIButton) {
+        if sender.tag == 100 {
+            if agencyLaunch.infoURLs?.count == 0 {
+                let alertController = CFAlertViewController(title: "Oops !", message: "No article is available for the moment.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let defaultAction = CFAlertAction(title: "OK", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor.white, handler: nil)
+                alertController.addAction(defaultAction)
+                present(alertController, animated: true, completion: nil)
+            } else {
+                let vc = SFSafariViewController(url: URL(string: agencyLaunch.infoURLs![0])!)
+                present(vc, animated: true, completion: nil)
+            }
+        } else if sender.tag == 101 {
+            if agencyLaunch.vidURLs?.count == 0 {
+                let alertController = CFAlertViewController(title: "Oops !", message: "No video is available for the moment.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let defaultAction = CFAlertAction(title: "OK", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor.white, handler: nil)
+                alertController.addAction(defaultAction)
+                present(alertController, animated: true, completion: nil)
+            } else {
+                let vc = SFSafariViewController(url: URL(string: agencyLaunch.vidURLs![0])!)
                 present(vc, animated: true, completion: nil)
             }
         }
@@ -644,8 +873,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     func showBulletin() {
         
-        bulletinManager.prepare()
-        bulletinManager.presentBulletin(above: self)
+        bulletinManager.showBulletin(above: self)
         
     }
     
@@ -668,12 +896,19 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
             var eventAdded: Bool!
             if isSpaceX {
                 eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(mission.flight_number)")
-            } else {
+                if eventAdded == nil || !eventAdded {
+                    insertEvent()
+                }
+            } else if !isSpaceX && !isAgency {
                 eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(launch.id)")
-            }
-            print(eventAdded)
-            if eventAdded == nil || !eventAdded {
-                insertEvent()
+                if eventAdded == nil || !eventAdded {
+                    insertEvent()
+                }
+            } else {
+                eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(agencyLaunch.id)")
+                if eventAdded == nil || !eventAdded {
+                    insertEvent()
+                }
             }
         case .restricted, .denied:
             let alertController = CFAlertViewController(title: "Oops !", message: "You didn't authorize us to access your calendar. Do you want to give us access in the Settings ?", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
@@ -700,11 +935,18 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
             let startDateString = mission.launch_date_local
             startDate = dateFormatter.date(from: startDateString)
             endDate = startDate?.addingTimeInterval(3600)
-        } else {
+        } else if !isSpaceX && !isAgency {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
             
             let startDateString = launch.net
+            startDate = dateFormatter.date(from: startDateString!)
+            endDate = startDate.addingTimeInterval(3600)
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
+            
+            let startDateString = agencyLaunch.net
             startDate = dateFormatter.date(from: startDateString!)
             endDate = startDate.addingTimeInterval(3600)
         }
@@ -722,12 +964,16 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                     event.startDate = startDate!
                     event.endDate = endDate!
                     event.calendar = self.eventStore.defaultCalendarForNewEvents
-                } else {
+                } else if !self.isSpaceX && !self.isAgency {
                     event.title = self.launch.name
                     event.startDate = startDate!
                     event.endDate = endDate!
                     event.calendar = self.eventStore.defaultCalendarForNewEvents
-
+                } else {
+                    event.title = self.agencyLaunch.name
+                    event.startDate = startDate!
+                    event.endDate = endDate!
+                    event.calendar = self.eventStore.defaultCalendarForNewEvents
                 }
                 
                 do {
@@ -736,8 +982,10 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                     
                     if self.isSpaceX {
                         UserDefaults.standard.set(true, forKey: "EventAddedToCalendar_\(self.mission.flight_number)")
-                    } else {
+                    } else if !self.isSpaceX && !self.isAgency {
                         UserDefaults.standard.set(true, forKey: "EventAddedToCalendar_\(self.launch.id)")
+                    } else {
+                        UserDefaults.standard.set(true, forKey: "EventAddedToCalendar_\(self.agencyLaunch.id)")
                     }
                     
                     DispatchQueue.main.async {

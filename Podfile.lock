@@ -3,33 +3,36 @@ PODS:
   - Alamofire (4.7.1)
   - AlamofireImage (3.3.1):
     - Alamofire (~> 4.5)
-  - BulletinBoard (1.3.0)
+  - BetterSegmentedControl (0.9)
+  - BulletinBoard (2.0.1)
   - CFAlertViewController (3.0)
   - Crashlytics (3.10.1):
     - Fabric (~> 1.7.5)
   - Fabric (1.7.6)
-  - PinterestSegment (1.2.0)
+  - TBEmptyDataSet (2.7)
 
 DEPENDENCIES:
   - AIFlatSwitch
   - Alamofire
   - AlamofireImage
-  - BulletinBoard
+  - BetterSegmentedControl
+  - BulletinBoard (~> 2.0)
   - CFAlertViewController
   - Crashlytics
   - Fabric
-  - PinterestSegment
+  - TBEmptyDataSet
 
 SPEC CHECKSUMS:
   AIFlatSwitch: 5ab22806eeff3e09d585c2f13d22bfa6e3427191
   Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
   AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
-  BulletinBoard: 23c9d98cac654fd484d76f2a0655669974e9bd9c
+  BetterSegmentedControl: 40b2b6a08bbc59663149624d1b5235efa8d43a3c
+  BulletinBoard: 99a428f91f64d0ffabf8a8104f79ecd064e2a4db
   CFAlertViewController: 460bb12b42b500bb0838e5595ca144a18344765f
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
-  PinterestSegment: d589fce6c62141466b9f36ea8ab0a16fde9ac8f4
+  TBEmptyDataSet: 1da712a3e0c324179253960165202d30009cba26
 
-PODFILE CHECKSUM: faa96f83955ef660bba31b0aed28c490b98c628f
+PODFILE CHECKSUM: b962dc8e833e9ab4ea626f43eaff7b6a6d4cc902
 
 COCOAPODS: 1.4.0

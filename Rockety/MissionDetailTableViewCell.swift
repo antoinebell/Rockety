@@ -89,6 +89,7 @@ class MissionDetailStage2TableViewCell: UITableViewCell {
     
     @IBOutlet var rocketCoreIdLabel: UILabel!
     @IBOutlet var rocketCoreCustomersLabel: UILabel!
+    @IBOutlet var rocketCoreDescriptionLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

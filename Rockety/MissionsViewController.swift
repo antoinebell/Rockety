@@ -9,15 +9,19 @@
 import UIKit
 import Alamofire
 import AlamofireImage
-import PinterestSegment
-import BulletinBoard
 import CoreSpotlight
 import MobileCoreServices
 import UserNotifications
+import BetterSegmentedControl
+import BLTNBoard
+import TBEmptyDataSet
 
-class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate, RocketSearchControllerDelegate, UIViewControllerPreviewingDelegate {
+class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate, RocketSearchControllerDelegate, UIViewControllerPreviewingDelegate, TBEmptyDataSetDelegate, TBEmptyDataSetDataSource {
     
+    //MARK: IBOutlet
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var launchesLabel: UILabel!
+    @IBOutlet var segmentedControl: BetterSegmentedControl!
     
     //SpaceX API
     var spaceXMissions = [Mission]()
@@ -39,9 +43,9 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     //MARK: Properties
     let refreshControl = UIRefreshControl()
     
-    lazy var bulletinManager: BulletinManager = {
+    lazy var bulletinManager: BLTNItemManager = {
         let introPage = BulletinDataSource.makeIntroPage()
-        return BulletinManager(rootItem: introPage)
+        return BLTNItemManager(rootItem: introPage)
     }()
     
     var currentIndex = 0
@@ -66,36 +70,16 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.emptyDataSetDataSource = self
+        tableView.emptyDataSetDelegate = self
         tableView.tableFooterView = UIView()
         tableView.addSubview(refreshControl)
         tableView.estimatedRowHeight = 145
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        let w = view.frame.width
-        let titles = ["S P A C E  X", "A L L"]
-        let s = PinterestSegment(frame: CGRect(x: 0, y: 100, width: w - 100, height: 35), titles: titles)
-        s.style.titleFont = UIFont(name: "Anurati-Regular", size: 14)!
-        view.addSubview(s)
-        
-        s.valueChange = { index in
-            
-            self.currentIndex = index
-            
-            if index == 0 {
-                self.refreshControl.addTarget(self, action: #selector(self.downloadSpaceX), for: .valueChanged)
-                self.refreshControl.removeTarget(self, action: #selector(self.downloadAll), for: .valueChanged)
-                self.tableView.reloadData()
-                let path = IndexPath.init(row: self.spaceXIndex, section: 0)
-                self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
-            } else {
-                self.refreshControl.removeTarget(self, action: #selector(self.downloadSpaceX), for: .valueChanged)
-                self.refreshControl.addTarget(self, action: #selector(self.downloadAll), for: .valueChanged)
-                self.tableView.reloadData()
-                let path = IndexPath.init(row: 0, section: 0)
-                self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
-
-            }
-        }
+        segmentedControl.titles = ["S P A C E X", "A L L"]
+        segmentedControl.titleFont = UIFont(name: "Anurati-Regular", size: 15)!
+        segmentedControl.selectedTitleFont = UIFont(name: "Anurati-Regular", size: 15)!
         
         if (traitCollection.forceTouchCapability == .available) {
             registerForPreviewing(with: self, sourceView: view)
@@ -386,6 +370,29 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         return cell
+    }
+    
+    //MARK: TBEmptyDataSetDataSource & TBEmptyDataSetDelegate
+    
+    func imageForEmptyDataSet(in scrollView: UIScrollView) -> UIImage? {
+        if !shouldShowSearchResults {
+            return #imageLiteral(resourceName: "asteroid")
+        } else {
+            return nil
+        }
+    }
+    
+    func titleForEmptyDataSet(in scrollView: UIScrollView) -> NSAttributedString? {
+        let attributes = [
+            NSAttributedStringKey.font : UIFont(name: "Anurati-Regular", size: 17),
+            NSAttributedStringKey.foregroundColor : UIColor.white
+        ]
+        
+        if !shouldShowSearchResults {
+            return NSAttributedString(string: "L O A D I N G...", attributes: attributes)
+        } else {
+            return nil
+        }
     }
     
     //MARK: Animations
@@ -688,14 +695,39 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
      */
     
     func showBulletin() {
-                
-        bulletinManager.prepare()
-        bulletinManager.presentBulletin(above: self)
+        
+        bulletinManager.showBulletin(above: self)
         
     }
     
     @objc func setupDidComplete() {
         BulletinDataSource.userDidCompleteSetup = true
+    }
+    
+    //MARK: IBAction
+    
+    @IBAction func segmentValueChanged(_ sender: BetterSegmentedControl) {
+        
+        print(sender.index)
+
+        currentIndex = Int(sender.index)
+        
+        switch sender.index {
+        case 0:
+            self.refreshControl.addTarget(self, action: #selector(self.downloadSpaceX), for: .valueChanged)
+            self.refreshControl.removeTarget(self, action: #selector(self.downloadAll), for: .valueChanged)
+            self.tableView.reloadData()
+            let path = IndexPath.init(row: self.spaceXIndex, section: 0)
+            self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
+        case 1:
+            self.refreshControl.removeTarget(self, action: #selector(self.downloadSpaceX), for: .valueChanged)
+            self.refreshControl.addTarget(self, action: #selector(self.downloadAll), for: .valueChanged)
+            self.tableView.reloadData()
+            let path = IndexPath.init(row: 0, section: 0)
+            self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
+        default:
+            break;
+        }
     }
     
     //MARK: Segues
