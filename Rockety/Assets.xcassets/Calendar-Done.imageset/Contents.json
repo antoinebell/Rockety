@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Capture d’écran 2018-06-11 à 21.31.35.png",
+      "filename" : "icons8-today-25.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icons8-today-50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icons8-today-100.png",
       "scale" : "3x"
     }
   ],

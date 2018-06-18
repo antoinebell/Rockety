@@ -54,6 +54,7 @@ struct API {
         case agencies
         case agencyMissions(agencyId: String)
         case launchpad(launchpadId: Int)
+        case pads
 
         func url() -> String {
             
@@ -61,8 +62,8 @@ struct API {
             
             switch self {
             case .nextLaunches:
-                return baseURL + "/launch/next/25"
-//                return "https://launchlibrary.net/1.4/launch?next=25&fields=name,lsp,net,location,rocket&sort=asc"
+                return baseURL + "/launch/next/75"
+//                return "https://launchlibrary.net/1.4.1/launch/864"
             case .agency(let agencyId):
                 return baseURL + "/agency/\(agencyId)"
             case .agencies:
@@ -71,6 +72,8 @@ struct API {
                 return baseURL + "/launch?lsp=\(agencyId)&limit=200&mode=verbose"
             case .launchpad(let launchpadId):
                 return baseURL + "/pad/\(launchpadId)"
+            case .pads:
+                return baseURL + "/pad?limit=200"
             }
         }
     }

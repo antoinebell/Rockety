@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Capture d’écran 2018-06-11 à 21.31.35.png",
+      "filename" : "icons8-launch-30.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icons8-launch-60.png",
       "scale" : "2x"
     },
     {

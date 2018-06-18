@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import TBEmptyDataSet
+import Crashlytics
 
 class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RocketSearchControllerDelegate, TBEmptyDataSetDataSource, TBEmptyDataSetDelegate {
     
@@ -29,6 +30,10 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
     var shouldShowSearchResults = false
     var rocketSearchController: RocketSearchController!
 
+    var gestureRecognizer: UISwipeGestureRecognizer!
+    
+    var downloaded = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,6 +50,15 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
         tableView.addSubview(refreshControl)
         tableView.estimatedRowHeight = 145
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        gestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(back(sender:)))
+        gestureRecognizer.direction = .right
+        self.view.addGestureRecognizer(gestureRecognizer)
+        
+        var attributes:[String:String] = [:]
+        attributes = ["agencyName": agency.name]
+        
+        Answers.logCustomEvent(withName: "Agency", customAttributes: attributes)
         
         configureRocketSearchController()
 
@@ -82,6 +96,7 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
                 
                 DispatchQueue.main.async {
                     self.refreshControl.endRefreshing()
+                    self.downloaded = true
                     self.tableView.reloadData()
                     if self.nextMission > 1 {
                         let path = IndexPath.init(row: self.nextMission, section: 0)
@@ -165,7 +180,11 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
         ]
         
         if !shouldShowSearchResults {
-            return NSAttributedString(string: "H O L D  O N !", attributes: attributes)
+            if downloaded == false {
+                return NSAttributedString(string: "L O A D I N G...", attributes: attributes)
+            } else {
+                return NSAttributedString(string: "H O L D  O N !", attributes: attributes)
+            }
         }
         
         return nil
@@ -178,7 +197,11 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
         ]
         
         if !shouldShowSearchResults {
-            return NSAttributedString(string: "An asteroid is coming and no launch is planned for the moment !", attributes: attributes)
+            if downloaded == false {
+                return nil
+            } else {
+                return NSAttributedString(string: "An asteroid is coming and no launch is planned for the moment !", attributes: attributes)
+            }
         }
         
         return nil
@@ -189,7 +212,7 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
     
     func configureRocketSearchController() {
         rocketSearchController = RocketSearchController(searchResultsController: self, searchBarFrame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50), searchBarFont: UIFont.systemFont(ofSize: 16), searchBarTextColor: UIColor.white, searchBarTintColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1))
-        rocketSearchController.rocketSearchBar.placeholder = "S E A R C H"
+        rocketSearchController.rocketSearchBar.placeholder = "Search"
         rocketSearchController.customDelegate = self
         
         tableView.tableHeaderView = rocketSearchController.rocketSearchBar
@@ -223,6 +246,11 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
         tableView.reloadData()
     }
 
+    //MARK: UIGestureRecognizer
+    
+    @objc func back(sender: UISwipeGestureRecognizer) {
+        performSegue(withIdentifier: "returnAgency", sender: self)
+    }
     
     // MARK: - Navigation
 
@@ -233,15 +261,13 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
                 if shouldShowSearchResults {
                     let destVC = segue.destination as! MissionsDetailViewController
                     destVC.isSpaceX = false
-//                    destVC.isAgency = true
                     destVC.launch = filteredAgencyLaunches[indexPath.row]
-                    destVC.agency = agency
+                    destVC.isComingFromAgency = true
                 } else {
                     let destVC = segue.destination as! MissionsDetailViewController
                     destVC.isSpaceX = false
-//                    destVC.isAgency = true
                     destVC.launch = agencyLaunches[indexPath.row]
-                    destVC.agency = agency
+                    destVC.isComingFromAgency = true
                 }
             }
         }

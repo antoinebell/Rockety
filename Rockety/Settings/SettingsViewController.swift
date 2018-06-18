@@ -9,11 +9,16 @@
 import UIKit
 import AIFlatSwitch
 import UserNotifications
+import CFAlertViewController
+import SafariServices
+import MobileCoreServices
+import Crashlytics
 
 class SettingsViewController: UIViewController {
     
     @IBOutlet var spaceXSwitch: AIFlatSwitch!
     @IBOutlet var elseSwitch: AIFlatSwitch!
+    @IBOutlet var versionLabel: UILabel!
     
     //MARK: UserDefaults
     
@@ -39,8 +44,34 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        spaceXSwitch.setSelected(SettingsViewController.spaceXNotifications, animated: false)
+        //spaceXSwitch.setSelected(SettingsViewController.spaceXNotifications, animated: false)
         elseSwitch.setSelected(SettingsViewController.elseNotifications, animated: false)
+        
+        IAPHandler.shared.purchaseStatusBlock = { [weak self] (type) in
+            guard let strongSelf = self else { return }
+            if type == .purchased {
+                DispatchQueue.main.async {
+                    
+                    let alertController = CFAlertViewController(title: "Thanks !", message: "Thank you for helping me !", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                    let okAction = CFAlertAction(title: "OK", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor.white, handler: nil)
+                    alertController.addAction(okAction)
+                    strongSelf.present(alertController, animated: true, completion: nil)
+                    
+                    Answers.logPurchase(withPrice: 2.00,
+                                                 currency: "USD",
+                                                 success: true,
+                                                 itemName: "Support the Developer",
+                                                 itemType: "Non-Consumable",
+                                                 itemId: "supportdev.2",
+                                                 customAttributes: [:])
+                }
+            }
+
+        }
+    
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            self.versionLabel.text = "v\(version)"
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,6 +97,17 @@ class SettingsViewController: UIViewController {
             SettingsViewController.elseNotifications = false
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
+    }
+    
+    @IBAction func support(_ button: UIButton) {
+        IAPHandler.shared.purchaseMyProduct(index: 0)
+    }
+    
+    @IBAction func licenses(_ button: UIButton) {
+        let svc = SFSafariViewController(url: URL(string: "http://api.antoinebellanger.ch/rockety/Licenses.pdf")!)
+        svc.preferredBarTintColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
+        svc.preferredControlTintColor = UIColor.white
+        present(svc, animated: true, completion: nil)
     }
 
     /*

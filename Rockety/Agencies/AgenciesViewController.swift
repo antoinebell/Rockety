@@ -12,7 +12,7 @@ import CoreSpotlight
 import MobileCoreServices
 import TBEmptyDataSet
 
-class AgenciesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, RocketSearchControllerDelegate, TBEmptyDataSetDataSource, TBEmptyDataSetDelegate {
+class AgenciesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, RocketSearchControllerDelegate, TBEmptyDataSetDataSource, TBEmptyDataSetDelegate, UIViewControllerPreviewingDelegate {
     
     //MARK: IBOutlet
     @IBOutlet var tableView: UITableView!
@@ -26,9 +26,11 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
     
     var shouldShowSearchResults = false
     var rocketSearchController: RocketSearchController!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
 
         refreshControl.addTarget(self, action: #selector(downloadLSP), for: .valueChanged)
         refreshControl.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
@@ -44,9 +46,9 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableViewAutomaticDimension
         
-//        if (traitCollection.forceTouchCapability == .available) {
-//            registerForPreviewing(with: self, sourceView: view)
-//        }
+        if (traitCollection.forceTouchCapability == .available) {
+            registerForPreviewing(with: self, sourceView: view)
+        }
         
         configureRocketSearchController()
         
@@ -122,6 +124,11 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
     func imageForEmptyDataSet(in scrollView: UIScrollView) -> UIImage? {
         if !shouldShowSearchResults {
             return #imageLiteral(resourceName: "asteroid")
+        } else {
+            if rocketSearchController.rocketSearchBar.text != "" {
+                return #imageLiteral(resourceName: "asteroid")
+            }
+            return nil
         }
         
         return nil
@@ -135,6 +142,11 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
         
         if !shouldShowSearchResults {
             return NSAttributedString(string: "L O A D I N G...", attributes: attributes)
+        } else {
+            if rocketSearchController.rocketSearchBar.text != "" {
+                return NSAttributedString(string: "N O  R E S U L T S", attributes: attributes)
+            }
+            return nil
         }
         
         return nil
@@ -144,7 +156,7 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
     
     func configureRocketSearchController() {
         rocketSearchController = RocketSearchController(searchResultsController: self, searchBarFrame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50), searchBarFont: UIFont.systemFont(ofSize: 16), searchBarTextColor: UIColor.white, searchBarTintColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1))
-        rocketSearchController.rocketSearchBar.placeholder = "S E A R C H"
+        rocketSearchController.rocketSearchBar.placeholder = "Search"
         rocketSearchController.customDelegate = self
         
         tableView.tableHeaderView = rocketSearchController.rocketSearchBar
@@ -178,7 +190,44 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.reloadData()
     }
 
+    //MARK: UIViewControllerPreviewingContextDelegate
     
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        guard let indexPath = tableView.indexPathForRow(at: self.view.convert(location, to: tableView)) else {
+            print("IndexPath problem")
+            return nil
+        }
+        
+        print(indexPath)
+        
+        guard let cell = tableView.cellForRow(at: indexPath) else {
+            print("Cell problem")
+            return nil
+        }
+        
+        guard let destVC = storyboard?.instantiateViewController(withIdentifier: "AgencyMissionsViewController") as? AgencyMissionsViewController else {
+            print("No destVC")
+            return nil
+        }
+        
+        if shouldShowSearchResults {
+            destVC.agencyId = filteredLSPs[indexPath.row].id
+            destVC.agency = filteredLSPs[indexPath.row]
+        } else {
+            destVC.agencyId = LSPs[indexPath.row].id
+            destVC.agency = LSPs[indexPath.row]
+        }
+        
+        destVC.preferredContentSize = CGSize(width: 0.0, height: 450)
+        previewingContext.sourceRect = cell.frame
+        
+        return destVC
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        show(viewControllerToCommit, sender: self)
+    }
     
     // MARK: - Navigation
 

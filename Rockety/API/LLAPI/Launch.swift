@@ -63,6 +63,7 @@ struct ElseMission: Codable {
             let name: String!
             let description: String!
             let typeName: String!
+            let type: Int!
         }
         
     }

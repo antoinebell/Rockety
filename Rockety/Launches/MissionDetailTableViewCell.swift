@@ -159,3 +159,18 @@ class MissionDetailPressTableViewCell: UITableViewCell {
     }
     
 }
+
+class MissionCore1TableViewCell: UITableViewCell {
+    
+    @IBOutlet var rocketNameLabel: UILabel!
+    @IBOutlet var rocketOwnerLabel: UILabel!
+    @IBOutlet var rocketDescriptionLabel: UILabel!
+    @IBOutlet var rocketImageView: UIImageView!
+    
+    @IBOutlet var rocketCoreSerialLabel: UILabel!
+    @IBOutlet var rocketCoreReusedLabel: UILabel!
+    
+    @IBOutlet var rocketCoreIdLabel: UILabel!
+    @IBOutlet var rocketCoreCustomersLabel: UILabel!
+    @IBOutlet var rocketCoreDescriptionLabel: UILabel!
+}

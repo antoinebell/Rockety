@@ -86,36 +86,6 @@ enum BulletinDataSource {
         return page
     }
     
-    static func makeCalendarPage() -> FeedbackPageBulletinItem {
-        let page = FeedbackPageBulletinItem(title: "Calendar")
-        page.image = #imageLiteral(resourceName: "Calendar-BB")
-        
-        page.descriptionText = "Add launches to calendar."
-        page.actionButtonTitle = "Prepare for Liftoff"
-        page.alternativeButtonTitle = "Not now"
-        
-        page.isDismissable = false
-        
-        page.appearance.actionButtonColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
-        page.appearance.alternativeButtonTitleColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
-        
-        page.actionHandler = { item in
-            let eventStore = EKEventStore()
-            eventStore.requestAccess(to: .event, completion: { (accessGranted, error) in
-                
-                DispatchQueue.main.async {
-                    
-                    item.manager?.dismissBulletin(animated: true)
-                }
-            })
-        }
-        
-        page.alternativeHandler = { item in
-            item.manager?.dismissBulletin(animated: true)
-        }
-        
-        return page
-    }
  
     //MARK: UserDefaults
     
