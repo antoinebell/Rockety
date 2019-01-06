@@ -26,23 +26,23 @@ struct API {
         func url() -> String {
             switch self {
             case .allRockets:
-                return "https://api.spacexdata.com/v2/rockets"
+                return "https://api.spacexdata.com/v3/rockets"
             case .rocket(let rocketId):
-                return "https://api.spacexdata.com/v2/rockets/\(rocketId)"
+                return "https://api.spacexdata.com/v3/rockets/\(rocketId)"
             case .allLaunchpads:
-                return "https://api.spacexdata.com/v2/launchpads"
+                return "https://api.spacexdata.com/v3/launchpads"
             case .launchpad(let launchpadId):
-                return "https://api.spacexdata.com/v2/launchpads/\(launchpadId)"
+                return "https://api.spacexdata.com/v3/launchpads/\(launchpadId)"
             case .pastLaunch:
-                return "https://api.spacexdata.com/v2/launches/latest"
+                return "https://api.spacexdata.com/v3/launches/latest"
             case .nextLaunch:
-                return "https://api.spacexdata.com/v2/launches/next"
+                return "https://api.spacexdata.com/v3/launches/next"
             case .pastLaunches:
-                return "https://api.spacexdata.com/v2/launches"
+                return "https://api.spacexdata.com/v3/launches/past"
             case .nextLaunches:
-                return "https://api.spacexdata.com/v2/launches/upcoming"
+                return "https://api.spacexdata.com/v3/launches/upcoming"
             case .allLaunches:
-                return "https://api.spacexdata.com/v2/launches/all"
+                return "https://api.spacexdata.com/v3/launches"
             }
         }
         
@@ -58,11 +58,11 @@ struct API {
 
         func url() -> String {
             
-            let baseURL = "https://launchlibrary.net/1.4.1"
+            let baseURL = "https://launchlibrary.net/1.4"
             
             switch self {
             case .nextLaunches:
-                return baseURL + "/launch/next/75"
+                return baseURL + "/launch/next/50"
 //                return "https://launchlibrary.net/1.4.1/launch/864"
             case .agency(let agencyId):
                 return baseURL + "/agency/\(agencyId)"

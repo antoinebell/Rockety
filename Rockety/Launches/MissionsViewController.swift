@@ -15,6 +15,7 @@ import UserNotifications
 import BetterSegmentedControl
 import BLTNBoard
 import TBEmptyDataSet
+import StoreKit
 
 class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate, RocketSearchControllerDelegate, UIViewControllerPreviewingDelegate, TBEmptyDataSetDelegate, TBEmptyDataSetDataSource {
     
@@ -515,6 +516,18 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         BulletinDataSource.userDidCompleteSetup = true
     }
     
+    //MARK: SKStore
+    
+    func showReview() {
+        let runs = AppDelegate().getRunCounts()
+        print("Number of Runs:", runs)
+        if (runs > AppDelegate().minimumRunCount) {
+            SKStoreReviewController.requestReview()
+        } else {
+            print("Runs are not enough to request review!")
+        }
+    }
+    
     //MARK: Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -571,7 +584,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func returnMissions(segue: UIStoryboardSegue) {
-        
+        showReview()
     }
 
 

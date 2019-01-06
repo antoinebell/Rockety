@@ -44,7 +44,7 @@ struct ElseMission: Codable {
         struct Rocket: Codable {
             let id: Int!
             let name: String!
-            let agencies: [Agency]
+            let agencies: [Agency]?
             
             struct Agency: Codable {
                 let name: String!

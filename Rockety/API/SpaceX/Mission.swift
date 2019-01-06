@@ -41,7 +41,7 @@ struct Mission: Codable {
         let payload_id: String
         let reused: Bool?
         let customers: [String]
-        let payload_type: String
+        let payload_type: String?
     }
     
     struct LaunchSite: Codable {

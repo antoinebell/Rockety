@@ -14,13 +14,17 @@ import Crashlytics
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    let runIncrementerSetting = "numberOfRuns"
+    let minimumRunCount = 5
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         Fabric.with([Crashlytics.self])
         
         IAPHandler.shared.fetchAvailableProducts()
+        
+        incrementAppRuns()
 
         return true
     }
@@ -56,6 +60,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         missionsViewController.restoreUserActivityState(userActivity)
         
         return true
+    }
+    
+    //MARK: StoreKit
+    
+    func incrementAppRuns() {
+        let userDefaults = UserDefaults.standard
+        let runs = getRunCounts() + 1
+        userDefaults.set(runs, forKey: runIncrementerSetting)
+        userDefaults.synchronize()
+    }
+    
+    func getRunCounts() -> Int {
+        let userDefaults = UserDefaults.standard
+        let savedRuns = userDefaults.value(forKey: runIncrementerSetting)
+        
+        var runs = 0
+        if (savedRuns != nil) {
+            runs = savedRuns as! Int
+        }
+        
+        return runs
     }
     
 }
