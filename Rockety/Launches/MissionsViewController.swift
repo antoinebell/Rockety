@@ -130,23 +130,26 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                     UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                     
                     for launch in launches {
-                        if SettingsViewController.elseNotifications {
-                            let center = UNUserNotificationCenter.current()
-                            center.getNotificationSettings(completionHandler: { (settings) in
-                                if settings.authorizationStatus == .authorized {
-                                    let content = UNMutableNotificationContent()
-                                    content.body = "\(launch.name) is lifting off in 15 minutes !"
-                                    content.sound = UNNotificationSound.default()
-                                    
-                                    let dateFormatter = DateFormatter()
-                                    dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
-                                    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-                                    let dateToTrigger = dateFormatter.date(from: launch.net)?.addingTimeInterval(-900)
-                                    let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: dateToTrigger!)
-                                    _ = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-                                }
-                            })
-                        }
+                        let center = UNUserNotificationCenter.current()
+                        center.getNotificationSettings(completionHandler: { (settings) in
+                            if settings.authorizationStatus == .authorized {
+                                let content = UNMutableNotificationContent()
+                                content.body = "\(launch.name) is lifting off in 15 minutes !"
+                                content.sound = UNNotificationSound.default()
+                                
+                                let dateFormatter = DateFormatter()
+                                dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
+                                dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+                                let dateToTrigger = dateFormatter.date(from: launch.net)?.addingTimeInterval(-900)
+                                let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: dateToTrigger!)
+                                let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+                                //getting the notification request
+                                let request = UNNotificationRequest(identifier: "Rockety_Launch_\(launch.id)", content: content, trigger: trigger)
+                                
+                                //adding the notification to notification center
+                                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                            }
+                        })
                     }
                 }
                 
@@ -588,5 +591,13 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
 
+}
+
+extension Date {
+    
+    static func - (lhs: Date, rhs: Date) -> TimeInterval {
+        return lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
+    }
+    
 }
 
