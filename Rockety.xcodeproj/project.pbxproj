@@ -34,6 +34,7 @@
 		65A48D6120B47273000F7EEE /* MissionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A48D6020B47273000F7EEE /* MissionsDetailViewController.swift */; };
 		65A48D6320B47762000F7EEE /* Rocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A48D6220B47762000F7EEE /* Rocket.swift */; };
 		65A48D6520B47C9C000F7EEE /* Launchpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A48D6420B47C9C000F7EEE /* Launchpad.swift */; };
+		65BDA192223D6E3D00E0A2D2 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDA191223D6E3D00E0A2D2 /* Review.swift */; };
 		65EA040A20CF0CED00CAD6E8 /* LaunchpadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA040920CF0CED00CAD6E8 /* LaunchpadsViewController.swift */; };
 		65EA041120D02C5600CAD6E8 /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA041020D02C5500CAD6E8 /* Payload.swift */; };
 		65F542A620B99BFF0023EAFB /* BulletinDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F542A520B99BFF0023EAFB /* BulletinDataSource.swift */; };
@@ -102,6 +103,7 @@
 		65A48D6020B47273000F7EEE /* MissionsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsDetailViewController.swift; sourceTree = "<group>"; };
 		65A48D6220B47762000F7EEE /* Rocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rocket.swift; sourceTree = "<group>"; };
 		65A48D6420B47C9C000F7EEE /* Launchpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launchpad.swift; sourceTree = "<group>"; };
+		65BDA191223D6E3D00E0A2D2 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		65EA040920CF0CED00CAD6E8 /* LaunchpadsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchpadsViewController.swift; sourceTree = "<group>"; };
 		65EA041020D02C5500CAD6E8 /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		65F542A520B99BFF0023EAFB /* BulletinDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletinDataSource.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				65F542BA20BC365C0023EAFB /* IsoCountries.swift */,
 				65F542B820BC36400023EAFB /* IsoCountryCodes.swift */,
 				6541860820C99B100055362F /* IAPHandler.swift */,
+				65BDA191223D6E3D00E0A2D2 /* Review.swift */,
 				65F542B120BAB2480023EAFB /* BulletinBoard */,
 				65A48D6920B48F40000F7EEE /* API */,
 				658DCF5420B32081001B0843 /* Main.storyboard */,
@@ -636,6 +639,7 @@
 				65A48D6120B47273000F7EEE /* MissionsDetailViewController.swift in Sources */,
 				65EA040A20CF0CED00CAD6E8 /* LaunchpadsViewController.swift in Sources */,
 				658DCF5120B32081001B0843 /* AppDelegate.swift in Sources */,
+				65BDA192223D6E3D00E0A2D2 /* Review.swift in Sources */,
 				6573925020C6E22F00B0033F /* AgencyTableViewCell.swift in Sources */,
 				65587F8020BEDE2A001B1FFD /* CustomSegmentedControl.swift in Sources */,
 				65A48D6520B47C9C000F7EEE /* Launchpad.swift in Sources */,

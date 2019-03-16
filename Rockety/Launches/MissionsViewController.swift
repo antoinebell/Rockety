@@ -522,13 +522,8 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     //MARK: SKStore
     
     func showReview() {
-        let runs = AppDelegate().getRunCounts()
-        print("Number of Runs:", runs)
-        if (runs > AppDelegate().minimumRunCount) {
-            SKStoreReviewController.requestReview()
-        } else {
-            print("Runs are not enough to request review!")
-        }
+        let review = Review()
+        review.showReview()
     }
     
     //MARK: Segues
