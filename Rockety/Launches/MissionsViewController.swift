@@ -134,7 +134,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                         center.getNotificationSettings(completionHandler: { (settings) in
                             if settings.authorizationStatus == .authorized {
                                 let content = UNMutableNotificationContent()
-                                content.body = "\(launch.name) is lifting off in 15 minutes !"
+                                content.body = "\(launch.name!) is lifting off in 15 minutes !"
                                 content.sound = UNNotificationSound.default()
                                 
                                 let dateFormatter = DateFormatter()
