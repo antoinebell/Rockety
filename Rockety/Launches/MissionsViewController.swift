@@ -126,7 +126,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             
                 let launches = decodedLaunches.launches
                 
-                if SettingsViewController.elseNotifications {
+                if SettingsViewController.userDidSubscribeNotifications {
                     UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                     
                     for launch in launches {
@@ -144,7 +144,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                                 let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: dateToTrigger!)
                                 let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
                                 //getting the notification request
-                                let request = UNNotificationRequest(identifier: "Rockety_Launch_\(launch.id)", content: content, trigger: trigger)
+                                let request = UNNotificationRequest(identifier: "Rockety_Launch_\(launch.id!)", content: content, trigger: trigger)
                                 
                                 //adding the notification to notification center
                                 UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)

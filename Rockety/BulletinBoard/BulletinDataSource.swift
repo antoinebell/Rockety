@@ -47,12 +47,15 @@ enum BulletinDataSource {
         
         page.actionHandler = { item in
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge,. sound], completionHandler: { (granted, error) in
+                userDidSubscribeNotifications = true
                 print("UserNotifications granted ?", granted)
             })
+            NotificationCenter.default.post(name: .SetupDidCompleteNotification, object: item)
             item.manager?.push(item: self.makeCompletionPage())
         }
         
         page.alternativeHandler = { item in
+            NotificationCenter.default.post(name: .SetupDidCompleteNotification, object: item)
             item.manager?.push(item: self.makeCompletionPage())
         }
         
@@ -108,6 +111,15 @@ enum BulletinDataSource {
         }
     }
     
+    static var userDidSubscribeNotifications: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "UserDidSubscribeNotifications")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "UserDidSubscribeNotifications")
+        }
+    }
+    
 }
 
 // MARK: - Notifications
@@ -123,5 +135,7 @@ extension Notification.Name {
     static let SetupDidComplete = Notification.Name("SetupDidCompleteNotification")
     
     static let SetupDidCompleteCalendar = Notification.Name("SetupDidCompleteCalendarNotification")
+    
+    static let SetupDidCompleteNotification = Notification.Name("SetupDidCompleteNotification")
     
 }

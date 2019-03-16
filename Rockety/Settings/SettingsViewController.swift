@@ -22,22 +22,12 @@ class SettingsViewController: UIViewController {
     
     //MARK: UserDefaults
     
-    /// Whether user completed setup.
-    static var spaceXNotifications: Bool {
+    static var userDidSubscribeNotifications: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: "SpaceXNotifications")
+            return UserDefaults.standard.bool(forKey: "UserDidSubscribeNotifications")
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "SpaceXNotifications")
-        }
-    }
-    
-    static var elseNotifications: Bool {
-        get {
-            return UserDefaults.standard.bool(forKey: "ElseNotifications")
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "ElseNotifications")
+            UserDefaults.standard.set(newValue, forKey: "UserDidSubscribeNotifications")
         }
     }
     
@@ -45,7 +35,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
 
         //spaceXSwitch.setSelected(SettingsViewController.spaceXNotifications, animated: false)
-        elseSwitch.setSelected(SettingsViewController.elseNotifications, animated: false)
+        elseSwitch.setSelected(SettingsViewController.userDidSubscribeNotifications, animated: false)
         
         IAPHandler.shared.purchaseStatusBlock = { [weak self] (type) in
             guard let strongSelf = self else { return }
@@ -81,20 +71,11 @@ class SettingsViewController: UIViewController {
     
     //MARK: IBAction
     
-    @IBAction func spaceXNotifications(_ sender: AIFlatSwitch) {
-        if sender.isSelected {
-            SettingsViewController.spaceXNotifications = true
-        } else {
-            SettingsViewController.spaceXNotifications = false
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        }
-    }
-    
     @IBAction func elseNotifications(_ sender: AIFlatSwitch) {
         if sender.isSelected {
-            SettingsViewController.elseNotifications = true
+            SettingsViewController.userDidSubscribeNotifications = true
         } else {
-            SettingsViewController.elseNotifications = false
+            SettingsViewController.userDidSubscribeNotifications = false
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
     }
