@@ -72,7 +72,38 @@ class SettingsViewController: UIViewController {
     //MARK: IBAction
     
     @IBAction func elseNotifications(_ sender: AIFlatSwitch) {
+        print(sender.isSelected)
         if sender.isSelected {
+            let current = UNUserNotificationCenter.current()
+            current.getNotificationSettings { (settings) in
+                print(settings.authorizationStatus.rawValue)
+                if settings.authorizationStatus == .notDetermined || settings.authorizationStatus == .denied {
+                    print("Status denied or not determined")
+                    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge,. sound], completionHandler: { (granted, error) in
+                        if granted {
+                            SettingsViewController.userDidSubscribeNotifications = true
+                        } else {
+                            SettingsViewController.userDidSubscribeNotifications = false
+                            DispatchQueue.main.async {
+                                let alertController = CFAlertViewController(title: "Oops !", message: "Please go to 'Settings' to activate the notifications.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                                let settingsAction = CFAlertAction(title: "Settings", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor.white, handler: { (action) in
+                                    if let appSettings = URL(string: UIApplicationOpenSettingsURLString) {
+                                        UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+                                    }
+                                })
+                                alertController.addAction(settingsAction)
+                                let okAction = CFAlertAction(title: "OK", style: .Default, alignment: .center, backgroundColor: UIColor.white, textColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), handler: nil)
+                                alertController.addAction(okAction)
+                                self.present(alertController, animated: true, completion: nil)
+                                sender.setSelected(false, animated: true)
+                            }
+                        }
+                    })
+                } else {
+                    print("Status authorized")
+                    SettingsViewController.userDidSubscribeNotifications = true
+                }
+            }
             SettingsViewController.userDidSubscribeNotifications = true
         } else {
             SettingsViewController.userDidSubscribeNotifications = false

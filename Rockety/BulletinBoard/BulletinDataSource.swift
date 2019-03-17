@@ -47,8 +47,11 @@ enum BulletinDataSource {
         
         page.actionHandler = { item in
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge,. sound], completionHandler: { (granted, error) in
-                userDidSubscribeNotifications = true
-                print("UserNotifications granted ?", granted)
+                if granted {
+                    userDidSubscribeNotifications = true
+                } else {
+                    userDidSubscribeNotifications = false
+                }
             })
             NotificationCenter.default.post(name: .SetupDidCompleteNotification, object: item)
             item.manager?.push(item: self.makeCompletionPage())
@@ -116,6 +119,7 @@ enum BulletinDataSource {
             return UserDefaults.standard.bool(forKey: "UserDidSubscribeNotifications")
         }
         set {
+            print("Settings notification value:", newValue)
             UserDefaults.standard.set(newValue, forKey: "UserDidSubscribeNotifications")
         }
     }
