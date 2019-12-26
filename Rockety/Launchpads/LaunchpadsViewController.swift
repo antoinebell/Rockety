@@ -49,7 +49,7 @@ class LaunchpadsViewController: UIViewController, MKMapViewDelegate {
         
         let initialLocation = CLLocation(latitude: 28.530880, longitude: -80.564562)
         let regionRadius: CLLocationDistance = 1000000
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(initialLocation.coordinate, regionRadius, regionRadius)
+        let coordinateRegion = MKCoordinateRegion.init(center: initialLocation.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
         
     }
@@ -57,7 +57,7 @@ class LaunchpadsViewController: UIViewController, MKMapViewDelegate {
     func moveMap(latitude: Double, longitude: Double) {
         let initialLocation = CLLocation(latitude: latitude, longitude: longitude)
         let regionRadius: CLLocationDistance = 10000
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(initialLocation.coordinate, regionRadius, regionRadius)
+        let coordinateRegion = MKCoordinateRegion.init(center: initialLocation.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     

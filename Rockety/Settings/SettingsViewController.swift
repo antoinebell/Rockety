@@ -87,8 +87,8 @@ class SettingsViewController: UIViewController {
                             DispatchQueue.main.async {
                                 let alertController = CFAlertViewController(title: "Oops !", message: "Please go to 'Settings' to activate the notifications.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
                                 let settingsAction = CFAlertAction(title: "Settings", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor.white, handler: { (action) in
-                                    if let appSettings = URL(string: UIApplicationOpenSettingsURLString) {
-                                        UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+                                    if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                                        UIApplication.shared.open(appSettings, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                                     }
                                 })
                                 alertController.addAction(settingsAction)
@@ -132,4 +132,9 @@ class SettingsViewController: UIViewController {
     }
     */
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

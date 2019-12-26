@@ -20,7 +20,7 @@ class RocketSearchBar: UISearchBar {
         preferredFont = font
         preferredTextColor = textColor
         
-        searchBarStyle = UISearchBarStyle.prominent
+        searchBarStyle = UISearchBar.Style.prominent
         isTranslucent = false
     }
     

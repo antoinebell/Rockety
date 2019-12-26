@@ -22,7 +22,6 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     //MARK: IBOutlet
     @IBOutlet var tableView: UITableView!
     @IBOutlet var launchesLabel: UILabel!
-    @IBOutlet var segmentedControl: BetterSegmentedControl!
     
     //SpaceX API
     var spaceXMissions = [Mission]()
@@ -60,7 +59,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         refreshControl.addTarget(self, action: #selector(downloadAll), for: .valueChanged)
         refreshControl.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
         refreshControl.tintColor = UIColor.white
-        refreshControl.attributedTitle = NSAttributedString(string: "L O A D I N G...", attributes: [NSAttributedStringKey.font: UIFont(name: "Anurati-Regular", size: 14)!, NSAttributedStringKey.foregroundColor: UIColor.white])
+        refreshControl.attributedTitle = NSAttributedString(string: "L O A D I N G...", attributes: [NSAttributedString.Key.font: UIFont(name: "Anurati-Regular", size: 14)!, NSAttributedString.Key.foregroundColor: UIColor.white])
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -69,14 +68,10 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.tableFooterView = UIView()
         tableView.addSubview(refreshControl)
         tableView.estimatedRowHeight = 145
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
         
         view.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
-        
-//        segmentedControl.titles = ["S P A C E X", "A L L"]
-//        segmentedControl.titleFont = UIFont(name: "Anurati-Regular", size: 15)!
-//        segmentedControl.selectedTitleFont = UIFont(name: "Anurati-Regular", size: 15)!
         
         if (traitCollection.forceTouchCapability == .available) {
             registerForPreviewing(with: self, sourceView: view)
@@ -135,7 +130,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                             if settings.authorizationStatus == .authorized {
                                 let content = UNMutableNotificationContent()
                                 content.body = "\(launch.name!) is lifting off in 15 minutes !"
-                                content.sound = UNNotificationSound.default()
+                                content.sound = UNNotificationSound.default
                                 
                                 let dateFormatter = DateFormatter()
                                 dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
@@ -214,8 +209,6 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             mission = elseLaunches.launches[indexPath.row]
         }
         
-        cell.missionNumberLabel.text = "#\(mission.id!)"
-        
         var delimiter = "|"
         var missionName = mission.name.components(separatedBy: delimiter)
         missionName[1].remove(at: missionName[1].startIndex)
@@ -258,15 +251,15 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func titleForEmptyDataSet(in scrollView: UIScrollView) -> NSAttributedString? {
         let attributes = [
-            NSAttributedStringKey.font : UIFont(name: "Anurati-Regular", size: 17),
-            NSAttributedStringKey.foregroundColor : UIColor.white
+            NSAttributedString.Key.font : UIFont(name: "Anurati-Regular", size: 17),
+            NSAttributedString.Key.foregroundColor : UIColor.white
         ]
         
         if !shouldShowSearchResults {
-            return NSAttributedString(string: "L O A D I N G...", attributes: attributes)
+            return NSAttributedString(string: "L O A D I N G...", attributes: attributes as [NSAttributedString.Key : Any])
         } else {
             if rocketSearchController.rocketSearchBar.text != "" {
-                return NSAttributedString(string: "N O  R E S U L T S", attributes: attributes)
+                return NSAttributedString(string: "N O  R E S U L T S", attributes: attributes as [NSAttributedString.Key : Any])
             }
             return nil
         }
@@ -380,8 +373,6 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func didChangeSearchText(searchText: String) {
         
-        print(searchText)
-        
         filteredElseLaunches = elseLaunches.launches.filter({ (launch) -> Bool in
             let launchText: NSString = launch.name as NSString
             
@@ -479,7 +470,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                     performSegue(withIdentifier: "showMissionSpXCS", sender: self)
                 } else if components[3] == "Else" {
                     print(Int(selectedLaunch.components(separatedBy: ".").last!)!)
-                    selectedLaunchIndex = elseLaunches.launches.index { (mission) -> Bool in
+                    selectedLaunchIndex = elseLaunches.launches.firstIndex { (mission) -> Bool in
                         mission.id == Int(selectedLaunch.components(separatedBy: ".").last!)!
                     }
                     performSegue(withIdentifier: "showMissionElseCS", sender: self)
@@ -532,7 +523,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         if segue.identifier == "showMission" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 
-                let found = spaceXMissions.index { (mission) -> Bool in
+                let found = spaceXMissions.firstIndex { (mission) -> Bool in
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
                     let spaceXDate = DateFormatter.localizedString(from: dateFormatter.date(from: mission.launch_date_local)!, dateStyle: .short, timeStyle: .medium)

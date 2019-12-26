@@ -40,7 +40,7 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
         refreshControl.addTarget(self, action: #selector(downloadMissions), for: .valueChanged)
         refreshControl.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
         refreshControl.tintColor = UIColor.white
-        refreshControl.attributedTitle = NSAttributedString(string: "L O A D I N G...", attributes: [NSAttributedStringKey.font: UIFont(name: "Anurati-Regular", size: 14)!, NSAttributedStringKey.foregroundColor: UIColor.white])
+        refreshControl.attributedTitle = NSAttributedString(string: "L O A D I N G...", attributes: [NSAttributedString.Key.font: UIFont(name: "Anurati-Regular", size: 14)!, NSAttributedString.Key.foregroundColor: UIColor.white])
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -49,7 +49,7 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
         tableView.tableFooterView = UIView()
         tableView.addSubview(refreshControl)
         tableView.estimatedRowHeight = 145
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         gestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(back(sender:)))
         gestureRecognizer.direction = .right
@@ -100,7 +100,7 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
                     self.tableView.reloadData()
                     if self.nextMission > 1 {
                         let path = IndexPath.init(row: self.nextMission, section: 0)
-                        self.tableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
+                        self.tableView.scrollToRow(at: path, at: UITableView.ScrollPosition.top, animated: true)
                     }
                     
                 }
@@ -132,8 +132,6 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
             mission = agencyLaunches[indexPath.row]
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "MissionCell", for: indexPath) as! MissionTableViewCell
-        
-        cell.missionNumberLabel.text = "#\(mission.id!)"
         
         var delimiter = "|"
         var missionName = mission.name.components(separatedBy: delimiter)
@@ -175,15 +173,15 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
     
     func titleForEmptyDataSet(in scrollView: UIScrollView) -> NSAttributedString? {
         let attributes = [
-            NSAttributedStringKey.font : UIFont(name: "Anurati-Regular", size: 17),
-            NSAttributedStringKey.foregroundColor : UIColor.white
+            NSAttributedString.Key.font : UIFont(name: "Anurati-Regular", size: 17),
+            NSAttributedString.Key.foregroundColor : UIColor.white
         ]
         
         if !shouldShowSearchResults {
             if downloaded == false {
-                return NSAttributedString(string: "L O A D I N G...", attributes: attributes)
+                return NSAttributedString(string: "L O A D I N G...", attributes: attributes as [NSAttributedString.Key : Any])
             } else {
-                return NSAttributedString(string: "H O L D  O N !", attributes: attributes)
+                return NSAttributedString(string: "H O L D  O N !", attributes: attributes as [NSAttributedString.Key : Any])
             }
         }
         
@@ -192,8 +190,8 @@ class AgencyMissionsViewController: UIViewController, UITableViewDataSource, UIT
     
     func descriptionForEmptyDataSet(in scrollView: UIScrollView) -> NSAttributedString? {
         let attributes = [
-            NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light),
-            NSAttributedStringKey.foregroundColor : UIColor.white
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .light),
+            NSAttributedString.Key.foregroundColor : UIColor.white
         ]
         
         if !shouldShowSearchResults {

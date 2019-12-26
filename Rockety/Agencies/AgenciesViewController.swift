@@ -35,7 +35,7 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
         refreshControl.addTarget(self, action: #selector(downloadLSP), for: .valueChanged)
         refreshControl.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
         refreshControl.tintColor = UIColor.white
-        refreshControl.attributedTitle = NSAttributedString(string: "L O A D I N G...", attributes: [NSAttributedStringKey.font: UIFont(name: "Anurati-Regular", size: 14)!, NSAttributedStringKey.foregroundColor: UIColor.white])
+        refreshControl.attributedTitle = NSAttributedString(string: "L O A D I N G...", attributes: [NSAttributedString.Key.font: UIFont(name: "Anurati-Regular", size: 14)!, NSAttributedString.Key.foregroundColor: UIColor.white])
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -44,7 +44,7 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.tableFooterView = UIView()
         tableView.addSubview(refreshControl)
         tableView.estimatedRowHeight = 80
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         if (traitCollection.forceTouchCapability == .available) {
             registerForPreviewing(with: self, sourceView: view)
@@ -66,7 +66,7 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
         Alamofire.request(API.All.agencies.url()).responseJSON { (response) in
             if let data = response.data {
                 let decoder = JSONDecoder()
-                var decodedLSP = try! decoder.decode(LSP.self, from: data)
+                let decodedLSP = try! decoder.decode(LSP.self, from: data)
                 let agencies = decodedLSP.agencies.filter { $0.countryCode != "UNK" }
                 self.LSPs = agencies.sorted { $0.name < $1.name }
                 
@@ -130,26 +130,22 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
             }
             return nil
         }
-        
-        return nil
     }
     
     func titleForEmptyDataSet(in scrollView: UIScrollView) -> NSAttributedString? {
         let attributes = [
-            NSAttributedStringKey.font : UIFont(name: "Anurati-Regular", size: 17),
-            NSAttributedStringKey.foregroundColor : UIColor.white
+            NSAttributedString.Key.font : UIFont(name: "Anurati-Regular", size: 17),
+            NSAttributedString.Key.foregroundColor : UIColor.white
         ]
         
         if !shouldShowSearchResults {
-            return NSAttributedString(string: "L O A D I N G...", attributes: attributes)
+            return NSAttributedString(string: "L O A D I N G...", attributes: attributes as [NSAttributedString.Key : Any])
         } else {
             if rocketSearchController.rocketSearchBar.text != "" {
-                return NSAttributedString(string: "N O  R E S U L T S", attributes: attributes)
+                return NSAttributedString(string: "N O  R E S U L T S", attributes: attributes as [NSAttributedString.Key : Any])
             }
             return nil
         }
-        
-        return nil
     }
     
     //MARK: RocketSearchControllerDelegate

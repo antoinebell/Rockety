@@ -49,6 +49,16 @@ enum BulletinDataSource {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge,. sound], completionHandler: { (granted, error) in
                 if granted {
                     userDidSubscribeNotifications = true
+                    
+                    // Register for remote notifications
+                    UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                        print("Notification Settings: \(settings)")
+                        
+                        guard settings.authorizationStatus == .authorized else { return }
+                        DispatchQueue.main.async {
+                            UIApplication.shared.registerForRemoteNotifications()
+                        }
+                    }
                 } else {
                     userDidSubscribeNotifications = false
                 }

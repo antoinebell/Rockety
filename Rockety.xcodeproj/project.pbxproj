@@ -24,6 +24,24 @@
 		6573925020C6E22F00B0033F /* AgencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6573924F20C6E22F00B0033F /* AgencyTableViewCell.swift */; };
 		6573925220C6EF7000B0033F /* AgencyMissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6573925120C6EF7000B0033F /* AgencyMissionsViewController.swift */; };
 		6573925420C6F63500B0033F /* AgencyLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6573925320C6F63500B0033F /* AgencyLaunch.swift */; };
+		6586139323B547E6004E93D3 /* Barlow-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138123B547E1004E93D3 /* Barlow-SemiBold.ttf */; };
+		6586139423B547E6004E93D3 /* Barlow-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138223B547E1004E93D3 /* Barlow-BlackItalic.ttf */; };
+		6586139523B547E6004E93D3 /* Barlow-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138323B547E2004E93D3 /* Barlow-ThinItalic.ttf */; };
+		6586139623B547E6004E93D3 /* Barlow-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138423B547E2004E93D3 /* Barlow-BoldItalic.ttf */; };
+		6586139723B547E6004E93D3 /* Barlow-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138523B547E2004E93D3 /* Barlow-SemiBoldItalic.ttf */; };
+		6586139823B547E6004E93D3 /* Barlow-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138623B547E2004E93D3 /* Barlow-ExtraLight.ttf */; };
+		6586139923B547E6004E93D3 /* Barlow-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138723B547E3004E93D3 /* Barlow-Italic.ttf */; };
+		6586139A23B547E6004E93D3 /* Barlow-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138823B547E3004E93D3 /* Barlow-ExtraBoldItalic.ttf */; };
+		6586139B23B547E6004E93D3 /* Barlow-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138923B547E3004E93D3 /* Barlow-MediumItalic.ttf */; };
+		6586139C23B547E6004E93D3 /* Barlow-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138A23B547E4004E93D3 /* Barlow-ExtraBold.ttf */; };
+		6586139D23B547E6004E93D3 /* Barlow-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138B23B547E4004E93D3 /* Barlow-LightItalic.ttf */; };
+		6586139E23B547E6004E93D3 /* Barlow-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138C23B547E4004E93D3 /* Barlow-Regular.ttf */; };
+		6586139F23B547E6004E93D3 /* Barlow-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138D23B547E4004E93D3 /* Barlow-Medium.ttf */; };
+		658613A023B547E6004E93D3 /* Barlow-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138E23B547E5004E93D3 /* Barlow-Bold.ttf */; };
+		658613A123B547E6004E93D3 /* Barlow-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586138F23B547E5004E93D3 /* Barlow-Light.ttf */; };
+		658613A223B547E6004E93D3 /* Barlow-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586139023B547E5004E93D3 /* Barlow-Thin.ttf */; };
+		658613A323B547E6004E93D3 /* Barlow-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586139123B547E6004E93D3 /* Barlow-ExtraLightItalic.ttf */; };
+		658613A423B547E6004E93D3 /* Barlow-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6586139223B547E6004E93D3 /* Barlow-Black.ttf */; };
 		658DCF5120B32081001B0843 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658DCF5020B32081001B0843 /* AppDelegate.swift */; };
 		658DCF5320B32081001B0843 /* MissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658DCF5220B32081001B0843 /* MissionsViewController.swift */; };
 		658DCF5620B32081001B0843 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 658DCF5420B32081001B0843 /* Main.storyboard */; };
@@ -83,6 +101,24 @@
 		6573924F20C6E22F00B0033F /* AgencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyTableViewCell.swift; sourceTree = "<group>"; };
 		6573925120C6EF7000B0033F /* AgencyMissionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyMissionsViewController.swift; sourceTree = "<group>"; };
 		6573925320C6F63500B0033F /* AgencyLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyLaunch.swift; sourceTree = "<group>"; };
+		6586138123B547E1004E93D3 /* Barlow-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-SemiBold.ttf"; sourceTree = "<group>"; };
+		6586138223B547E1004E93D3 /* Barlow-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-BlackItalic.ttf"; sourceTree = "<group>"; };
+		6586138323B547E2004E93D3 /* Barlow-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ThinItalic.ttf"; sourceTree = "<group>"; };
+		6586138423B547E2004E93D3 /* Barlow-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-BoldItalic.ttf"; sourceTree = "<group>"; };
+		6586138523B547E2004E93D3 /* Barlow-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		6586138623B547E2004E93D3 /* Barlow-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraLight.ttf"; sourceTree = "<group>"; };
+		6586138723B547E3004E93D3 /* Barlow-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Italic.ttf"; sourceTree = "<group>"; };
+		6586138823B547E3004E93D3 /* Barlow-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		6586138923B547E3004E93D3 /* Barlow-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-MediumItalic.ttf"; sourceTree = "<group>"; };
+		6586138A23B547E4004E93D3 /* Barlow-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraBold.ttf"; sourceTree = "<group>"; };
+		6586138B23B547E4004E93D3 /* Barlow-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-LightItalic.ttf"; sourceTree = "<group>"; };
+		6586138C23B547E4004E93D3 /* Barlow-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Regular.ttf"; sourceTree = "<group>"; };
+		6586138D23B547E4004E93D3 /* Barlow-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Medium.ttf"; sourceTree = "<group>"; };
+		6586138E23B547E5004E93D3 /* Barlow-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Bold.ttf"; sourceTree = "<group>"; };
+		6586138F23B547E5004E93D3 /* Barlow-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Light.ttf"; sourceTree = "<group>"; };
+		6586139023B547E5004E93D3 /* Barlow-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Thin.ttf"; sourceTree = "<group>"; };
+		6586139123B547E6004E93D3 /* Barlow-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		6586139223B547E6004E93D3 /* Barlow-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Black.ttf"; sourceTree = "<group>"; };
 		658DCF4D20B32081001B0843 /* Rockety.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rockety.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		658DCF5020B32081001B0843 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		658DCF5220B32081001B0843 /* MissionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +140,7 @@
 		65A48D6220B47762000F7EEE /* Rocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rocket.swift; sourceTree = "<group>"; };
 		65A48D6420B47C9C000F7EEE /* Launchpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launchpad.swift; sourceTree = "<group>"; };
 		65BDA191223D6E3D00E0A2D2 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		65D6C97B2365938A0060AE39 /* Rockety.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rockety.entitlements; sourceTree = "<group>"; };
 		65EA040920CF0CED00CAD6E8 /* LaunchpadsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchpadsViewController.swift; sourceTree = "<group>"; };
 		65EA041020D02C5500CAD6E8 /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		65F542A520B99BFF0023EAFB /* BulletinDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletinDataSource.swift; sourceTree = "<group>"; };
@@ -165,6 +202,44 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6586137F23B547C1004E93D3 /* Anurati */ = {
+			isa = PBXGroup;
+			children = (
+				658DCF7020B321DF001B0843 /* Anurati-Regular.otf */,
+				658DCF8820B33150001B0843 /* An-Black.otf */,
+				658DCF8C20B33151001B0843 /* An-Bold.otf */,
+				658DCF8720B3314F001B0843 /* An-Light.otf */,
+				658DCF8920B33150001B0843 /* An-Ultrabold.otf */,
+				658DCF8A20B33150001B0843 /* An-Regular.otf */,
+			);
+			path = Anurati;
+			sourceTree = "<group>";
+		};
+		6586138023B547CD004E93D3 /* Barlow */ = {
+			isa = PBXGroup;
+			children = (
+				6586139223B547E6004E93D3 /* Barlow-Black.ttf */,
+				6586138223B547E1004E93D3 /* Barlow-BlackItalic.ttf */,
+				6586138E23B547E5004E93D3 /* Barlow-Bold.ttf */,
+				6586138423B547E2004E93D3 /* Barlow-BoldItalic.ttf */,
+				6586138A23B547E4004E93D3 /* Barlow-ExtraBold.ttf */,
+				6586138823B547E3004E93D3 /* Barlow-ExtraBoldItalic.ttf */,
+				6586138623B547E2004E93D3 /* Barlow-ExtraLight.ttf */,
+				6586139123B547E6004E93D3 /* Barlow-ExtraLightItalic.ttf */,
+				6586138723B547E3004E93D3 /* Barlow-Italic.ttf */,
+				6586138F23B547E5004E93D3 /* Barlow-Light.ttf */,
+				6586138B23B547E4004E93D3 /* Barlow-LightItalic.ttf */,
+				6586138D23B547E4004E93D3 /* Barlow-Medium.ttf */,
+				6586138923B547E3004E93D3 /* Barlow-MediumItalic.ttf */,
+				6586138C23B547E4004E93D3 /* Barlow-Regular.ttf */,
+				6586138123B547E1004E93D3 /* Barlow-SemiBold.ttf */,
+				6586138523B547E2004E93D3 /* Barlow-SemiBoldItalic.ttf */,
+				6586139023B547E5004E93D3 /* Barlow-Thin.ttf */,
+				6586138323B547E2004E93D3 /* Barlow-ThinItalic.ttf */,
+			);
+			path = Barlow;
+			sourceTree = "<group>";
+		};
 		658DCF4420B32080001B0843 = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +265,7 @@
 		658DCF4F20B32081001B0843 /* Rockety */ = {
 			isa = PBXGroup;
 			children = (
+				65D6C97B2365938A0060AE39 /* Rockety.entitlements */,
 				658DCF5020B32081001B0843 /* AppDelegate.swift */,
 				65EA040B20CFD4FE00CAD6E8 /* Launches */,
 				65EA040E20CFD52F00CAD6E8 /* Agencies */,
@@ -264,12 +340,8 @@
 		65A48D6C20B48F67000F7EEE /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				658DCF7020B321DF001B0843 /* Anurati-Regular.otf */,
-				658DCF8820B33150001B0843 /* An-Black.otf */,
-				658DCF8C20B33151001B0843 /* An-Bold.otf */,
-				658DCF8720B3314F001B0843 /* An-Light.otf */,
-				658DCF8920B33150001B0843 /* An-Ultrabold.otf */,
-				658DCF8A20B33150001B0843 /* An-Regular.otf */,
+				6586138023B547CD004E93D3 /* Barlow */,
+				6586137F23B547C1004E93D3 /* Anurati */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -425,13 +497,16 @@
 				TargetAttributes = {
 					658DCF4C20B32080001B0843 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1020;
 					};
 					658DCF6020B32092001B0843 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1020;
 						TestTargetID = 658DCF4C20B32080001B0843;
 					};
 					65FD679D20CABFB20061E30A = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1020;
 						TestTargetID = 658DCF4C20B32080001B0843;
 					};
 				};
@@ -461,15 +536,33 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6586139623B547E6004E93D3 /* Barlow-BoldItalic.ttf in Resources */,
+				6586139A23B547E6004E93D3 /* Barlow-ExtraBoldItalic.ttf in Resources */,
+				658613A423B547E6004E93D3 /* Barlow-Black.ttf in Resources */,
+				6586139323B547E6004E93D3 /* Barlow-SemiBold.ttf in Resources */,
 				656D7C1320B33271000AC58C /* An-Bold.otf in Resources */,
+				6586139F23B547E6004E93D3 /* Barlow-Medium.ttf in Resources */,
+				6586139523B547E6004E93D3 /* Barlow-ThinItalic.ttf in Resources */,
 				656D7C1E20B35CA4000AC58C /* Anurati-Regular.otf in Resources */,
+				6586139823B547E6004E93D3 /* Barlow-ExtraLight.ttf in Resources */,
+				658613A123B547E6004E93D3 /* Barlow-Light.ttf in Resources */,
+				658613A323B547E6004E93D3 /* Barlow-ExtraLightItalic.ttf in Resources */,
+				6586139423B547E6004E93D3 /* Barlow-BlackItalic.ttf in Resources */,
+				6586139D23B547E6004E93D3 /* Barlow-LightItalic.ttf in Resources */,
+				6586139923B547E6004E93D3 /* Barlow-Italic.ttf in Resources */,
+				658613A223B547E6004E93D3 /* Barlow-Thin.ttf in Resources */,
+				6586139723B547E6004E93D3 /* Barlow-SemiBoldItalic.ttf in Resources */,
 				656D7C1220B33271000AC58C /* An-Black.otf in Resources */,
 				658DCF5B20B32092001B0843 /* LaunchScreen.storyboard in Resources */,
+				6586139E23B547E6004E93D3 /* Barlow-Regular.ttf in Resources */,
 				656D7C1620B33271000AC58C /* An-Regular.otf in Resources */,
+				658613A023B547E6004E93D3 /* Barlow-Bold.ttf in Resources */,
 				656D7C1420B33271000AC58C /* An-Light.otf in Resources */,
+				6586139B23B547E6004E93D3 /* Barlow-MediumItalic.ttf in Resources */,
 				658DCF5820B32092001B0843 /* Assets.xcassets in Resources */,
 				656D7C1520B33271000AC58C /* An-Ultrabold.otf in Resources */,
 				658DCF5620B32081001B0843 /* Main.storyboard in Resources */,
+				6586139C23B547E6004E93D3 /* Barlow-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,8 +919,10 @@
 			baseConfigurationReference = E60530EC1CF2AA160F65D3EB /* Pods-Rockety.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Rockety/Rockety.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 869CTTVFP6;
 				INFOPLIST_FILE = Rockety/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -835,11 +930,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = swiss.antoinebellanger.Rockety;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -849,8 +945,10 @@
 			baseConfigurationReference = 1517BB096DF03C2BC2AE67E2 /* Pods-Rockety.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Rockety/Rockety.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 869CTTVFP6;
 				INFOPLIST_FILE = Rockety/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -858,10 +956,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = swiss.antoinebellanger.Rockety;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -873,7 +972,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L6PKQSL7L2;
+				DEVELOPMENT_TEAM = 869CTTVFP6;
 				INFOPLIST_FILE = RocketyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -882,7 +981,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.antoinebellanger.RocketyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rockety.app/Rockety";
 			};
@@ -895,7 +994,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L6PKQSL7L2;
+				DEVELOPMENT_TEAM = 869CTTVFP6;
 				INFOPLIST_FILE = RocketyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -904,7 +1003,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.antoinebellanger.RocketyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rockety.app/Rockety";
 			};
@@ -914,7 +1013,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L6PKQSL7L2;
+				DEVELOPMENT_TEAM = 869CTTVFP6;
 				INFOPLIST_FILE = RocketyUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -924,7 +1023,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.antoinebellanger.RocketyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Rockety;
 			};
@@ -934,7 +1033,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L6PKQSL7L2;
+				DEVELOPMENT_TEAM = 869CTTVFP6;
 				INFOPLIST_FILE = RocketyUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -944,7 +1043,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.antoinebellanger.RocketyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Rockety;
 			};

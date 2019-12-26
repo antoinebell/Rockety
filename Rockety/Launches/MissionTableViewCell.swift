@@ -10,13 +10,11 @@ import UIKit
 
 class MissionTableViewCell: UITableViewCell {
     
-    @IBOutlet var missionNumberLabel: UILabel!
     @IBOutlet var missionNameLabel: UILabel!
     @IBOutlet var missionOperatorLabel: UILabel!
     @IBOutlet var missionRocketLabel: UILabel!
     @IBOutlet var missionLaunchSiteLabel: UILabel!
     @IBOutlet var missionDateLabel: UILabel!
-    @IBOutlet var missionPatchImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

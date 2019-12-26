@@ -49,13 +49,11 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(isSpaceX)
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.estimatedRowHeight = 150
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         let rocketName = launch.rocket.name!
         
@@ -132,7 +130,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
             print("No RocketURL and No Text")
         }
         
-        let eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(launch.id)")
+        let eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(String(describing: launch.id))")
         
         print("was event added?", eventAdded)
         
@@ -147,7 +145,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
         self.view.addGestureRecognizer(gestureRecognizer)
         
         //Fabric
-        Answers.logCustomEvent(withName: "Rocket", customAttributes: ["rocketName": launch.rocket.name, "mission": launch.name])
+        Answers.logCustomEvent(withName: "Rocket", customAttributes: ["rocketName": launch.rocket.name ?? "No Rocket Name", "mission": launch.name ?? "No Mission Name"])
     
     }
 
@@ -230,11 +228,18 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
-            if let date = dateFormatter.date(from: launch.net) {
-                let localizedDateTime: String = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .medium)
-                cell.missionSubtitleLabel.text = localizedDateTime
+            if let startDate = dateFormatter.date(from: launch.windowstart) {
+                let localizedDateTime: String = DateFormatter.localizedString(from: startDate, dateStyle: .short, timeStyle: .medium)
+                cell.missionStartWindowLabel.text = localizedDateTime
             } else {
-                cell.missionSubtitleLabel.text = launch.net
+                cell.missionStartWindowLabel.text = launch.net
+            }
+            
+            if let endDate = dateFormatter.date(from: launch.windowend) {
+                let localizedDateTime: String = DateFormatter.localizedString(from: endDate, dateStyle: .short, timeStyle: .medium)
+                cell.missionEndWindowLabel.text = localizedDateTime
+            } else {
+                cell.missionEndWindowLabel.text = launch.net
             }
             
             return cell
@@ -369,7 +374,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
             
             let initialLocation = CLLocationCoordinate2D(latitude: launch.location.pads[0].latitude, longitude: launch.location.pads[0].longitude)
             let regionRadius: CLLocationDistance = 1000
-            let coordinateRegion = MKCoordinateRegionMakeWithDistance(initialLocation, regionRadius, regionRadius)
+            let coordinateRegion = MKCoordinateRegion.init(center: initialLocation, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
             cell.launchSiteMapView.setRegion(coordinateRegion, animated: true)
             cell.launchSiteMapView.mapType = .hybrid
             
@@ -459,7 +464,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     @IBAction func addToCalendar(_ sender: UIButton) {
         
-        let eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(launch.id)")
+        let eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(String(describing: launch.id))")
         
         if eventAdded {
             calendarButton.imageView?.image = #imageLiteral(resourceName: "Calendar-Done")
@@ -558,7 +563,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                     insertEvent()
                 }
             } else {
-                eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(launch.id)")
+                eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(String(describing: launch.id))")
                 if eventAdded == nil || !eventAdded {
                     insertEvent()
                 }
@@ -566,13 +571,15 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
         case .restricted, .denied:
             let alertController = CFAlertViewController(title: "Oops !", message: "You didn't authorize us to access your calendar. Do you want to give us access in the Settings ?", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
             let settingsAction = CFAlertAction(title: "Open Settings", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: .white) { (action) in
-                let openSettingsURL = URL(string: UIApplicationOpenSettingsURLString)
-                UIApplication.shared.open(openSettingsURL!, options: [:], completionHandler: nil)
+                let openSettingsURL = URL(string: UIApplication.openSettingsURLString)
+                UIApplication.shared.open(openSettingsURL!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
             let cancelAction = CFAlertAction(title: "Cancel", style: .Cancel, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), handler: nil)
             alertController.addAction(settingsAction)
             alertController.addAction(cancelAction)
             present(alertController, animated: true, completion: nil)
+        @unknown default:
+            break;
         }
     }
     
@@ -620,7 +627,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
                     print("Saved")
                     try self.eventStore.save(event, span: .thisEvent)
                     
-                    UserDefaults.standard.set(true, forKey: "EventAddedToCalendar_\(self.launch.id)")
+                    UserDefaults.standard.set(true, forKey: "EventAddedToCalendar_\(String(describing: self.launch.id))")
                     
                     DispatchQueue.main.async {
                         self.calendarButton.setImage(#imageLiteral(resourceName: "Calendar-Done"), for: .normal)
@@ -665,4 +672,9 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     }
     */
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

@@ -18,6 +18,8 @@ struct ElseMission: Codable {
 
         let id: Int!
         let name: String!
+        let windowstart: String!
+        let windowend: String!
         let net: String!
         
         let vidURLs: [String]
