@@ -9,18 +9,51 @@ PODS:
   - Crashlytics (3.10.1):
     - Fabric (~> 1.7.5)
   - Fabric (1.7.6)
+  - RxCocoa (5.0.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.0.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.1)
+  - RxSwiftExt (5.2.0):
+    - RxSwiftExt/Core (= 5.2.0)
+    - RxSwiftExt/RxCocoa (= 5.2.0)
+  - RxSwiftExt/Core (5.2.0):
+    - RxSwift (~> 5.0)
+  - RxSwiftExt/RxCocoa (5.2.0):
+    - RxCocoa (~> 5.0)
+    - RxSwiftExt/Core
   - TBEmptyDataSet (2.7)
 
 DEPENDENCIES:
-  - AIFlatSwitch
-  - Alamofire
-  - AlamofireImage
-  - BetterSegmentedControl
+  - AIFlatSwitch (~> 1.0.2)
+  - Alamofire (~> 4.7.1)
+  - AlamofireImage (~> 3.3.1)
+  - BetterSegmentedControl (~> 0.9.0)
   - BulletinBoard (~> 2.0)
-  - CFAlertViewController
+  - CFAlertViewController (~> 3.0.0)
   - Crashlytics
   - Fabric
-  - TBEmptyDataSet
+  - RxCocoa
+  - RxSwift
+  - RxSwiftExt
+  - TBEmptyDataSet (~> 2.7.0)
+
+SPEC REPOS:
+  trunk:
+    - AIFlatSwitch
+    - Alamofire
+    - AlamofireImage
+    - BetterSegmentedControl
+    - BulletinBoard
+    - CFAlertViewController
+    - Crashlytics
+    - Fabric
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - RxSwiftExt
+    - TBEmptyDataSet
 
 SPEC CHECKSUMS:
   AIFlatSwitch: 5ab22806eeff3e09d585c2f13d22bfa6e3427191
@@ -31,8 +64,12 @@ SPEC CHECKSUMS:
   CFAlertViewController: 460bb12b42b500bb0838e5595ca144a18344765f
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
+  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
+  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
+  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
+  RxSwiftExt: 4ca80336f43c28f11a2825cdd2fc61dd6c044697
   TBEmptyDataSet: 1da712a3e0c324179253960165202d30009cba26
 
-PODFILE CHECKSUM: b962dc8e833e9ab4ea626f43eaff7b6a6d4cc902
+PODFILE CHECKSUM: 84cb4c2ed829122f0fa3dfa7b75822c2fecdc3dc
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.8.4

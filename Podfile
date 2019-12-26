@@ -6,15 +6,18 @@ target 'Rockety' do
   use_frameworks!
 
   # Pods for Rockety
-  pod 'Alamofire'
-  pod 'AlamofireImage'
-  pod 'BetterSegmentedControl'
-  pod 'CFAlertViewController'
+  pod 'Alamofire', '~> 4.7.1'
+  pod 'AlamofireImage', '~> 3.3.1'
+  pod 'BetterSegmentedControl', '~> 0.9.0'
+  pod 'CFAlertViewController', '~> 3.0.0'
   pod 'BulletinBoard', '~> 2.0'
-  pod 'AIFlatSwitch'
+  pod 'AIFlatSwitch', '~> 1.0.2'
   pod 'Fabric'
   pod 'Crashlytics'
-  pod 'TBEmptyDataSet'
+  pod 'TBEmptyDataSet', '~> 2.7.0'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'RxSwiftExt'
   
   target 'RocketyTests' do
     inherit! :search_paths

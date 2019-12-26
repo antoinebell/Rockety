@@ -434,7 +434,6 @@
 				658DCF4A20B32080001B0843 /* Frameworks */,
 				658DCF4B20B32080001B0843 /* Resources */,
 				3D3F8F6A33A31FE665C1C95E /* [CP] Embed Pods Frameworks */,
-				FFD510A1E7F3F3625933C333 /* [CP] Copy Pods Resources */,
 				65587F7E20BDEEC9001B1FFD /* Run Script */,
 			);
 			buildRules = (
@@ -454,8 +453,6 @@
 				658DCF5D20B32092001B0843 /* Sources */,
 				658DCF5E20B32092001B0843 /* Frameworks */,
 				658DCF5F20B32092001B0843 /* Resources */,
-				1E1E731EBD5CE04BFB6BF464 /* [CP] Embed Pods Frameworks */,
-				FDCB8DF78F47BA45CF604440 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -583,21 +580,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1E1E731EBD5CE04BFB6BF464 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RocketyTests/Pods-RocketyTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		296D989F4E486BC9E8DAE359 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -621,29 +603,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Rockety/Pods-Rockety-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AIFlatSwitch/AIFlatSwitch.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
-				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
-				"${BUILT_PRODUCTS_DIR}/CFAlertViewController/CFAlertViewController.framework",
-				"${BUILT_PRODUCTS_DIR}/TBEmptyDataSet/TBEmptyDataSet.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Rockety/Pods-Rockety-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AIFlatSwitch.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BetterSegmentedControl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CFAlertViewController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TBEmptyDataSet.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Rockety/Pods-Rockety-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rockety/Pods-Rockety-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Rockety/Pods-Rockety-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		65587F7E20BDEEC9001B1FFD /* Run Script */ = {
@@ -676,36 +645,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FDCB8DF78F47BA45CF604440 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RocketyTests/Pods-RocketyTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FFD510A1E7F3F3625933C333 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rockety/Pods-Rockety-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
