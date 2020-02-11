@@ -147,11 +147,12 @@ class BulletinSwipeInteractionController: UIPercentDrivenInteractiveTransition, 
                 return
             }
 
+            isInteractionInProgress = false
+
             let translation = gestureRecognizer.translation(in: contentView).y
 
             if translation >= dismissThreshold {
                 isFinished = true
-                isInteractionInProgress = false
                 finish()
             } else {
                 resetCardViews()
@@ -226,7 +227,7 @@ class BulletinSwipeInteractionController: UIPercentDrivenInteractiveTransition, 
 
     private func resetCardViews() {
 
-        let options: UIViewAnimationOptions = UIViewAnimationOptions(rawValue: 6 << 7)
+        let options = UIView.AnimationOptions(rawValue: 6 << 7)
 
         let animations = {
             self.snapshotView?.transform = .identity

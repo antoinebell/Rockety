@@ -6,22 +6,9 @@
 //
 //
 
-import Foundation
+import UIKit
 
-public enum BetterSegmentedControlOption {
-    /* Non-selected segments */
-    case titleColor(UIColor)
-    case titleFont(UIFont)
-    
-    /* Selected segment */
-    case selectedTitleColor(UIColor)
-    case selectedTitleFont(UIFont)
-    
-    /* Other segment options */
-    case titleBorderWidth(CGFloat)
-    case titleBorderColor(UIColor)
-    case titleNumberOfLines(Int)
-    
+public enum BetterSegmentedControlOption {        
     /* Selected segment */
     case indicatorViewBackgroundColor(UIColor)
     case indicatorViewInset(CGFloat)
@@ -33,8 +20,11 @@ public enum BetterSegmentedControlOption {
     case announcesValueImmediately(Bool)
     case panningDisabled(Bool)
     
+    /* Animation */
+    case animationDuration(TimeInterval)
+    case animationSpringDamping(CGFloat)
+    
     /* Other */
     case backgroundColor(UIColor)
     case cornerRadius(CGFloat)
-    case bouncesOnChange(Bool)
 }

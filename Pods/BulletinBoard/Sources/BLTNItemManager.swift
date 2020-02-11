@@ -27,12 +27,19 @@ import UIKit
     // MARK: - Background
 
     /**
-     * The background color of the bulletin card. Defaults to white.
+     * The background color of the bulletin card. Defaults to `systemBackground` on iOS 13
+     * and white on older versions of the OS.
      *
      * Set this value before presenting the bulletin. Changing it after will have no effect.
      */
 
-    @objc public var backgroundColor: UIColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    @objc public var backgroundColor: UIColor = {
+        if #available(iOS 13.0, *) {
+            return .systemBackground
+        } else {
+            return .white
+        }
+    }()
 
     /**
      * The style of the view covering the content. Defaults to `.dimmed`.
@@ -97,7 +104,14 @@ import UIKit
      */
 
     @objc public var allowsSwipeInteraction: Bool = true
+    
+    /**
+     * Tells us if a bulletin is currently being shown. Defaults to false
+     */
 
+    @objc public var isShowingBulletin: Bool { 
+        return bulletinController?.presentingViewController != nil
+    }
 
     // MARK: - Private Properties
 
@@ -106,6 +120,7 @@ import UIKit
     fileprivate let rootItem: BLTNItem
     fileprivate var itemsStack: [BLTNItem]
     fileprivate var previousItem: BLTNItem?
+    fileprivate var presentingWindow: UIWindow?
 
     fileprivate var isPrepared: Bool = false
     fileprivate var isPreparing: Bool = false
@@ -239,21 +254,30 @@ extension BLTNItemManager {
      * Displaying the loading indicator does not change the height of the page or the current item. It will disable
      * dismissal by tapping and swiping to allow the task to complete and avoid resource deallocation.
      *
-     * - parameter color: The color of the activity indicator to display. Defaults to black.
+     * - parameter color: The color of the activity indicator to display. Defaults to .label on iOS 13 and .black on older systems.
      *
      * Displaying the loading indicator does not change the height of the page or the current item.
      */
 
-    @objc public func displayActivityIndicator(color: UIColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)) {
+    @objc public func displayActivityIndicator(color: UIColor? = nil) {
 
         assertIsPrepared()
         assertIsMainThread()
 
         shouldDisplayActivityIndicator = true
-        lastActivityIndicatorColor = color
+        lastActivityIndicatorColor = color ?? defaultActivityIndicatorColor
 
-        bulletinController.displayActivityIndicator(color: color)
+        bulletinController.displayActivityIndicator(color: lastActivityIndicatorColor)
+    }
 
+    /// Provides a default color for activity indicator views.
+    /// Defaults to .label on iOS 13 and .black on older systems.
+    private var defaultActivityIndicatorColor: UIColor {
+        if #available(iOS 13.0, *) {
+            return .label
+        } else {
+            return .black
+        }
     }
 
     /**
@@ -322,6 +346,40 @@ extension BLTNItemManager {
 
     }
 
+    /**
+     * Removes items from the stack until a specific item is found.
+     * - parameter item: The item to seek.
+     * - parameter orDismiss: If true, dismiss bullein if not found. Otherwise popToRootItem()
+     */
+    
+    @objc public func popTo(item: BLTNItem, orDismiss: Bool) {
+        
+        assertIsPrepared()
+        assertIsMainThread()
+        
+        for index in 0..<itemsStack.count  {
+            
+            if itemsStack[index] === item {
+                
+                self.currentItem = itemsStack[index]
+                shouldDisplayActivityIndicator = currentItem.shouldStartWithActivityIndicator
+                refreshCurrentItemInterface()
+                
+                for removeIndex in (index+1..<itemsStack.count).reversed() {
+                    let removeItem = itemsStack.remove(at: removeIndex)
+                    tearDownItemsChain (startingAt: removeItem)
+                }
+                return
+            }
+        }
+        
+        if item !== rootItem, orDismiss {
+            dismissBulletin(animated: true)
+        } else {
+            popToRootItem()
+        }
+    }
+    
     /**
      * Removes all the items from the stack and displays the root item.
      */
@@ -399,6 +457,35 @@ extension BLTNItemManager {
         presentingVC.present(bulletinController, animated: animated, completion: completion)
 
     }
+    
+    /**
+     * Presents the bulletin on top of your application window.
+     *
+     * - parameter application: The application in which to display the bulletin. (normally: UIApplication.shared)
+     * - parameter animated: Whether to animate presentation. Defaults to `true`.
+     * - parameter completion: An optional block to execute after presentation. Default to `nil`.
+     */
+    
+    @objc(showBulletinInApplication:animated:completion:)
+    public func showBulletin(in application: UIApplication,
+                             animated: Bool = true,
+                             completion: (() -> Void)? = nil) {
+        assert(presentingWindow == nil, "Attempt to present a Bulletin on top of another Bulletin window. Make sure to dismiss any existing bulletin before calling this method.")
+        presentingWindow = UIWindow(frame: UIScreen.main.bounds)
+        presentingWindow?.rootViewController = UIViewController()
+        
+        // set alert window above current top window
+        if let topWindow = application.windows.last {
+            presentingWindow?.windowLevel = topWindow.windowLevel + 1
+        }
+        
+        presentingWindow?.makeKeyAndVisible()
+        
+        if let vc = presentingWindow?.rootViewController {
+            self.showBulletin(above: vc, animated: animated, completion: completion)
+        }
+        
+    }
 
     /**
      * Dismisses the bulletin and clears the current page. You will have to call `prepare` before
@@ -438,6 +525,9 @@ extension BLTNItemManager {
             bulletinController.contentStackView.removeArrangedSubview(arrangedSubview)
             arrangedSubview.removeFromSuperview()
         }
+        
+        presentingWindow?.isHidden = true
+        presentingWindow = nil
 
         bulletinController.backgroundView = nil
         bulletinController.manager = nil
@@ -537,6 +627,10 @@ extension BLTNItemManager {
             }
 
         }
+        
+        displayNewItemsAnimationPhase.completionHandler = {
+            self.currentItem.willDisplay()
+        }
 
         let finalAnimationPhase = AnimationPhase(relativeDuration: 1/3, curve: .linear)
 
@@ -567,7 +661,7 @@ extension BLTNItemManager {
 
             }
 
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, newArrangedSubviews.first)
+            UIAccessibility.post(notification: .screenChanged, argument: newArrangedSubviews.first)
 
         }
 

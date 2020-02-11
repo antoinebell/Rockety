@@ -30,7 +30,7 @@
  * (ex: haptic feedback).
  *
  * Use the `appearance` property to customize the appearance of the buttons. If you want to use a different interface
- * builder type, change the `InterfaceBuilderType` property.
+ * builder type, change the `interfaceBuilderType` property.
  */
 
 @interface BLTNActionItem : NSObject <BLTNItem>
@@ -263,6 +263,12 @@
  */
 
 - (void)tearDown;
+    
+/**
+* Called by the manager when bulletin item is about to be pushed onto the view.
+*/
+    
+- (void)willDisplay;
 
 /**
  * Called by the manager when bulletin item is pushed onto the view.

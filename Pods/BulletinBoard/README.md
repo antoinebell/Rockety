@@ -1,5 +1,6 @@
 # BulletinBoard
 
+[![CI Status](https://dev.azure.com/alexaubry/BulletinBoard/_apis/build/status/alexaubry.BulletinBoard)](https://dev.azure.com/alexaubry/BulletinBoard/_build/latest?definitionId=3)
 [![CI Status](https://travis-ci.org/alexaubry/BulletinBoard.svg?branch=master)](https://travis-ci.org/alexaubry/BulletinBoard)
 [![Version](https://img.shields.io/cocoapods/v/BulletinBoard.svg?style=flat)](https://cocoapods.org/pods/BulletinBoard)
 [![License](https://img.shields.io/cocoapods/l/BulletinBoard.svg?style=flat)](https://cocoapods.org/pods/BulletinBoard)
@@ -19,13 +20,13 @@ Here are some screenshots showing what you can build with BulletinBoard:
 
 ## Requirements
 
-- Xcode 9 and later
+- Xcode 11 and later
 - iOS 9 and later
-- Swift 3.2 and later
+- Swift 5 and later
 
 ## Demo
 
-A demo project is included in the `BulletinBoard` workspace. It demonstrates how to: 
+A demo project is included in the `BulletinBoard` workspace. It demonstrates how to:
 
 - integrate the library (setup, data flow)
 - create standard page cards
@@ -70,7 +71,7 @@ BulletinBoard is fully compatible with Objective-C.
 To import it in your Objective-C app, just add this line at the top of your files:
 
 ~~~objc
-@import BLTNBoard; 
+@import BLTNBoard;
 ~~~
 
 ## Usage
@@ -90,9 +91,9 @@ With this root item, you need to create a `BLTNManager`. We recommend putting it
 ~~~swift
 class ViewController: UIViewController {
 
-    lazy var bulletinManager: BLTNManager = {
+    lazy var bulletinManager: BLTNItemManager = {
         let rootItem: BLTNItem = // ... create your item here
-        return BLTNManager(rootItem: rootItem)
+        return BLTNItemManager(rootItem: rootItem)
     }()
 
 }
@@ -150,7 +151,7 @@ You can customize both color and fonts. You need to change these before you pres
 ~~~swift
 let greenColor = UIColor(red: 0.294, green: 0.85, blue: 0.392, alpha: 1)
 page.appearance.actionButtonColor = greenColor
-page.appearance.alternativeButtonColor = greenColor
+page.appearance.alternativeButtonTitleColor = greenColor
 page.appearance.actionButtonTitleColor = .white
 ~~~
 
@@ -189,9 +190,10 @@ The `BLTNItem` protocol exposes a `manager` property that is set when the item i
 
 You can use it to interact with the presented bulletin. Call:
 
+- `manager?.push(item:)` with a `BulletinItem` to present a new item
 - `manager?.popItem()` to go back to the previous item
 - `manager?.popToRootItem()` to go back to the first item
-- `manager?.push(item:)` with a `BulletinItem` to present a new item
+- `manager?.popTo(item:orDismiss:)` to go back to a specific item
 - `manager?.dismissBulletin(animated:)` to dismiss the bulletin
 - `manager?.displayNextItem()` to display the next item (see below)
 
@@ -241,13 +243,13 @@ This creates the following interaction:
 
 By default, the content behind the card is covered with a semi-opaque view (known as the `.dimming` style).
 
-You can customize the background view by changing the `backgroundViewStyle` property of the manager before calling `prepare()`.
+You can customize the background view by changing the `backgroundViewStyle` property of the manager before calling `showBulletin()`.
 
 **Example**:
 
 ~~~swift
 manager.backgroundViewStyle = .blurredExtraLight
-manager.prepare()
+manager.showBulletin(above: self)
 ~~~
 
 Several styles are available in the `BulletinBackgroundViewStyle` enum:
@@ -258,7 +260,7 @@ Several styles are available in the `BulletinBackgroundViewStyle` enum:
 
 ## Dismissal
 
-If you set the `isDismissable` property to `true`, the user will be able to dismiss the bulletin by tapping outside of the card or by swiping the card down. This property defaults to `true`. You should set this property to `false` if completing the task is required, and should not be avoided by the user. 
+If you set the `isDismissable` property to `true`, the user will be able to dismiss the bulletin by tapping outside of the card or by swiping the card down. This property defaults to `true`. You should set this property to `false` if completing the task is required, and should not be avoided by the user.
 
 By default, a close button will be displayed when the item can be dismissed. If you don't want this behavior, you can set the `requiresCloseButton` property to `false`. This is useful when the bulletin already provides an action button to close the item (such as a “Done“ button).
 
@@ -267,8 +269,6 @@ By default, a close button will be displayed when the item can be dismissed. If 
 ## Creating Custom Items
 
 To create custom bulletin items, create a class that implements the `BLTNItem` protocol. It is usually easier to subclass `BLTNPageItem` and implement one of the hook methods to provide your custom views to display with standard elements.
-
-See the [Creating a Custom Item](guides/Creating%20a%20Custom%20Item.md) guide to learn more.
 
 ## Internals
 
@@ -289,7 +289,12 @@ Make sure to read these guides before getting started:
 
 Feel free to submit a PR if you’re using this library in your apps.
 
-- [SpdrVision mobile](https://itunes.apple.com/it/app/spdrvision-mobile/id1260166539?mt=8) - A simple way to watch Italian television on macOS and iOS by Gianpiero Spinelli
+- [Babelgum Translator](https://geo.itunes.apple.com/us/app/babelgum-translator/id1412706772?mt=8)
+- [Bayes SMS](https://geo.itunes.apple.com/us/app/bayes-sms/id1281197214?mt=12)
+- [Fluidics](https://geo.itunes.apple.com/us/app/fluidics/id1330261345?lmt=8)
+- [nSuns 5/3/1](https://geo.itunes.apple.com/us/app/nsuns-5-3-1/id1265494052?mt=8)
+- [SpdrVision mobile](https://geo.itunes.apple.com/it/app/spdrvision-mobile/id1260166539?mt=8)
+- [Views • News Redesigned](https://geo.itunes.apple.com/us/app/views-news-redesigned/id1322754821?ls=1&mt=8)
 
 ## Author
 

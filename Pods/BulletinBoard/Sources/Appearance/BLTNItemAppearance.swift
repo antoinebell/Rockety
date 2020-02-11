@@ -13,8 +13,17 @@ import UIKit
 
     // MARK: - Color Customization
 
-    /// The tint color to apply to the action button (default blue).
-    @objc public var actionButtonColor: UIColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+    /// The tint color to apply to the action button (default `.link` on iOS 13 and `.blue` on older systems).
+    @objc public var actionButtonColor: UIColor = {
+        if #available(iOS 13.0, *) {
+            return .link
+        } else {
+           return #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        }
+    }()
+    
+    /// The button image to apply to the action button
+    @objc public var actionButtonImage: UIImage?
 
     /// The title color to apply to action button (default white).
     @objc public var actionButtonTitleColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -25,8 +34,14 @@ import UIKit
     /// The border width to apply to action button.
     @objc public var actionButtonBorderWidth: CGFloat = 1.0
 
-    /// The title color to apply to the alternative button (default blue).
-    @objc public var alternativeButtonTitleColor: UIColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+    /// The title color to apply to the alternative button (default `.link` on iOS 13 and `.blue` on older systems).
+    @objc public var alternativeButtonTitleColor: UIColor = {
+        if #available(iOS 13.0, *) {
+            return .link
+        } else {
+            return #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        }
+    }()
 
     /// The border color to apply to the alternative button.
     @objc public var alternativeButtonBorderColor: UIColor? = nil
@@ -34,14 +49,32 @@ import UIKit
     /// The border width to apply to the alternative button.
     @objc public var alternativeButtonBorderWidth: CGFloat = 1.0
 
-    /// The tint color to apply to the imageView (if image rendered in template mode, default blue).
-    @objc public var imageViewTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+    /// The tint color to apply to the imageView (if image rendered in template mode, default `.link` on iOS 13 and `.blue` on older systems).
+    @objc public var imageViewTintColor: UIColor = {
+        if #available(iOS 13.0, *) {
+            return .link
+        } else {
+            return #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        }
+    }()
 
-    /// The color of title text labels (default light gray).
-    @objc public var titleTextColor = #colorLiteral(red: 0.568627451, green: 0.5647058824, blue: 0.5725490196, alpha: 1)
+    /// The color of title text labels (default `.secondaryLabel` on iOS 13 and light gray on older systems).
+    @objc public var titleTextColor: UIColor = {
+        if #available(iOS 13.0, *) {
+            return .secondaryLabel
+        } else {
+            return #colorLiteral(red: 0.568627451, green: 0.5647058824, blue: 0.5725490196, alpha: 1)
+        }
+    }()
 
-    /// The color of description text labels (default black).
-    @objc public var descriptionTextColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    /// The color of description text labels (default `.label` on iOS 13 and black on older systems).
+    @objc public var descriptionTextColor: UIColor = {
+        if #available(iOS 13.0, *) {
+            return .label
+        } else {
+            return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        }
+    }()
 
     // MARK: - Corner Radius Customization
 
@@ -103,7 +136,7 @@ extension BLTNItemAppearance {
         if let titleFontDescriptor = self.titleFontDescriptor {
             return UIFont(descriptor: titleFontDescriptor, size: titleFontSize)
         } else {
-            return UIFont.systemFont(ofSize: titleFontSize, weight: UIFontWeightMedium)
+            return UIFont.systemFont(ofSize: titleFontSize, weight: .medium)
         }
 
     }
@@ -133,7 +166,7 @@ extension BLTNItemAppearance {
         if let buttonFontDescriptor = self.buttonFontDescriptor {
             return UIFont(descriptor: buttonFontDescriptor, size: actionButtonFontSize)
         } else {
-            return UIFont.systemFont(ofSize: actionButtonFontSize, weight: UIFontWeightSemibold)
+            return UIFont.systemFont(ofSize: actionButtonFontSize, weight: .semibold)
         }
 
     }
@@ -147,7 +180,7 @@ extension BLTNItemAppearance {
         if let buttonFontDescriptor = self.buttonFontDescriptor {
             return UIFont(descriptor: buttonFontDescriptor, size: alternativeButtonFontSize)
         } else {
-            return UIFont.systemFont(ofSize: alternativeButtonFontSize, weight: UIFontWeightSemibold)
+            return UIFont.systemFont(ofSize: alternativeButtonFontSize, weight: .semibold)
         }
 
     }
@@ -175,10 +208,3 @@ extension BLTNItemAppearance {
     case darkContent
 
 }
-
-// MARK: - Swift Compatibility
-
-#if swift(>=4.0)
-    let UIFontWeightMedium = UIFont.Weight.medium
-    let UIFontWeightSemibold = UIFont.Weight.semibold
-#endif

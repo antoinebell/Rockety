@@ -19,21 +19,19 @@ import StoreKit
 
 class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate, RocketSearchControllerDelegate, UIViewControllerPreviewingDelegate, TBEmptyDataSetDelegate, TBEmptyDataSetDataSource {
     
-    //MARK: IBOutlet
+    // - IBOutlets
     @IBOutlet var tableView: UITableView!
     @IBOutlet var launchesLabel: UILabel!
-    
-    //SpaceX API
+
+    // - Properties
     var spaceXMissions = [Mission]()
     var filteredSpaceXMissions = [Mission]()
     
-    //Else API
     var elseLaunches: ElseMission!
     var filteredElseLaunches = [ElseMission.Launch]()
     
     var downloaded = false
-
-    //MARK: Properties
+    
     let refreshControl = UIRefreshControl()
     
     lazy var bulletinManager: BLTNItemManager = {
@@ -44,12 +42,11 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     var currentIndex = 0
     
     var shouldShowSearchResults = false
-    var searchController: UISearchController!
     var rocketSearchController: RocketSearchController!
     
     var selectedLaunchIndex: Int!
     
-    //MARK: viewDidLoad
+    // MARK: - ViewDidLoad
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,15 +83,8 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    //MARK: Data
-    
-    //MARK: Data - SpaceX
+    // MARK: Data - SpaceX
     
     @objc func downloadSpaceX() {
         Alamofire.request(API.SpaceX.allLaunches.url()).responseJSON { response in
@@ -103,14 +93,10 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                 let decodedMissions = try! decoder.decode([Mission].self, from: data)
                 self.spaceXMissions = decodedMissions
             }
-            
-            DispatchQueue.main.async {
-                print("Download SpaceX")
-            }
         }
     }
     
-    //MARK: Data - Else
+    // MARK: Data - Else
     
     @objc func downloadAll() {
         Alamofire.request(API.All.nextLaunches.url()).responseJSON { response in
@@ -292,17 +278,6 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //MARK: UISearchController
     
-    func configureSearchController() {
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search..."
-        searchController.searchBar.delegate = self
-        searchController.searchBar.sizeToFit()
-        
-        tableView.tableHeaderView = searchController.searchBar
-    }
-    
     func configureRocketSearchController() {
         rocketSearchController = RocketSearchController(searchResultsController: self, searchBarFrame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50), searchBarFont: UIFont.systemFont(ofSize: 16), searchBarTextColor: UIColor.white, searchBarTintColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1))
         rocketSearchController.rocketSearchBar.placeholder = "Search"
@@ -327,7 +302,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             tableView.reloadData()
         }
         
-        searchController.searchBar.resignFirstResponder()
+        searchBar.resignFirstResponder()
     }
     
     func updateSearchResults(for searchController: UISearchController) {

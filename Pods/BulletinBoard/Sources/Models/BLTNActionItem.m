@@ -4,8 +4,8 @@
  */
 
 #import "BLTNActionItem.h"
+#import "BLTNBoardSwiftSupport.h"
 #import <objc/message.h>
-#import <BLTNBoard/BLTNBoard-Swift.h>
 
 @interface BLTNActionItem ()
 
@@ -151,6 +151,10 @@
     [self.alternativeButton removeTarget:self action:NULL forControlEvents:UIControlEventTouchUpInside];
     self.actionButton = nil;
     self.alternativeButton = nil;
+}
+    
+- (void)willDisplay
+{
 }
 
 - (void)onDisplay
