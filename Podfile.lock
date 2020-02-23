@@ -6,6 +6,7 @@ PODS:
   - BetterSegmentedControl (1.3.0)
   - BulletinBoard (4.1.0)
   - CFAlertViewController (3.1)
+  - CleverPush (0.3.1)
   - Crashlytics (3.10.1):
     - Fabric (~> 1.7.5)
   - Fabric (1.7.6)
@@ -32,6 +33,7 @@ DEPENDENCIES:
   - BetterSegmentedControl (~> 1.3.0)
   - BulletinBoard (~> 4.1.0)
   - CFAlertViewController (~> 3.1)
+  - CleverPush
   - Crashlytics
   - Fabric
   - RxCocoa
@@ -47,6 +49,7 @@ SPEC REPOS:
     - BetterSegmentedControl
     - BulletinBoard
     - CFAlertViewController
+    - CleverPush
     - Crashlytics
     - Fabric
     - RxCocoa
@@ -62,6 +65,7 @@ SPEC CHECKSUMS:
   BetterSegmentedControl: 85d1b0343a09603b098884d527f550dfc8e6cdd9
   BulletinBoard: c774340545b5cfd05a96a89f63b105ecc95c86f9
   CFAlertViewController: a27cf0512d0fa9ef6a3b966862039c295fb0ef69
+  CleverPush: f148f575f2fde9bec8e9f5022d9b1d2415a60b5d
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
@@ -70,6 +74,6 @@ SPEC CHECKSUMS:
   RxSwiftExt: 4ca80336f43c28f11a2825cdd2fc61dd6c044697
   TBEmptyDataSet: 1da712a3e0c324179253960165202d30009cba26
 
-PODFILE CHECKSUM: eda02fd3d8833ec152f07fde159d77499e720540
+PODFILE CHECKSUM: 180d188b3983897fad79fdbeab2b0a6daf22c5a9
 
 COCOAPODS: 1.8.4

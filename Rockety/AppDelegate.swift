@@ -6,6 +6,7 @@
 //  Copyright © 2018 Antoine Bellanger. All rights reserved.
 //
 
+import CleverPush
 import Crashlytics
 import Fabric
 import UIKit
@@ -13,21 +14,23 @@ import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
-    
+
     let runIncrementerSetting = "numberOfRuns"
     let minimumRunCount = 5
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        Fabric.with([Crashlytics.self])
         
+        // In-App Purchases
         IAPHandler.shared.fetchAvailableProducts()
-        
+
+        // Review
         let review = Review()
         review.incrementAppRunCount()
 
+        // Notifications
+        CleverPush.initWithLaunchOptions(launchOptions, channelId: "3jvNGvPRsJY83DoC4")
+        
         return true
     }
 
@@ -52,25 +55,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        
         let viewController = (window?.rootViewController as! UITabBarController).viewControllers![0] as! UINavigationController
         let missionsViewController = viewController.viewControllers[0] as! MissionsViewController
         missionsViewController.restoreUserActivityState(userActivity)
-        
+
         return true
     }
-    
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         print("Device Token: \(token)")
     }
-    
+
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Failed to register: \(error)")
     }
-    
 }
-

@@ -18,6 +18,7 @@ target 'Rockety' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxSwiftExt'
+  pod 'CleverPush'
   
   target 'RocketyTests' do
     inherit! :search_paths
