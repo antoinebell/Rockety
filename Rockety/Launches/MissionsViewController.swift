@@ -32,6 +32,8 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var downloaded = false
     
+    var missionId: String?
+    
     let refreshControl = UIRefreshControl()
     
     lazy var bulletinManager: BLTNItemManager = {
@@ -104,35 +106,6 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                 let decoder = JSONDecoder()
                 let decodedLaunches = try! decoder.decode(ElseMission.self, from: data)
                 self.elseLaunches = decodedLaunches
-            
-                let launches = decodedLaunches.launches
-                
-                if SettingsViewController.userDidSubscribeNotifications {
-                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                    
-                    for launch in launches {
-                        let center = UNUserNotificationCenter.current()
-                        center.getNotificationSettings(completionHandler: { (settings) in
-                            if settings.authorizationStatus == .authorized {
-                                let content = UNMutableNotificationContent()
-                                content.body = "\(launch.name!) is lifting off in 15 minutes !"
-                                content.sound = UNNotificationSound.default
-                                
-                                let dateFormatter = DateFormatter()
-                                dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
-                                dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-                                let dateToTrigger = dateFormatter.date(from: launch.net)?.addingTimeInterval(-900)
-                                let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: dateToTrigger!)
-                                let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-                                //getting the notification request
-                                let request = UNNotificationRequest(identifier: "Rockety_Launch_\(launch.id!)", content: content, trigger: trigger)
-                                
-                                //adding the notification to notification center
-                                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-                            }
-                        })
-                    }
-                }
                 
                 DispatchQueue.main.async {
                     print("Downloaded Everything")
@@ -140,6 +113,11 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.refreshControl.endRefreshing()
                     self.downloaded = true
                     self.tableView.reloadData()
+                    
+                    // Deeplink handling
+                    if self.missionId != nil {
+                        self.performSegue(withIdentifier: "performDeeplink", sender: self)
+                    }
                 }
             }
         }
@@ -544,6 +522,13 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             let destVC = segue.destination as! MissionsDetailViewController
             destVC.isSpaceX = false
             destVC.launch = elseLaunches.launches[selectedLaunchIndex]
+        } else if segue.identifier == "performDeeplink" {
+            guard let identifier = Int(missionId ?? "") else { return }
+            let mission = elseLaunches.launches.filter { $0.id == identifier }
+            guard mission.count > 0 else { return }
+            let destVC = segue.destination as! MissionsDetailViewController
+            destVC.isSpaceX = false
+            destVC.launch = mission[0]
         }
     }
     

@@ -142,6 +142,7 @@
                         <outlet property="tableView" destination="8L4-65-yYB" id="voe-7Y-jf2"/>
                         <segue destination="vL5-Kj-6dT" kind="show" identifier="showMissionSpXCS" id="GUA-hD-Ehs"/>
                         <segue destination="vL5-Kj-6dT" kind="show" identifier="showMissionElseCS" id="7qe-6b-bY1"/>
+                        <segue destination="vL5-Kj-6dT" kind="show" identifier="performDeeplink" id="GHw-sN-AlV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -821,6 +822,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AHO-jb-xyk"/>
                     </view>
+                    <navigationItem key="navigationItem" id="2MU-X5-gnE"/>
                     <connections>
                         <outlet property="calendarButton" destination="BA4-FP-IBc" id="3Ci-Hb-gPL"/>
                         <outlet property="tableView" destination="OrK-wR-e0w" id="HeS-v4-ze5"/>
@@ -1018,7 +1020,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="cJE-YX-l3Y">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="HFX-3Z-Ww4" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="HFX-3Z-Ww4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xuC-v3-Efq">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1821,6 +1823,6 @@
         <image name="tabbar_rocket" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GUA-hD-Ehs"/>
+        <segue reference="GHw-sN-AlV"/>
     </inferredMetricsTieBreakers>
 </document>

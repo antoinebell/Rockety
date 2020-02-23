@@ -73,4 +73,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Failed to register: \(error)")
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+        tabBarController.selectedIndex = 0
+        
+        let missionsViewController = tabBarController.viewControllers?[0].children[0] as! MissionsViewController
+        missionsViewController.missionId = url.host
+        
+        self.window?.rootViewController = missionsViewController
+        
+        return true
+    }
 }
