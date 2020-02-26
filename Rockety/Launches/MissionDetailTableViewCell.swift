@@ -14,8 +14,6 @@ class MissionDetailTitleTableViewCell: UITableViewCell {
     @IBOutlet var missionNumberLabel: UILabel!
     @IBOutlet var missionTitleLabel: UILabel!
     @IBOutlet var missionStartWindowLabel: UILabel!
-    @IBOutlet var missionEndWindowLabel: UILabel!
-    @IBOutlet var missionPatchImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

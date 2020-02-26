@@ -14,11 +14,20 @@
         <array key="Barlow-Bold.ttf">
             <string>Barlow-Bold</string>
         </array>
+        <array key="Barlow-Italic.ttf">
+            <string>Barlow-Italic</string>
+        </array>
         <array key="Barlow-Light.ttf">
             <string>Barlow-Light</string>
         </array>
         <array key="Barlow-Medium.ttf">
             <string>Barlow-Medium</string>
+        </array>
+        <array key="Barlow-Regular.ttf">
+            <string>Barlow-Regular</string>
+        </array>
+        <array key="Barlow-Thin.ttf">
+            <string>Barlow-Thin</string>
         </array>
     </customFonts>
     <scenes>
@@ -34,39 +43,39 @@
                                 <rect key="frame" x="0.0" y="66" width="414" height="655"/>
                                 <color key="backgroundColor" red="0.066077694300000003" green="0.1192067638" blue="0.23530644179999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionCell" rowHeight="145" id="oCO-9Q-fzc" customClass="MissionTableViewCell" customModule="Rockety" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionCell" rowHeight="145" id="oCO-9Q-fzc" customClass="MissionTableViewCell" customModule="Rockety" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oCO-9Q-fzc" id="6qK-FI-TZW">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="145"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="145"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Bangabandhu-1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmZ-Kg-CYX">
-                                                    <rect key="frame" x="20" y="11" width="374" height="24"/>
+                                                    <rect key="frame" x="20" y="11" width="355" height="24"/>
                                                     <fontDescription key="fontDescription" name="Barlow-Bold" family="Barlow" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SpaceX" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9P-KY-sje">
-                                                    <rect key="frame" x="20" y="40" width="374" height="20.666666666666671"/>
+                                                    <rect key="frame" x="20" y="40" width="355" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="Barlow-Medium" family="Barlow" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Falcon 9 FT" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zrE-d8-BTD">
-                                                    <rect key="frame" x="20" y="65.666666666666671" width="374" height="18"/>
+                                                    <rect key="frame" x="20" y="65.666666666666671" width="355" height="18"/>
                                                     <fontDescription key="fontDescription" name="Barlow-Light" family="Barlow" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KSC LC 39A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jcr-F1-buU">
-                                                    <rect key="frame" x="20" y="88.666666666666671" width="374" height="18"/>
+                                                    <rect key="frame" x="20" y="88.666666666666671" width="355" height="18"/>
                                                     <fontDescription key="fontDescription" name="Barlow-Light" family="Barlow" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="2018-05-11 20:14:00Z" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V74-nN-Lzi">
-                                                    <rect key="frame" x="20" y="111.66666666666667" width="374" height="22.333333333333329"/>
+                                                    <rect key="frame" x="20" y="111.66666666666667" width="355" height="22.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="Barlow-Light" family="Barlow" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -340,44 +349,35 @@
                                 <rect key="frame" x="0.0" y="67" width="414" height="620"/>
                                 <color key="backgroundColor" red="0.066077694300000003" green="0.1192067638" blue="0.23530644179999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailTitleCell" rowHeight="150" id="ODP-10-dWC" customClass="MissionDetailTitleTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="150"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailTitleCell" id="ODP-10-dWC" customClass="MissionDetailTitleTableViewCell" customModule="Rockety" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="129.33332824707031"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ODP-10-dWC" id="ppw-1Y-6Mu">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="129.33332824707031"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#72" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGZ-BZ-Hq8">
-                                                    <rect key="frame" x="20" y="10.999999999999998" width="38" height="26.333333333333329"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="22"/>
+                                                    <rect key="frame" x="20" y="11.000000000000002" width="36" height="26.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Thin" family="Barlow" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Bangabandhu-1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EFX-hs-Ofl">
-                                                    <rect key="frame" x="20" y="49.333333333333336" width="374" height="26.333333333333336"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <rect key="frame" x="20" y="49.666666666666664" width="374" height="26.999999999999993"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Bold" family="Barlow" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018-05-11 20:14:00Z" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddR-0e-4U8">
-                                                    <rect key="frame" x="20" y="87.666666666666671" width="374" height="21.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018-05-11 20:14:00Z" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5n-sa-Dcn">
-                                                    <rect key="frame" x="20" y="117.33333333333333" width="374" height="21.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                                    <rect key="frame" x="20" y="88.666666666666671" width="374" height="20.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Light" family="Barlow" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="b5n-sa-Dcn" firstAttribute="bottom" secondItem="ppw-1Y-6Mu" secondAttribute="bottomMargin" id="2rd-Rk-98m"/>
-                                                <constraint firstItem="b5n-sa-Dcn" firstAttribute="leading" secondItem="ppw-1Y-6Mu" secondAttribute="leading" constant="20" id="6bI-3Z-9vS"/>
                                                 <constraint firstAttribute="trailing" secondItem="ddR-0e-4U8" secondAttribute="trailing" constant="20" id="AH3-gN-nGi"/>
-                                                <constraint firstItem="b5n-sa-Dcn" firstAttribute="top" secondItem="ddR-0e-4U8" secondAttribute="bottom" constant="8" id="Hnd-qa-yGv"/>
-                                                <constraint firstAttribute="trailing" secondItem="b5n-sa-Dcn" secondAttribute="trailing" constant="20" id="PN4-AN-Y3H"/>
+                                                <constraint firstAttribute="bottom" secondItem="ddR-0e-4U8" secondAttribute="bottom" constant="20" id="MFW-dX-d5Q"/>
                                                 <constraint firstItem="ddR-0e-4U8" firstAttribute="leading" secondItem="ppw-1Y-6Mu" secondAttribute="leadingMargin" id="R5o-Hg-3oK"/>
                                                 <constraint firstAttribute="trailing" secondItem="EFX-hs-Ofl" secondAttribute="trailing" constant="20" id="SGZ-C1-pnO"/>
                                                 <constraint firstItem="EFX-hs-Ofl" firstAttribute="top" secondItem="PGZ-BZ-Hq8" secondAttribute="bottom" constant="12" id="Um6-Ql-4GK"/>
@@ -390,14 +390,13 @@
                                         <color key="backgroundColor" red="0.066077694300000003" green="0.1192067638" blue="0.23530644179999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
-                                            <outlet property="missionEndWindowLabel" destination="b5n-sa-Dcn" id="YHv-GN-Q7v"/>
                                             <outlet property="missionNumberLabel" destination="PGZ-BZ-Hq8" id="sNv-RB-Ota"/>
                                             <outlet property="missionStartWindowLabel" destination="ddR-0e-4U8" id="JHt-h5-NED"/>
                                             <outlet property="missionTitleLabel" destination="EFX-hs-Ofl" id="ap9-Wt-lvj"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailRocketCell" rowHeight="200" id="uGN-49-2Ut" customClass="MissionDetailRocketTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="178" width="414" height="200"/>
+                                        <rect key="frame" x="0.0" y="157.33332824707031" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uGN-49-2Ut" id="NJ7-1N-KBr">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
@@ -411,7 +410,7 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Falcon 9 FT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBT-A3-CW1">
                                                     <rect key="frame" x="101" y="45" width="293" height="23"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Regular" family="Barlow" pointSize="19"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -420,19 +419,19 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="26" id="e7U-MO-Qg5"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Bold" family="Barlow" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIM-up-y0G">
-                                                    <rect key="frame" x="101" y="124.66666666666669" width="293" height="64.333333333333314"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                                    <rect key="frame" x="101" y="133" width="293" height="56"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Light" family="Barlow" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="China Aerospace Science and Technology Corporation" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpQ-q4-fQR">
-                                                    <rect key="frame" x="101" y="76" width="293" height="40.666666666666657"/>
-                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                                                    <rect key="frame" x="101" y="76" width="293" height="41"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Italic" family="Barlow" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -451,7 +450,7 @@
                                                 <constraint firstItem="gBT-A3-CW1" firstAttribute="trailing" secondItem="NJ7-1N-KBr" secondAttribute="trailingMargin" id="dI7-dd-OAr"/>
                                                 <constraint firstItem="DpQ-q4-fQR" firstAttribute="leading" secondItem="NJ7-1N-KBr" secondAttribute="leading" constant="101" id="fM4-Bg-K5m"/>
                                                 <constraint firstItem="gBT-A3-CW1" firstAttribute="leading" secondItem="NJ7-1N-KBr" secondAttribute="leading" constant="101" id="h59-y2-Y81"/>
-                                                <constraint firstItem="XIM-up-y0G" firstAttribute="top" secondItem="DpQ-q4-fQR" secondAttribute="bottom" constant="8" id="ine-EC-0re"/>
+                                                <constraint firstItem="XIM-up-y0G" firstAttribute="top" secondItem="DpQ-q4-fQR" secondAttribute="bottom" constant="16" id="ine-EC-0re"/>
                                                 <constraint firstItem="sqj-VL-3rI" firstAttribute="top" secondItem="NJ7-1N-KBr" secondAttribute="topMargin" id="nVb-PI-8rt"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="XIM-up-y0G" secondAttribute="bottom" id="wS6-Hy-CUw"/>
                                                 <constraint firstItem="DpQ-q4-fQR" firstAttribute="top" secondItem="gBT-A3-CW1" secondAttribute="bottom" constant="8" id="zM5-IY-Ky6"/>
@@ -467,33 +466,33 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailStage1Cell" rowHeight="75" id="TR5-Lx-E6z" customClass="MissionDetailStage1TableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="378" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="357.33332824707031" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TR5-Lx-E6z" id="TwJ-cZ-MlF">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Stage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgA-0c-eLe">
-                                                    <rect key="frame" x="101" y="11" width="112" height="25"/>
+                                                    <rect key="frame" x="101" y="11" width="107.33333333333331" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="rGS-LB-sY6"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Bold" family="Barlow" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B1043" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAz-ic-cTF">
-                                                    <rect key="frame" x="101" y="44" width="56" height="23.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <rect key="frame" x="101" y="44" width="49.666666666666657" height="23.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Regular" family="Barlow" pointSize="19"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reused" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C66-kf-rgq">
-                                                    <rect key="frame" x="167" y="45" width="60" height="21.666666666666671"/>
+                                                    <rect key="frame" x="160.66666666666666" y="45" width="60" height="21.666666666666671"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="MXt-uH-M75"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Thin" family="Barlow" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -517,24 +516,24 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailStage1DCell" rowHeight="45" id="sic-uq-Aip" customClass="MissionDetailStage1DTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="453" width="414" height="45"/>
+                                        <rect key="frame" x="0.0" y="432.33332824707031" width="414" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sic-uq-Aip" id="RgJ-qZ-TnW">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B1043" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhL-uN-h76">
-                                                    <rect key="frame" x="101" y="11" width="56" height="23"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <rect key="frame" x="101" y="11" width="49.666666666666657" height="23"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Regular" family="Barlow" pointSize="19"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reused" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dty-cX-NSi">
-                                                    <rect key="frame" x="167" y="12" width="60" height="21"/>
+                                                    <rect key="frame" x="160.66666666666666" y="12" width="60" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="cmn-MP-FTw"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Thin" family="Barlow" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -558,36 +557,36 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailStage2Cell" rowHeight="150" id="Bp8-P5-lBo" customClass="MissionDetailStage2TableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="498" width="414" height="150"/>
+                                        <rect key="frame" x="0.0" y="477.33332824707031" width="414" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bp8-P5-lBo" id="RcA-lb-hBT">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Second Stage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTP-5c-awM">
-                                                    <rect key="frame" x="101" y="11" width="144" height="25"/>
+                                                    <rect key="frame" x="101.00000000000001" y="11" width="135.33333333333337" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="kRp-bN-sj6"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Bold" family="Barlow" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iridium NEXT 6" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZF-9a-pUo">
                                                     <rect key="frame" x="101" y="44" width="293" height="23"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Regular" family="Barlow" pointSize="19"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iridium Communications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mii-qP-ZxL">
-                                                    <rect key="frame" x="101" y="73" width="293" height="21"/>
-                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                                                    <rect key="frame" x="101" y="73" width="293" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Italic" family="Barlow" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ltk-Ec-aaw">
-                                                    <rect key="frame" x="101" y="102" width="293" height="37"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="13"/>
+                                                    <rect key="frame" x="101" y="101" width="293" height="38"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Light" family="Barlow" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -616,21 +615,21 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailStage2DCell" rowHeight="70" id="Gh4-Em-5dK" customClass="MissionDetailStage2DTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="648" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="627.33332824707031" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gh4-Em-5dK" id="1GC-fU-FOc">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GRACE-FO 1-2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N6u-qq-Epn">
-                                                    <rect key="frame" x="101" y="11.000000000000002" width="127.66666666666669" height="23.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <rect key="frame" x="101" y="11.000000000000002" width="116.66666666666669" height="24.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Regular" family="Barlow" pointSize="19"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="NASA &amp; DLR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2e-zN-2cT">
-                                                    <rect key="frame" x="101" y="40.666666666666664" width="96" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                    <rect key="frame" x="101" y="41.666666666666664" width="90" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Light" family="Barlow" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -651,7 +650,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailLaunchCell" rowHeight="150" id="F49-lA-ggg" customClass="MissionDetailLaunchTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="718" width="414" height="150"/>
+                                        <rect key="frame" x="0.0" y="697.33332824707031" width="414" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="F49-lA-ggg" id="OUE-sP-9Kc">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
@@ -661,20 +660,20 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="150"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Launch Site" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XVF-DE-1es">
-                                                            <rect key="frame" x="15" y="10" width="122" height="27"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                            <rect key="frame" x="14.999999999999993" y="10.000000000000002" width="115.33333333333331" height="26.666666666666671"/>
+                                                            <fontDescription key="fontDescription" name="Barlow-Bold" family="Barlow" pointSize="22"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VAFB SLC 4E" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCv-jw-LcX">
-                                                            <rect key="frame" x="15" y="49" width="281" height="23"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                            <rect key="frame" x="15" y="48.666666666666664" width="281" height="22.999999999999993"/>
+                                                            <fontDescription key="fontDescription" name="Barlow-Regular" family="Barlow" pointSize="19"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Vandenberg Air Force Base Space Launch Complex 4E" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIx-dp-SP9">
-                                                            <rect key="frame" x="15" y="80" width="281" height="62"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Vandenberg Air Force Base Space Launch Complex 4E" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIx-dp-SP9">
+                                                            <rect key="frame" x="15" y="79.666666666666671" width="281" height="62.333333333333329"/>
+                                                            <fontDescription key="fontDescription" name="Barlow-Regular" family="Barlow" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -719,15 +718,15 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MissionDetailPressCell" rowHeight="100" id="oq5-DQ-dL2" customClass="MissionDetailPressTableViewCell" customModule="Rockety" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="868" width="414" height="100"/>
+                                        <rect key="frame" x="0.0" y="847.33332824707031" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oq5-DQ-dL2" id="Vgw-Nb-esO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Links" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftj-Ls-BHz">
-                                                    <rect key="frame" x="324.33333333333331" y="11.000000000000002" width="54.666666666666686" height="24.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <rect key="frame" x="326" y="11.000000000000002" width="53" height="24.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="Barlow-Bold" family="Barlow" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1049,13 +1048,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A G E N C I E S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kz3-qL-Ij5">
-                                <rect key="frame" x="20" y="20" width="160.33333333333334" height="27"/>
+                                <rect key="frame" x="20" y="20" width="160.33333333333334" height="25.666666666666671"/>
                                 <fontDescription key="fontDescription" name="Anurati-Regular" family="Anurati" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="O70-1R-hbM">
-                                <rect key="frame" x="0.0" y="67" width="414" height="654"/>
+                                <rect key="frame" x="0.0" y="65.666666666666686" width="414" height="655.33333333333326"/>
                                 <color key="backgroundColor" red="0.066077694300000003" green="0.1192067638" blue="0.23530644179999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AgencyCell" rowHeight="83" id="WEU-Hm-4bG" customClass="AgencyTableViewCell" customModule="Rockety" customModuleProvider="target">
@@ -1147,10 +1146,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5Ii-oI-G5t">
-                                <rect key="frame" x="0.0" y="67" width="414" height="669"/>
+                                <rect key="frame" x="0.0" y="65.666666666666686" width="414" height="670.33333333333326"/>
                             </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L A U N C H P A D S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfh-16-S50">
-                                <rect key="frame" x="20" y="20" width="225" height="27"/>
+                                <rect key="frame" x="20" y="20" width="225" height="25.666666666666671"/>
                                 <fontDescription key="fontDescription" name="Anurati-Regular" family="Anurati" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>

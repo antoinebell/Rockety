@@ -226,21 +226,26 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
             missionName[1].remove(at: missionName[1].startIndex)
             cell.missionTitleLabel.text = missionName[1]
             
+            var startDateString = ""
+            var endDateString = ""
+            
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
             if let startDate = dateFormatter.date(from: launch.windowstart) {
                 let localizedDateTime: String = DateFormatter.localizedString(from: startDate, dateStyle: .short, timeStyle: .medium)
-                cell.missionStartWindowLabel.text = localizedDateTime
+                startDateString = localizedDateTime
             } else {
-                cell.missionStartWindowLabel.text = launch.net
+                startDateString = launch.net
             }
             
             if let endDate = dateFormatter.date(from: launch.windowend) {
                 let localizedDateTime: String = DateFormatter.localizedString(from: endDate, dateStyle: .short, timeStyle: .medium)
-                cell.missionEndWindowLabel.text = localizedDateTime
+                endDateString = localizedDateTime
             } else {
-                cell.missionEndWindowLabel.text = launch.net
+                endDateString = launch.net
             }
+            
+            cell.missionStartWindowLabel.text = "\(startDateString) - \(endDateString)"
             
             return cell
             
@@ -248,14 +253,14 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
             let cell = tableView.dequeueReusableCell(withIdentifier: "MissionDetailRocketCell", for: indexPath) as! MissionDetailRocketTableViewCell
             cell.rocketNameLabel.text = launch.rocket.name
             cell.rocketOwnerLabel.text = "\(launch.lsp.name!)  \(IsoCountryCodes.find(key: launch.lsp.countryCode).flag)"
-            cell.rocketDescriptionLabel.text = "No description available."
+            cell.rocketDescriptionLabel.text = "No information on that rocket, it must be brand new!"
             var string = ""
             do {
                 string = try String(contentsOf: URL(string: rocketTextURL.url())!)
                 cell.rocketDescriptionLabel.text = string
             } catch {
                 print("Error")
-                cell.rocketDescriptionLabel.text = "No description available."
+                cell.rocketDescriptionLabel.text = "No information on that rocket, it must be brand new!"
             }
                         
             if !downloaded {
