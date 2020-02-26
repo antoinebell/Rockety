@@ -6,23 +6,23 @@
 //  Copyright © 2018 Antoine Bellanger. All rights reserved.
 //
 
-import UIKit
 import Alamofire
 import AlamofireImage
-import CoreSpotlight
-import MobileCoreServices
-import UserNotifications
 import BetterSegmentedControl
 import BLTNBoard
-import TBEmptyDataSet
+import CoreSpotlight
+import MobileCoreServices
 import StoreKit
+import TBEmptyDataSet
+import UIKit
+import UserNotifications
 
 class MissionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate, RocketSearchControllerDelegate, UIViewControllerPreviewingDelegate, TBEmptyDataSetDelegate, TBEmptyDataSetDataSource {
-    
     // - IBOutlets
+    @IBOutlet var headerView: UIView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var launchesLabel: UILabel!
-
+    
     // - Properties
     var spaceXMissions = [Mission]()
     var filteredSpaceXMissions = [Mission]()
@@ -49,14 +49,14 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     var selectedLaunchIndex: Int!
     
     // MARK: - ViewDidLoad
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         prepareForBulletin()
         
         refreshControl.addTarget(self, action: #selector(downloadAll), for: .valueChanged)
-        refreshControl.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
+        refreshControl.backgroundColor = UIColor(red: 17 / 255, green: 30 / 255, blue: 60 / 255, alpha: 1)
         refreshControl.tintColor = UIColor.white
         refreshControl.attributedTitle = NSAttributedString(string: "L O A D I N G...", attributes: [NSAttributedString.Key.font: UIFont(name: "Anurati-Regular", size: 14)!, NSAttributedString.Key.foregroundColor: UIColor.white])
         
@@ -68,11 +68,11 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.addSubview(refreshControl)
         tableView.estimatedRowHeight = 145
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
+        tableView.backgroundColor = UIColor(red: 17 / 255, green: 30 / 255, blue: 60 / 255, alpha: 1)
         
-        view.backgroundColor = UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1)
+        view.backgroundColor = UIColor(red: 17 / 255, green: 30 / 255, blue: 60 / 255, alpha: 1)
         
-        if (traitCollection.forceTouchCapability == .available) {
+        if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: view)
         }
         
@@ -123,16 +123,16 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    //MARK: Image
+    // MARK: Image
     
     func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             completion(data, response, error)
-            }.resume()
+        }.resume()
     }
     
     func downloadImage(url: URL, imageView: UIImageView) {
-        getDataFromUrl(url: url) { data, response, error in
+        getDataFromUrl(url: url) { data, _, error in
             guard let data = data, error == nil else { return }
             DispatchQueue.global(qos: .background).async {
                 let image = UIImage(data: data)
@@ -143,7 +143,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    //MARK: UITableViewDataSource & UITableViewDelegate
+    // MARK: UITableViewDataSource & UITableViewDelegate
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if downloaded {
@@ -162,7 +162,6 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "MissionCell", for: indexPath) as! MissionTableViewCell
         
         var mission: ElseMission.Launch!
@@ -186,7 +185,6 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         cell.missionLaunchSiteLabel.text = padName[0]
         
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
@@ -200,7 +198,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
-    //MARK: TBEmptyDataSetDataSource & TBEmptyDataSetDelegate
+    // MARK: TBEmptyDataSetDataSource & TBEmptyDataSetDelegate
     
     func imageForEmptyDataSet(in scrollView: UIScrollView) -> UIImage? {
         if !shouldShowSearchResults {
@@ -215,21 +213,21 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func titleForEmptyDataSet(in scrollView: UIScrollView) -> NSAttributedString? {
         let attributes = [
-            NSAttributedString.Key.font : UIFont(name: "Anurati-Regular", size: 17),
-            NSAttributedString.Key.foregroundColor : UIColor.white
+            NSAttributedString.Key.font: UIFont(name: "Anurati-Regular", size: 17),
+            NSAttributedString.Key.foregroundColor: UIColor.white
         ]
         
         if !shouldShowSearchResults {
-            return NSAttributedString(string: "L O A D I N G...", attributes: attributes as [NSAttributedString.Key : Any])
+            return NSAttributedString(string: "L O A D I N G...", attributes: attributes as [NSAttributedString.Key: Any])
         } else {
             if rocketSearchController.rocketSearchBar.text != "" {
-                return NSAttributedString(string: "N O  R E S U L T S", attributes: attributes as [NSAttributedString.Key : Any])
+                return NSAttributedString(string: "N O  R E S U L T S", attributes: attributes as [NSAttributedString.Key: Any])
             }
             return nil
         }
     }
     
-    //MARK: Animations
+    // MARK: Animations
     
     func animateTable() {
         tableView.reloadData()
@@ -254,13 +252,13 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    //MARK: UISearchController
+    // MARK: UISearchController
     
     func configureRocketSearchController() {
-        rocketSearchController = RocketSearchController(searchResultsController: self, searchBarFrame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50), searchBarFont: UIFont.systemFont(ofSize: 16), searchBarTextColor: UIColor.white, searchBarTintColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1))
+        rocketSearchController = RocketSearchController(searchResultsController: self, searchBarFrame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50), searchBarFont: UIFont.systemFont(ofSize: 16), searchBarTextColor: UIColor.white, searchBarTintColor: UIColor(red: 17 / 255, green: 30 / 255, blue: 60 / 255, alpha: 1))
         rocketSearchController.rocketSearchBar.placeholder = "Search"
         rocketSearchController.customDelegate = self
-
+        
         tableView.tableHeaderView = rocketSearchController.rocketSearchBar
     }
     
@@ -287,25 +285,23 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         let searchString = searchController.searchBar.text
         
         if currentIndex == 0 {
-            filteredSpaceXMissions = spaceXMissions.filter({ (mission) -> Bool in
+            filteredSpaceXMissions = spaceXMissions.filter { (mission) -> Bool in
                 let missionText: NSString = mission.mission_name as NSString
                 
                 return (missionText.range(of: searchString!, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
-            })
+            }
         } else {
-            filteredElseLaunches = elseLaunches.launches.filter({ (launch) -> Bool in
+            filteredElseLaunches = elseLaunches.launches.filter { (launch) -> Bool in
                 let launchText: NSString = launch.name as NSString
-
+                
                 return (launchText.range(of: searchString!, options: .caseInsensitive).location) != NSNotFound
-            })
+            }
         }
-        
-        
         
         tableView.reloadData()
     }
     
-    //MARK: RocketSearchControllerDelegate
+    // MARK: RocketSearchControllerDelegate
     
     func didStartSearching() {
         shouldShowSearchResults = true
@@ -325,21 +321,18 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func didChangeSearchText(searchText: String) {
-        
-        filteredElseLaunches = elseLaunches.launches.filter({ (launch) -> Bool in
+        filteredElseLaunches = elseLaunches.launches.filter { (launch) -> Bool in
             let launchText: NSString = launch.name as NSString
             
             return (launchText.range(of: searchText, options: .caseInsensitive).location) != NSNotFound
-        })
-        
+        }
         
         tableView.reloadData()
     }
     
-    //MARK: UIViewControllerPreviewingContextDelegate
+    // MARK: UIViewControllerPreviewingContextDelegate
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        
         guard let indexPath = tableView.indexPathForRow(at: self.view.convert(location, to: tableView)) else {
             print("IndexPath problem")
             return nil
@@ -374,7 +367,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         show(viewControllerToCommit, sender: self)
     }
     
-    //MARK: CoreSpotlight
+    // MARK: CoreSpotlight
     
     func setupElseSearchableContent() {
         var searchableItems = [CSSearchableItem]()
@@ -398,7 +391,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             var keywords = [String]()
             keywords.append(mission.name)
             keywords.append(mission.rocket.name)
-
+            
             searchableItemAttributeSet.keywords = keywords
             
             let missionId = mission.id
@@ -406,8 +399,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             let searchableItem = CSSearchableItem(uniqueIdentifier: "ch.antoinebellanger.Rockety.Else.\(missionId!)", domainIdentifier: "launches", attributeSet: searchableItemAttributeSet)
             searchableItems.append(searchableItem)
             
-            CSSearchableIndex.default().indexSearchableItems(searchableItems) { (error) in
-                
+            CSSearchableIndex.default().indexSearchableItems(searchableItems) { _ in
             }
         }
     }
@@ -419,7 +411,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                 let components = selectedLaunch.components(separatedBy: ".")
                 print(components, components[2])
                 if components[3] == "SpX" {
-                    selectedLaunchIndex = (Int(selectedLaunch.components(separatedBy: ".").last!)!-1)
+                    selectedLaunchIndex = (Int(selectedLaunch.components(separatedBy: ".").last!)! - 1)
                     performSegue(withIdentifier: "showMissionSpXCS", sender: self)
                 } else if components[3] == "Else" {
                     print(Int(selectedLaunch.components(separatedBy: ".").last!)!)
@@ -432,10 +424,9 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    //MARK: BulletinBoard
+    // MARK: BulletinBoard
     
     func prepareForBulletin() {
-        
         // Register notification observers
         
         NotificationCenter.default.addObserver(self,
@@ -446,7 +437,6 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         if !BulletinDataSource.userDidCompleteSetup {
             showBulletin()
         }
-        
     }
     
     /**
@@ -454,34 +444,31 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
      */
     
     func showBulletin() {
-        
         bulletinManager.showBulletin(above: self)
-        
     }
     
     @objc func setupDidComplete() {
         BulletinDataSource.userDidCompleteSetup = true
     }
     
-    //MARK: SKStore
+    // MARK: SKStore
     
     func showReview() {
         let review = Review()
         review.showReview()
     }
     
-    //MARK: Segues
+    // MARK: Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMission" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                
                 let found = spaceXMissions.firstIndex { (mission) -> Bool in
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
                     let spaceXDate = DateFormatter.localizedString(from: dateFormatter.date(from: mission.launch_date_local)!, dateStyle: .short, timeStyle: .medium)
                     
-                    //Else
+                    // Else
                     var elseDate = ""
                     
                     dateFormatter.dateFormat = "MMM d, yyyy HH:mm:ss 'UTC'"
@@ -509,6 +496,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                         destVC.mission = spaceXMissions[found!]
                     }
                     destVC.launch = filteredElseLaunches[indexPath.row]
+                    destVC.hidesBottomBarWhenPushed = true
                 } else {
                     let destVC = segue.destination as! MissionsDetailViewController
                     destVC.isSpaceX = isSpaceX
@@ -516,12 +504,14 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
                         destVC.mission = spaceXMissions[found!]
                     }
                     destVC.launch = elseLaunches.launches[indexPath.row]
+                    destVC.hidesBottomBarWhenPushed = true
                 }
             }
         } else if segue.identifier == "showMissionElseCS" {
             let destVC = segue.destination as! MissionsDetailViewController
             destVC.isSpaceX = false
             destVC.launch = elseLaunches.launches[selectedLaunchIndex]
+            destVC.hidesBottomBarWhenPushed = true
         } else if segue.identifier == "performDeeplink" {
             guard let identifier = Int(missionId ?? "") else { return }
             let mission = elseLaunches.launches.filter { $0.id == identifier }
@@ -529,21 +519,17 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             let destVC = segue.destination as! MissionsDetailViewController
             destVC.isSpaceX = false
             destVC.launch = mission[0]
+            destVC.hidesBottomBarWhenPushed = true
         }
     }
     
     @IBAction func returnMissions(segue: UIStoryboardSegue) {
         showReview()
     }
-
-
 }
 
 extension Date {
-    
     static func - (lhs: Date, rhs: Date) -> TimeInterval {
         return lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
     }
-    
 }
-

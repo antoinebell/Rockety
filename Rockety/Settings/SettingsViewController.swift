@@ -19,6 +19,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet var spaceXSwitch: AIFlatSwitch!
     @IBOutlet var elseSwitch: AIFlatSwitch!
     @IBOutlet var versionLabel: UILabel!
+    @IBOutlet var rocketyLabel: UILabel!
     
     //MARK: UserDefaults
     
@@ -62,6 +63,11 @@ class SettingsViewController: UIViewController {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             self.versionLabel.text = "v\(version)"
         }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY"
+        let year = dateFormatter.string(from: Date())
+        rocketyLabel.text = "© \(year) Rockety. Made in 🇨🇭."
     }
 
     override func didReceiveMemoryWarning() {

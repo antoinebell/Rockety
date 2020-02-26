@@ -235,10 +235,12 @@ class AgenciesViewController: UIViewController, UITableViewDelegate, UITableView
                     let destVC = segue.destination as! AgencyMissionsViewController
                     destVC.agencyId = filteredLSPs[indexPath.row].id
                     destVC.agency = filteredLSPs[indexPath.row]
+                    destVC.hidesBottomBarWhenPushed = true
                 } else {
                     let destVC = segue.destination as! AgencyMissionsViewController
                     destVC.agencyId = LSPs[indexPath.row].id
                     destVC.agency = LSPs[indexPath.row]
+                    destVC.hidesBottomBarWhenPushed = true
                 }
             }
         }

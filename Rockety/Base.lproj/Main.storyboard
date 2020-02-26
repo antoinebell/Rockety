@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -147,6 +148,7 @@
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="o6E-96-6pZ"/>
                     <connections>
+                        <outlet property="headerView" destination="XGp-LT-j5Y" id="YFi-wT-9Kt"/>
                         <outlet property="launchesLabel" destination="jTp-NI-kh9" id="pDQ-gP-rcp"/>
                         <outlet property="tableView" destination="8L4-65-yYB" id="voe-7Y-jf2"/>
                         <segue destination="vL5-Kj-6dT" kind="show" identifier="showMissionSpXCS" id="GUA-hD-Ehs"/>
@@ -330,6 +332,7 @@
                     <navigationItem key="navigationItem" id="wSG-nP-Eln"/>
                     <connections>
                         <outlet property="elseSwitch" destination="unS-0E-pSu" id="Lhi-s2-BUw"/>
+                        <outlet property="rocketyLabel" destination="EFo-1j-k4H" id="4rh-Ks-FPq"/>
                         <outlet property="versionLabel" destination="fj5-3k-lNx" id="7g4-Ps-aZT"/>
                     </connections>
                 </viewController>
@@ -860,7 +863,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.066077694300000003" green="0.1192067638" blue="0.23530644179999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <color key="selectedImageTintColor" red="0.066077694300000003" green="0.1192067638" blue="0.23530644179999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="selectedImageTintColor" name="Rockety-TabBar"/>
                     </tabBar>
                     <connections>
                         <segue destination="qaN-hW-qrs" kind="relationship" relationship="viewControllers" id="lBG-KS-0nN"/>
@@ -1642,6 +1645,9 @@
         <image name="tabbar_agency" width="30" height="30"/>
         <image name="tabbar_maps" width="30" height="30"/>
         <image name="tabbar_rocket" width="30" height="30"/>
+        <namedColor name="Rockety-TabBar">
+            <color red="0.066666666666666666" green="0.11764705882352941" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7qe-6b-bY1"/>
