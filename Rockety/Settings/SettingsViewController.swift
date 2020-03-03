@@ -15,28 +15,11 @@ import MobileCoreServices
 import Crashlytics
 
 class SettingsViewController: UIViewController {
-    
-    @IBOutlet var spaceXSwitch: AIFlatSwitch!
-    @IBOutlet var elseSwitch: AIFlatSwitch!
     @IBOutlet var versionLabel: UILabel!
     @IBOutlet var rocketyLabel: UILabel!
     
-    //MARK: UserDefaults
-    
-    static var userDidSubscribeNotifications: Bool {
-        get {
-            return UserDefaults.standard.bool(forKey: "UserDidSubscribeNotifications")
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "UserDidSubscribeNotifications")
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //spaceXSwitch.setSelected(SettingsViewController.spaceXNotifications, animated: false)
-        elseSwitch.setSelected(SettingsViewController.userDidSubscribeNotifications, animated: false)
         
         IAPHandler.shared.purchaseStatusBlock = { [weak self] (type) in
             guard let strongSelf = self else { return }
@@ -75,45 +58,13 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: IBAction
+    // MARK: - IBAction
     
-    @IBAction func elseNotifications(_ sender: AIFlatSwitch) {
-        print(sender.isSelected)
-        if sender.isSelected {
-            let current = UNUserNotificationCenter.current()
-            current.getNotificationSettings { (settings) in
-                print(settings.authorizationStatus.rawValue)
-                if settings.authorizationStatus == .notDetermined || settings.authorizationStatus == .denied {
-                    print("Status denied or not determined")
-                    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge,. sound], completionHandler: { (granted, error) in
-                        if granted {
-                            SettingsViewController.userDidSubscribeNotifications = true
-                        } else {
-                            SettingsViewController.userDidSubscribeNotifications = false
-                            DispatchQueue.main.async {
-                                let alertController = CFAlertViewController(title: "Oops !", message: "Please go to 'Settings' to activate the notifications.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
-                                let settingsAction = CFAlertAction(title: "Settings", style: .Default, alignment: .center, backgroundColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), textColor: UIColor.white, handler: { (action) in
-                                    if let appSettings = URL(string: UIApplication.openSettingsURLString) {
-                                        UIApplication.shared.open(appSettings, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                                    }
-                                })
-                                alertController.addAction(settingsAction)
-                                let okAction = CFAlertAction(title: "OK", style: .Default, alignment: .center, backgroundColor: UIColor.white, textColor: UIColor(red: 17/255, green: 30/255, blue: 60/255, alpha: 1), handler: nil)
-                                alertController.addAction(okAction)
-                                self.present(alertController, animated: true, completion: nil)
-                                sender.setSelected(false, animated: true)
-                            }
-                        }
-                    })
-                } else {
-                    print("Status authorized")
-                    SettingsViewController.userDidSubscribeNotifications = true
-                }
+    @IBAction func openSettings(_ button: UIButton) {
+        if let URL = URL(string: UIApplication.openSettingsURLString) {
+            if UIApplication.shared.canOpenURL(URL) {
+                UIApplication.shared.open(URL, options: [:], completionHandler: nil)
             }
-            SettingsViewController.userDidSubscribeNotifications = true
-        } else {
-            SettingsViewController.userDidSubscribeNotifications = false
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
     }
     

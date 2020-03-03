@@ -27,6 +27,9 @@
         <array key="Barlow-Regular.ttf">
             <string>Barlow-Regular</string>
         </array>
+        <array key="Barlow-SemiBold.ttf">
+            <string>Barlow-SemiBold</string>
+        </array>
         <array key="Barlow-Thin.ttf">
             <string>Barlow-Thin</string>
         </array>
@@ -217,14 +220,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C R E D I T S :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0yh-Xi-k36">
-                                <rect key="frame" x="19.999999999999993" y="290.66666666666669" width="109.33333333333331" height="20.666666666666686"/>
-                                <fontDescription key="fontDescription" name="Anurati-Regular" family="Anurati" pointSize="17"/>
+                                <rect key="frame" x="20" y="296.66666666666669" width="116" height="20.666666666666686"/>
+                                <fontDescription key="fontDescription" name="Anurati-Regular" family="Anurati" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S U P P O R T :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnQ-b1-QEm">
-                                <rect key="frame" x="20" y="378.33333333333331" width="126" height="21"/>
-                                <fontDescription key="fontDescription" name="Anurati-Regular" family="Anurati" pointSize="17"/>
+                                <rect key="frame" x="20" y="390.33333333333331" width="133.66666666666666" height="21"/>
+                                <fontDescription key="fontDescription" name="Anurati-Regular" family="Anurati" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -233,13 +236,13 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="293" id="U7h-5n-I2K"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Barlow-Thin" family="Barlow" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WaW-7q-YHm">
-                                <rect key="frame" x="20" y="326.33333333333331" width="145" height="32"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <rect key="frame" x="20" y="337.33333333333331" width="144" height="33"/>
+                                <fontDescription key="fontDescription" name="Barlow-SemiBold" family="Barlow" pointSize="17"/>
                                 <state key="normal" title="Open all the credits">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -248,24 +251,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N O T I F I C A T I O N S :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6IY-N4-KiT">
-                                <rect key="frame" x="20" y="202.66666666666666" width="197.33333333333334" height="21"/>
-                                <fontDescription key="fontDescription" name="Anurati-Regular" family="Anurati" pointSize="17"/>
+                                <rect key="frame" x="20" y="202.66666666666666" width="209" height="21"/>
+                                <fontDescription key="fontDescription" name="Anurati-Regular" family="Anurati" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8dg-wI-DUd">
-                                <rect key="frame" x="20" y="238.66666666666666" width="155" height="31.999999999999972"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                                <state key="normal" title="Launch Notifications :">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="licenses:" destination="Rng-Fa-Zqy" eventType="touchUpInside" id="rcC-t2-4WY"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kF0-Ch-JDC">
-                                <rect key="frame" x="20" y="414.33333333333331" width="97" height="32"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <rect key="frame" x="20" y="431.33333333333331" width="97" height="33"/>
+                                <fontDescription key="fontDescription" name="Barlow-SemiBold" family="Barlow" pointSize="17"/>
                                 <state key="normal" title="Support me !">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -278,60 +271,48 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="293" id="P0z-41-aQh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Barlow-Thin" family="Barlow" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="unS-0E-pSu" customClass="AIFlatSwitch" customModule="AIFlatSwitch">
-                                <rect key="frame" x="364" y="239.66666666666666" width="30" height="29.999999999999972"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="nTZ-oK-FiG"/>
-                                    <constraint firstAttribute="width" constant="30" id="pFe-lq-M3H"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="inj-t0-nlE">
+                                <rect key="frame" x="20" y="243.66666666666663" width="104" height="33"/>
+                                <fontDescription key="fontDescription" name="Barlow-SemiBold" family="Barlow" pointSize="17"/>
+                                <state key="normal" title="Open settings">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
-                                    <action selector="elseNotifications:" destination="Rng-Fa-Zqy" eventType="valueChanged" id="FGc-kR-OWc"/>
+                                    <action selector="openSettings:" destination="Rng-Fa-Zqy" eventType="touchUpInside" id="SLp-WE-fcu"/>
                                 </connections>
-                            </view>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.066666666666666666" green="0.11764705882352941" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="0yh-Xi-k36" firstAttribute="top" secondItem="8dg-wI-DUd" secondAttribute="bottom" constant="20" id="0qd-5z-SPR"/>
-                            <constraint firstItem="kF0-Ch-JDC" firstAttribute="top" secondItem="QnQ-b1-QEm" secondAttribute="bottom" constant="15" id="370-9y-OHt"/>
-                            <constraint firstItem="unS-0E-pSu" firstAttribute="centerY" secondItem="8dg-wI-DUd" secondAttribute="centerY" id="3Jv-WH-ZIu"/>
+                            <constraint firstItem="kF0-Ch-JDC" firstAttribute="top" secondItem="QnQ-b1-QEm" secondAttribute="bottom" constant="20" id="370-9y-OHt"/>
                             <constraint firstItem="6IY-N4-KiT" firstAttribute="top" secondItem="vkO-Tl-fyQ" secondAttribute="bottom" constant="30" id="6Vs-Bz-2G0"/>
                             <constraint firstItem="fj5-3k-lNx" firstAttribute="centerX" secondItem="dn3-xo-DDM" secondAttribute="centerX" id="6bi-ca-uV5"/>
                             <constraint firstItem="THJ-g2-TvR" firstAttribute="centerX" secondItem="dn3-xo-DDM" secondAttribute="centerX" id="81i-cn-xDK"/>
                             <constraint firstItem="kF0-Ch-JDC" firstAttribute="leading" secondItem="dn3-xo-DDM" secondAttribute="leading" constant="20" id="B2D-ba-kQ7"/>
                             <constraint firstItem="6IY-N4-KiT" firstAttribute="leading" secondItem="dn3-xo-DDM" secondAttribute="leading" constant="20" id="BWg-Zx-KNS"/>
-                            <constraint firstItem="8dg-wI-DUd" firstAttribute="leading" secondItem="dn3-xo-DDM" secondAttribute="leading" constant="20" id="CFC-kd-39n"/>
                             <constraint firstItem="WaW-7q-YHm" firstAttribute="leading" secondItem="dn3-xo-DDM" secondAttribute="leading" constant="20" id="GZh-6e-UdE"/>
                             <constraint firstItem="vkO-Tl-fyQ" firstAttribute="centerX" secondItem="dn3-xo-DDM" secondAttribute="centerX" id="JC0-pe-rnv"/>
                             <constraint firstItem="EFo-1j-k4H" firstAttribute="top" secondItem="fj5-3k-lNx" secondAttribute="bottom" constant="8" id="JTO-qS-31S"/>
-                            <constraint firstItem="WaW-7q-YHm" firstAttribute="top" secondItem="0yh-Xi-k36" secondAttribute="bottom" constant="15" id="Mfo-8D-eyw"/>
+                            <constraint firstItem="0yh-Xi-k36" firstAttribute="top" secondItem="inj-t0-nlE" secondAttribute="bottom" constant="20" id="K3S-6b-7EJ"/>
+                            <constraint firstItem="WaW-7q-YHm" firstAttribute="top" secondItem="0yh-Xi-k36" secondAttribute="bottom" constant="20" id="Mfo-8D-eyw"/>
                             <constraint firstItem="THJ-g2-TvR" firstAttribute="top" secondItem="dn3-xo-DDM" secondAttribute="top" constant="25" id="NXZ-Vs-x0g"/>
                             <constraint firstItem="vkO-Tl-fyQ" firstAttribute="top" secondItem="THJ-g2-TvR" secondAttribute="bottom" constant="25" id="SC0-TV-ryb"/>
-                            <constraint firstItem="8dg-wI-DUd" firstAttribute="top" secondItem="6IY-N4-KiT" secondAttribute="bottom" constant="15" id="TNO-54-Hf2"/>
                             <constraint firstItem="dn3-xo-DDM" firstAttribute="bottom" secondItem="EFo-1j-k4H" secondAttribute="bottom" constant="15" id="Vam-b5-4u2"/>
                             <constraint firstItem="0yh-Xi-k36" firstAttribute="leading" secondItem="dn3-xo-DDM" secondAttribute="leading" constant="20" id="ceI-2q-Xbk"/>
+                            <constraint firstItem="inj-t0-nlE" firstAttribute="leading" secondItem="dn3-xo-DDM" secondAttribute="leading" constant="20" id="hmv-BD-8ap"/>
                             <constraint firstItem="QnQ-b1-QEm" firstAttribute="leading" secondItem="dn3-xo-DDM" secondAttribute="leading" constant="20" id="j60-5y-S39"/>
                             <constraint firstItem="EFo-1j-k4H" firstAttribute="centerX" secondItem="dn3-xo-DDM" secondAttribute="centerX" id="rej-12-VZf"/>
-                            <constraint firstItem="dn3-xo-DDM" firstAttribute="trailing" secondItem="unS-0E-pSu" secondAttribute="trailing" constant="20" id="vz9-bY-o08"/>
+                            <constraint firstItem="inj-t0-nlE" firstAttribute="top" secondItem="6IY-N4-KiT" secondAttribute="bottom" constant="20" id="wOC-sL-khx"/>
                             <constraint firstItem="QnQ-b1-QEm" firstAttribute="top" secondItem="WaW-7q-YHm" secondAttribute="bottom" constant="20" id="ySh-YR-Zqb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dn3-xo-DDM"/>
                     </view>
                     <navigationItem key="navigationItem" id="wSG-nP-Eln"/>
                     <connections>
-                        <outlet property="elseSwitch" destination="unS-0E-pSu" id="Lhi-s2-BUw"/>
                         <outlet property="rocketyLabel" destination="EFo-1j-k4H" id="4rh-Ks-FPq"/>
                         <outlet property="versionLabel" destination="fj5-3k-lNx" id="7g4-Ps-aZT"/>
                     </connections>
@@ -1650,6 +1631,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GHw-sN-AlV"/>
+        <segue reference="cff-v5-RVK"/>
     </inferredMetricsTieBreakers>
 </document>
