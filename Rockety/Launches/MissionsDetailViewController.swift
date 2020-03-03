@@ -31,6 +31,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     var launch: ElseMission.Launch!
     var rocketURL: API.Images = .none
     var rocketTextURL: API.Descriptions = .none
+    var rocketAPI: API.Rocket = .rocket999
     
     var missionPayloadType: Payloads = .notAvailable
     
@@ -126,9 +127,15 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
         } else if rocketName.range(of: "Rokot") != nil {
             rocketURL = .rokot
             rocketTextURL = .rokot
-        } else {
-            print("No RocketURL and No Text")
+        } else if rocketName.range(of: "Astra Rocket 3.0") != nil {
+            rocketTextURL = .astraRocket3
+        } else if rocketName.range(of: "Electron") != nil {
+            rocketTextURL = .electron
+        } else if rocketName.range(of: "LauncherOne") != nil {
+            rocketTextURL = .launcherOne
         }
+        
+        rocketAPI = API.Rocket(id: launch.rocket.id)
         
         let eventAdded = UserDefaults.standard.bool(forKey: "EventAddedToCalendar_\(String(describing: launch.id))")
         
@@ -256,11 +263,11 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
             cell.rocketDescriptionLabel.text = "No information on that rocket, it must be brand new!"
             var string = ""
             do {
-                string = try String(contentsOf: URL(string: rocketTextURL.url())!)
+                string = try String(contentsOf: URL(string: rocketAPI.descriptionURL())!).replacingOccurrences(of: "\\n", with: "\n")
                 cell.rocketDescriptionLabel.text = string
             } catch {
                 print("Error")
-                cell.rocketDescriptionLabel.text = "No information on that rocket, it must be brand new!"
+                cell.rocketDescriptionLabel.text = "No description available for this rocket 🚀"
             }
                         
             if !downloaded {
