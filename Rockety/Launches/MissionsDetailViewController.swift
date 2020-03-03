@@ -29,8 +29,6 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
     var launchpad: Launchpad!
     
     var launch: ElseMission.Launch!
-    var rocketURL: API.Images = .none
-    var rocketTextURL: API.Descriptions = .none
     var rocketAPI: API.Rocket = .rocket999
     
     var missionPayloadType: Payloads = .notAvailable
@@ -55,85 +53,6 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
         tableView.tableFooterView = UIView()
         tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableView.automaticDimension
-        
-        let rocketName = launch.rocket.name!
-        
-        if rocketName.range(of: "Falcon 1") != nil {
-            rocketURL = .falcon1
-            rocketTextURL = .falcon1
-        } else if rocketName.range(of: "Falcon 9") != nil {
-            rocketURL = .falcon9
-            rocketTextURL = .falcon9
-        } else if rocketName.range(of: "Falcon Heavy") != nil {
-            rocketURL = .falconheavy
-            rocketTextURL = .falconheavy
-        } else if rocketName.range(of: "Long March 2A") != nil {
-            rocketURL = .longmarch2a
-            rocketTextURL = .longmarch2a
-        } else if rocketName.range(of: "Long March 2C") != nil {
-            rocketURL = .longmarch2c
-            rocketTextURL = .longmarch2c
-        } else if rocketName.range(of: "Long March 2D") != nil {
-            rocketURL = .longmarch2d
-            rocketTextURL = .longmarch2d
-        } else if rocketName.range(of: "Long March 2E") != nil {
-            rocketURL = .longmarch2e
-            rocketTextURL = .longmarch2e
-        } else if rocketName.range(of: "Long March 2F") != nil {
-            rocketURL = .longmarch2f
-            rocketTextURL = .longmarch2f
-        } else if rocketName.range(of: "Long March 3A") != nil {
-            rocketURL = .longmarch3a
-            rocketTextURL = .longmarch3a
-        } else if rocketName.range(of: "Long March 3B") != nil {
-            rocketURL = .longmarch3b
-            rocketTextURL = .longmarch3b
-        } else if rocketName.range(of: "Long March 3C") != nil {
-            rocketURL = .longmarch3c
-            rocketTextURL = .longmarch3c
-        } else if rocketName.range(of: "Long March 4A") != nil {
-            rocketURL = .longmarch4a
-            rocketTextURL = .longmarch4a
-        } else if rocketName.range(of: "Long March 4B") != nil {
-            rocketURL = .longmarch4b
-            rocketTextURL = .longmarch4b
-        } else if rocketName.range(of: "Long March 4C") != nil {
-            rocketURL = .longmarch4c
-            rocketTextURL = .longmarch4c
-        } else if rocketName == "GSLV Mk II" {
-            rocketURL = .gslvmkii
-            rocketTextURL = .gslvmkii
-        } else if rocketName == "GSLV Mk III" {
-            rocketURL = .gslvmkiii
-            rocketTextURL = .gslvmkiii
-        } else if rocketName.range(of: "PSLV") != nil {
-            rocketURL = .pslv
-            rocketTextURL = .pslv
-        } else if rocketName.range(of: "Ariane 5") != nil {
-            rocketURL = .ariane5
-            rocketTextURL = .ariane5
-        } else if rocketName.range(of: "Ariane 6") != nil {
-            rocketURL = .ariane6
-            rocketTextURL = .ariane6
-        } else if rocketName.range(of: "Soyuz") != nil {
-            rocketURL = .soyuz
-            rocketTextURL = .soyuz
-        } else if rocketName == "Vega" {
-            rocketURL = .vega
-            rocketTextURL = .vega
-        } else if rocketName == "Vega-C" {
-            rocketURL = .vegac
-            rocketTextURL = .vegac
-        } else if rocketName.range(of: "Rokot") != nil {
-            rocketURL = .rokot
-            rocketTextURL = .rokot
-        } else if rocketName.range(of: "Astra Rocket 3.0") != nil {
-            rocketTextURL = .astraRocket3
-        } else if rocketName.range(of: "Electron") != nil {
-            rocketTextURL = .electron
-        } else if rocketName.range(of: "LauncherOne") != nil {
-            rocketTextURL = .launcherOne
-        }
         
         rocketAPI = API.Rocket(id: launch.rocket.id)
         
@@ -271,7 +190,7 @@ class MissionsDetailViewController: UIViewController, UITableViewDataSource, UIT
             }
                         
             if !downloaded {
-                downloadImage(url: URL(string: rocketURL.url())!, imageView: cell.rocketImageView)
+                downloadImage(url: URL(string: rocketAPI.imageURL())!, imageView: cell.rocketImageView)
                 downloaded = true
             }
             return cell

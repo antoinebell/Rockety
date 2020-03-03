@@ -74,8 +74,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Failed to register: \(error)")
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
+        guard let payload = userInfo["notification"] as? [String: Any] else { return }
+        guard let url = payload["url"] as? String else { return }
+        let host = url.replacingOccurrences(of: "rockety://", with: "")
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+        tabBarController.selectedIndex = 0
+
+        let missionsViewController = tabBarController.viewControllers?[0].children[0] as! MissionsViewController
+        missionsViewController.missionId = host
+
+        self.window?.rootViewController = missionsViewController
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
         tabBarController.selectedIndex = 0
