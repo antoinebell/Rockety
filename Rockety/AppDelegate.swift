@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let missionsViewController = tabBarController.viewControllers?[0].children[0] as! MissionsViewController
         missionsViewController.missionId = host
 
-        self.window?.rootViewController = missionsViewController
+        self.window?.rootViewController = tabBarController
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let missionsViewController = tabBarController.viewControllers?[0].children[0] as! MissionsViewController
         missionsViewController.missionId = url.host
         
-        self.window?.rootViewController = missionsViewController
+        self.window?.rootViewController = tabBarController
         
         return true
     }
