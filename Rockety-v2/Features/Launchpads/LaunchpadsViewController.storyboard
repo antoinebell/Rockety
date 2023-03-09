@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Anurati-Regular.otf">
+            <string>Anurati-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Launchpads View Controller-->
+        <scene sceneID="b2T-gP-Et6">
+            <objects>
+                <viewController storyboardIdentifier="LaunchpadsViewController" id="DBK-ty-meW" customClass="LaunchpadsViewController" customModule="Rockety_v2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xyf-j6-PBq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mKa-Gh-nqI">
+                                <rect key="frame" x="0.0" y="110.5" width="414" height="785.5"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L A U N C H P A D S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTi-cf-afY">
+                                <rect key="frame" x="20" y="64" width="225" height="26.5"/>
+                                <fontDescription key="fontDescription" name="Anurati-Regular" family="Anurati" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="siv-zZ-UU4">
+                                <rect key="frame" x="243" y="821" width="151" height="32"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Satellite"/>
+                                </segments>
+                                <color key="tintColor" red="0.066666666669999999" green="0.1176470588" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="f3O-gG-yBM"/>
+                        <color key="backgroundColor" red="0.066666666669999999" green="0.1176470588" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="mKa-Gh-nqI" firstAttribute="leading" secondItem="f3O-gG-yBM" secondAttribute="leading" id="4a1-HW-dQQ"/>
+                            <constraint firstItem="mKa-Gh-nqI" firstAttribute="top" secondItem="fTi-cf-afY" secondAttribute="bottom" constant="20" id="6uO-rB-JkO"/>
+                            <constraint firstItem="mKa-Gh-nqI" firstAttribute="trailing" secondItem="f3O-gG-yBM" secondAttribute="trailing" id="Hhc-KG-p8Q"/>
+                            <constraint firstItem="fTi-cf-afY" firstAttribute="top" secondItem="f3O-gG-yBM" secondAttribute="top" constant="20" id="ThZ-ME-n8x"/>
+                            <constraint firstItem="f3O-gG-yBM" firstAttribute="trailing" secondItem="siv-zZ-UU4" secondAttribute="trailing" constant="20" id="hml-lj-Kgu"/>
+                            <constraint firstItem="f3O-gG-yBM" firstAttribute="bottom" secondItem="siv-zZ-UU4" secondAttribute="bottom" constant="10" id="jY2-TR-184"/>
+                            <constraint firstAttribute="bottom" secondItem="mKa-Gh-nqI" secondAttribute="bottom" id="mSU-ZP-dYt"/>
+                            <constraint firstItem="fTi-cf-afY" firstAttribute="leading" secondItem="f3O-gG-yBM" secondAttribute="leading" constant="20" id="qgN-Al-6yc"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ggO-Mi-hUm"/>
+                    <connections>
+                        <outlet property="mapView" destination="mKa-Gh-nqI" id="fvg-Ir-zuA"/>
+                        <outlet property="segmentedControl" destination="siv-zZ-UU4" id="Ysj-UR-gqH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VDw-hL-MJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="860.86956521739137" y="1486.9565217391305"/>
+        </scene>
+    </scenes>
+</document>
